@@ -1,0 +1,38 @@
+{
+  "_comentario": "Áreas de atuação. Recuperação Tributária é a principal; demais via parcerias. Substitua os [PLACEHOLDER].",
+  "hero": {
+    "kicker": "Especialidades",
+    "titulo": "Áreas de Atuação",
+    "subtitulo": "[PLACEHOLDER — frase introdutória sóbria.]"
+  },
+  "areas": [
+    {
+      "icone": "tax",
+      "titulo": "Recuperação Tributária",
+      "destaque": true,
+      "descricao": "[PLACEHOLDER — descrição da área principal. Ex.: Análise e recuperação de créditos tributários pagos indevidamente ou a maior.]"
+    },
+    {
+      "icone": "company",
+      "titulo": "Direito Empresarial",
+      "destaque": false,
+      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
+    },
+    {
+      "icone": "civil",
+      "titulo": "Direito Civil",
+      "destaque": false,
+      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
+    },
+    {
+      "icone": "labor",
+      "titulo": "Direito Trabalhista",
+      "destaque": false,
+      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
+    }
+  ],
+  "parcerias": {
+    "titulo": "Atuação em rede",
+    "texto": "[PLACEHOLDER — explicar que áreas fora da tributária são conduzidas em parceria com profissionais especializados.]"
+  }
+}

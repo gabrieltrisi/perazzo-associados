@@ -1,0 +1,27 @@
+{
+  "_comentario": "Página Sobre. Substitua os [PLACEHOLDER]. Tom institucional e sóbrio.",
+  "hero": {
+    "kicker": "O escritório",
+    "titulo": "Sobre o Perazzo & Associados"
+  },
+  "historia": {
+    "titulo": "Nossa história",
+    "paragrafos": [
+      "[PLACEHOLDER — Parágrafo 1 da história do escritório.]",
+      "[PLACEHOLDER — Parágrafo 2, opcional.]"
+    ]
+  },
+  "missaoVisaoValores": [
+    { "titulo": "Missão", "texto": "[PLACEHOLDER — missão do escritório.]" },
+    { "titulo": "Visão", "texto": "[PLACEHOLDER — visão do escritório.]" },
+    { "titulo": "Valores", "texto": "[PLACEHOLDER — valores e princípios éticos.]" }
+  ],
+  "principios": {
+    "titulo": "Princípios éticos",
+    "itens": [
+      "[PLACEHOLDER — princípio 1, ex.: Transparência com o cliente.]",
+      "[PLACEHOLDER — princípio 2, ex.: Sigilo profissional.]",
+      "[PLACEHOLDER — princípio 3, ex.: Responsabilidade técnica.]"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "_comentario": "Textos da Home. Substitua os [PLACEHOLDER]. Mantenha tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021).",
+  "hero": {
+    "kicker": "Advocacia · Salvador — BA",
+    "titulo": "[PLACEHOLDER — Título institucional, ex.: Segurança jurídica em Recuperação Tributária]",
+    "subtitulo": "[PLACEHOLDER — 1 a 2 frases institucionais sóbrias, sem prometer resultado. Ex.: Atuação técnica e responsável na recuperação de tributos e no direito empresarial.]",
+    "ctaPrimario": "Fale com o escritório",
+    "ctaSecundario": "Conheça as áreas de atuação"
+  },
+  "credibilidade": {
+    "kicker": "O escritório",
+    "titulo": "Atuação séria e comprometida",
+    "itens": [
+      { "titulo": "[PLACEHOLDER — Inscrição na OAB]", "texto": "[PLACEHOLDER — ex.: Profissionais regularmente inscritos na OAB/BA.]" },
+      { "titulo": "[PLACEHOLDER — Anos de atuação]", "texto": "[PLACEHOLDER — ex.: Experiência acumulada em direito tributário.]" },
+      { "titulo": "[PLACEHOLDER — Foco em Recuperação Tributária]", "texto": "[PLACEHOLDER — ex.: Especialização na recuperação de créditos tributários.]" }
+    ]
+  },
+  "areasResumo": {
+    "kicker": "Áreas de atuação",
+    "titulo": "Como podemos ajudar",
+    "subtitulo": "[PLACEHOLDER — frase curta introduzindo as áreas.]"
+  },
+  "ctaFinal": {
+    "titulo": "[PLACEHOLDER — Chamada final sóbria, ex.: Precisa de orientação jurídica?]",
+    "texto": "[PLACEHOLDER — ex.: Entre em contato para agendar uma conversa sobre o seu caso.]"
+  }
+}

@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lenis (smooth scroll) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-offwhite text-ink font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+    text-wrap: balance;
+  }
+}
+
+/* Transição de entrada de página (CSS puro — funciona sem JS). */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-page-in {
+  animation: pageIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-in {
+    animation: none;
+  }
+}
+
+@layer components {
+  /* Kicker: label de categoria — sans, bold, uppercase, dourado, com espaçamento. */
+  .kicker {
+    @apply font-sans text-kicker uppercase tracking-[0.05em] text-gold font-bold;
+  }
+  /* Divisor decorativo dourado sob kickers/títulos (~60–80px). */
+  .gold-rule {
+    @apply block h-[2px] w-16 bg-gold;
+  }
+  /* Container padrão centralizado com respiro lateral. */
+  .container-px {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+}
