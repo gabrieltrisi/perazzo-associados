@@ -8,6 +8,9 @@ const nav = [
   { href: '/admin', label: 'Painel' },
   { href: '/admin/home', label: 'Home' },
   { href: '/admin/contato', label: 'Contato' },
+  { href: '/admin/faq', label: 'FAQ' },
+  { href: '/admin/areas', label: 'Áreas' },
+  { href: '/admin/sobre', label: 'Sobre' },
 ];
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {

@@ -7,7 +7,7 @@ import Reveal from '@/components/ui/Reveal';
 import GoldRule from '@/components/ui/GoldRule';
 import TiltCard from '@/components/ui/TiltCard';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
-import areas from '@/content/areas-de-atuacao.json';
+import { getAreas } from '@/lib/site-content';
 
 export const metadata: Metadata = {
   title: 'Áreas de Atuação',
@@ -23,7 +23,8 @@ const ICONS: Record<string, IconType> = {
   labor: FaUserTie,
 };
 
-export default function AreasPage() {
+export default async function AreasPage() {
+  const areas = await getAreas();
   return (
     <>
       <Section variant="navy">

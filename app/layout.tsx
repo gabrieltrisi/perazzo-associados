@@ -16,6 +16,7 @@ import MotionProvider from '@/components/effects/MotionProvider';
 import HideOnAdmin from '@/components/effects/HideOnAdmin';
 import { OrganizationJsonLd } from '@/components/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
+import Tracker from '@/components/analytics/Tracker';
 
 // Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
 // (sans do corpo, legível). Expostas como variáveis CSS consumidas pelo Tailwind.
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CookieConsent />
         </HideOnAdmin>
         <Analytics />
+        <Tracker />
       </body>
     </html>
   );

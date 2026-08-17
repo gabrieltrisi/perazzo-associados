@@ -13,9 +13,7 @@ import Hero3D from '@/components/three/Hero3D';
 import AreasNarrative from '@/components/AreasNarrative';
 import Faq from '@/components/Faq';
 import { FaqJsonLd } from '@/components/StructuredData';
-import { getHome } from '@/lib/site-content';
-import areas from '@/content/areas-de-atuacao.json';
-import faq from '@/content/faq.json';
+import { getHome, getFaq, getAreas } from '@/lib/site-content';
 
 export const metadata: Metadata = {
   title: 'Perazzo & Associados Advogados | Recuperação Tributária em Salvador',
@@ -25,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const home = await getHome();
+  const [home, faq, areas] = await Promise.all([getHome(), getFaq(), getAreas()]);
   return (
     <>
       {/* HERO com cena 3D de fundo */}

@@ -17,3 +17,15 @@ model SiteContent {
   data      String
   updatedAt DateTime @updatedAt
 }
+
+// Contador simples de visitas por página e dia (resumo no painel).
+// Agregado (não guarda 1 linha por acesso) para não crescer sem controle.
+model PageView {
+  id    Int    @id @default(autoincrement())
+  path  String
+  day   String // YYYY-MM-DD
+  count Int    @default(0)
+
+  @@unique([path, day])
+  @@index([day])
+}

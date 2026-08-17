@@ -5,7 +5,7 @@ import Reveal from '@/components/ui/Reveal';
 import GoldRule from '@/components/ui/GoldRule';
 import Timeline from '@/components/Timeline';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
-import sobre from '@/content/sobre.json';
+import { getSobre } from '@/lib/site-content';
 
 export const metadata: Metadata = {
   title: 'Sobre o Escritório',
@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/sobre' },
 };
 
-export default function SobrePage() {
+export default async function SobrePage() {
+  const sobre = await getSobre();
   return (
     <>
       <Section variant="navy">
