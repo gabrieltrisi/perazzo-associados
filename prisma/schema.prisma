@@ -1,11 +1,11 @@
-// Banco do mini-CMS. Local: SQLite (arquivo). Produção: trocar provider para
-// "postgresql" e apontar DATABASE_URL para o Neon/Vercel Postgres.
+// Banco do mini-CMS. PostgreSQL (Neon) em dev e produção — DATABASE_URL vem do
+// ambiente. Aplique o schema com `prisma migrate deploy`.
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
