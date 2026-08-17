@@ -4,7 +4,7 @@ import Section from '@/components/ui/Section';
 import Reveal from '@/components/ui/Reveal';
 import ContactForm from '@/components/ContactForm';
 import { whatsappHref } from '@/lib/whatsapp';
-import site from '@/content/site-config.json';
+import { getSiteConfig } from '@/lib/site-content';
 
 export const metadata: Metadata = {
   title: 'Contato',
@@ -35,7 +35,8 @@ function ContatoItem({
   );
 }
 
-export default function ContatoPage() {
+export default async function ContatoPage() {
+  const site = await getSiteConfig();
   const maps = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL;
   const wppHref = whatsappHref('Olá! Vim pelo site e gostaria de tirar uma dúvida com o escritório.');
 

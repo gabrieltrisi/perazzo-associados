@@ -1,0 +1,19 @@
+// Banco do mini-CMS. Local: SQLite (arquivo). Produção: trocar provider para
+// "postgresql" e apontar DATABASE_URL para o Neon/Vercel Postgres.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Conteúdo editável do site: cada seção (home, contato, faq, ...) é uma linha,
+// com o JSON serializado em `data`. String (não Json) para portabilidade entre
+// SQLite e Postgres.
+model SiteContent {
+  key       String   @id
+  data      String
+  updatedAt DateTime @updatedAt
+}

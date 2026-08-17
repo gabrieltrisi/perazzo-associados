@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { FaInstagram, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
-import site from '@/content/site-config.json';
+import { getSiteConfig } from '@/lib/site-content';
 import { NAV } from '@/lib/nav';
 
-export default function Footer() {
+export default async function Footer() {
+  const site = await getSiteConfig();
   const ano = new Date().getFullYear(); // ano dinâmico
 
   // Só mostra redes que estão realmente preenchidas (ignora placeholders).

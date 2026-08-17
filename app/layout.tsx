@@ -13,7 +13,9 @@ import CustomCursor from '@/components/effects/CustomCursor';
 import LoadIntro from '@/components/effects/LoadIntro';
 import SoundToggle from '@/components/effects/SoundToggle';
 import MotionProvider from '@/components/effects/MotionProvider';
+import HideOnAdmin from '@/components/effects/HideOnAdmin';
 import { OrganizationJsonLd } from '@/components/StructuredData';
+import { Analytics } from '@vercel/analytics/next';
 
 // Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
 // (sans do corpo, legível). Expostas como variáveis CSS consumidas pelo Tailwind.
@@ -60,20 +62,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo
         </a>
-        <LoadIntro />
-        <SmoothScroll />
-        <ScrollProgress />
-        <CustomCursor />
-        <Header />
+        <HideOnAdmin>
+          <LoadIntro />
+          <SmoothScroll />
+          <ScrollProgress />
+          <CustomCursor />
+          <Header />
+        </HideOnAdmin>
         <main id="conteudo">
           <MotionProvider>{children}</MotionProvider>
         </main>
-        <Footer />
-        <WhatsAppButton />
-        <BackToTop />
-        <SoundToggle />
-        <GrainOverlay />
-        <CookieConsent />
+        <HideOnAdmin>
+          <Footer />
+          <WhatsAppButton />
+          <BackToTop />
+          <SoundToggle />
+          <GrainOverlay />
+          <CookieConsent />
+        </HideOnAdmin>
+        <Analytics />
       </body>
     </html>
   );

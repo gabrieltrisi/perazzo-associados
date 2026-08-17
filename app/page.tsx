@@ -13,7 +13,7 @@ import Hero3D from '@/components/three/Hero3D';
 import AreasNarrative from '@/components/AreasNarrative';
 import Faq from '@/components/Faq';
 import { FaqJsonLd } from '@/components/StructuredData';
-import home from '@/content/home.json';
+import { getHome } from '@/lib/site-content';
 import areas from '@/content/areas-de-atuacao.json';
 import faq from '@/content/faq.json';
 
@@ -24,7 +24,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const home = await getHome();
   return (
     <>
       {/* HERO com cena 3D de fundo */}

@@ -1,23 +1,38 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { ADMIN_COOKIE, verificarAdmin } from '@/lib/admin-auth';
 
 /**
- * FRONTEIRA DE AUTENTICAÇÃO do Portal do Cliente.
- * Roda só em /portal/* (ver matcher). Sem cookie de sessão → manda pro /login.
- * Cookie nome fixo aqui pois o middleware roda no edge (não importa lib/auth,
- * que usa next/headers). Mantenha em sincronia com SESSION_COOKIE.
+ * Fronteiras de autenticação:
+ * - /admin/*  → área do DONO (auth real, JWT assinado). /admin/login é livre.
+ * - /portal/* → área do CLIENTE (scaffold mock por cookie).
+ * jose funciona no edge, então a verificação do admin roda aqui.
  */
-const SESSION_COOKIE = 'perazzo_session';
+const CLIENT_COOKIE = 'perazzo_session';
 
-export function middleware(request: NextRequest) {
-  const session = request.cookies.get(SESSION_COOKIE)?.value;
-  if (!session) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', request.nextUrl.pathname);
-    return NextResponse.redirect(loginUrl);
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // ---- Admin (dono) ----
+  if (pathname.startsWith('/admin')) {
+    if (pathname === '/admin/login') return NextResponse.next();
+    const admin = await verificarAdmin(request.cookies.get(ADMIN_COOKIE)?.value);
+    if (!admin) {
+      const url = new URL('/admin/login', request.url);
+      url.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
+  }
+
+  // ---- Portal do cliente (mock) ----
+  if (!request.cookies.get(CLIENT_COOKIE)?.value) {
+    const url = new URL('/login', request.url);
+    url.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(url);
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/portal/:path*'],
+  matcher: ['/portal/:path*', '/admin/:path*'],
 };
