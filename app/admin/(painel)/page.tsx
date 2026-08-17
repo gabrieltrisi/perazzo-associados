@@ -50,7 +50,7 @@ export default async function AdminDashboard() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-navy sm:text-3xl">Olá, {admin?.email}</h1>
+      <h1 className="break-words text-2xl font-bold text-navy sm:text-3xl">Olá, {admin?.email}</h1>
       <p className="mt-2 text-muted">Gerencie o conteúdo do site. As mudanças aparecem em segundos.</p>
 
       {/* Resumo de visitas */}
