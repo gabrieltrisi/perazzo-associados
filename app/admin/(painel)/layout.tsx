@@ -11,6 +11,7 @@ const nav = [
   { href: '/admin/faq', label: 'FAQ' },
   { href: '/admin/areas', label: 'Áreas' },
   { href: '/admin/sobre', label: 'Sobre' },
+  { href: '/admin/blog', label: 'Blog' },
 ];
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {

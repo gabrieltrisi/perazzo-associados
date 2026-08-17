@@ -17,9 +17,10 @@ function tempoLeitura(texto: string) {
   return Math.max(1, Math.round(palavras / 200));
 }
 
-// Gera as páginas estáticas dos posts existentes (sem CMS).
-export function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+// Gera as páginas dos posts publicados. Novos posts (criados no painel) são
+// renderizados sob demanda (dynamicParams=true por padrão).
+export async function generateStaticParams() {
+  return (await getAllPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -28,13 +29,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) return {};
   return {
-    title: post.meta.title,
-    description: post.meta.description,
+    title: post.title,
+    description: post.description,
     alternates: { canonical: `/blog/${slug}` },
-    openGraph: { title: post.meta.title, description: post.meta.description, type: 'article' },
+    openGraph: { title: post.title, description: post.description, type: 'article' },
   };
 }
 
@@ -53,25 +54,25 @@ const mdxComponents = {
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) notFound();
+  const post = await getPost(slug);
+  if (!post || !post.published) notFound();
 
   return (
     <Section variant="light">
       <Reveal>
         <article className="mx-auto max-w-3xl">
-          <p className="text-kicker uppercase tracking-wide text-gold">{post.meta.autor}</p>
-          <h1 className="mt-2 text-[2rem] font-bold text-navy sm:text-h1">{post.meta.title}</h1>
+          {post.autor && <p className="text-kicker uppercase tracking-wide text-gold">{post.autor}</p>}
+          <h1 className="mt-2 text-[2rem] font-bold text-navy sm:text-h1">{post.title}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-            {post.meta.date && <span>{formatarData(post.meta.date)}</span>}
-            {post.meta.date && <span aria-hidden>·</span>}
+            {post.date && <span>{formatarData(post.date)}</span>}
+            {post.date && <span aria-hidden>·</span>}
             <span>{tempoLeitura(post.content)} min de leitura</span>
           </div>
           <div className="mt-6 space-y-4">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
           <div className="mt-10 border-t border-navy/10 pt-6">
-            <ShareButtons title={post.meta.title} />
+            <ShareButtons title={post.title} />
           </div>
         </article>
       </Reveal>

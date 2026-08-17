@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FaHome, FaAddressCard, FaQuestionCircle, FaBriefcase, FaLandmark } from 'react-icons/fa';
+import { FaHome, FaAddressCard, FaQuestionCircle, FaBriefcase, FaLandmark, FaNewspaper } from 'react-icons/fa';
 import { getAdmin } from '@/lib/admin-session';
 import { prisma } from '@/lib/db';
 
@@ -15,6 +15,7 @@ const secoes = [
   { href: '/admin/faq', icon: <FaQuestionCircle />, titulo: 'FAQ', texto: 'Perguntas e respostas frequentes.' },
   { href: '/admin/areas', icon: <FaBriefcase />, titulo: 'Áreas de atuação', texto: 'Áreas, ícones e parcerias.' },
   { href: '/admin/sobre', icon: <FaLandmark />, titulo: 'Sobre', texto: 'História, trajetória e princípios.' },
+  { href: '/admin/blog', icon: <FaNewspaper />, titulo: 'Blog', texto: 'Criar, editar e publicar artigos.' },
 ];
 
 async function visitas() {

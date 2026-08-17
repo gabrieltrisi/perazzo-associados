@@ -18,6 +18,21 @@ model SiteContent {
   updatedAt DateTime @updatedAt
 }
 
+// Artigos do blog — editáveis pelo painel (antes eram arquivos MDX).
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String   @default("")
+  excerpt     String   @default("")
+  autor       String   @default("")
+  date        String   @default("") // YYYY-MM-DD
+  content     String   @default("") // Markdown/MDX
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 // Contador simples de visitas por página e dia (resumo no painel).
 // Agregado (não guarda 1 linha por acesso) para não crescer sem controle.
 model PageView {

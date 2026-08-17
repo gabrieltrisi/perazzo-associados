@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/blog';
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://perazzoadvogados.com.br';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const rotas = [
     '',
     '/sobre',
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r === '' ? 1 : 0.7,
   }));
 
-  const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+  const posts: MetadataRoute.Sitemap = (await getAllPosts()).map((p) => ({
     url: `${SITE}/blog/${p.slug}`,
     lastModified: p.date ? new Date(p.date) : new Date(),
     changeFrequency: 'yearly',

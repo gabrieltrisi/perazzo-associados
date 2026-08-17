@@ -1,10 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import matter from 'gray-matter';
+import { prisma } from './db';
 
-// Blog 100% baseado em arquivos MDX em content/blog/ — sem CMS (fora de escopo).
-const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
-
+// Blog agora vive no banco (editável pelo painel). Antes eram arquivos MDX.
 export type PostMeta = {
   slug: string;
   title: string;
@@ -14,43 +10,65 @@ export type PostMeta = {
   excerpt: string;
 };
 
-function readMeta(file: string): PostMeta {
-  const slug = file.replace(/\.mdx$/, '');
-  const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
-  const { data } = matter(raw);
+export type Post = PostMeta & { content: string; published: boolean };
+
+type Row = {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  autor: string;
+  excerpt: string;
+  content: string;
+  published: boolean;
+};
+
+function toMeta(r: Row): PostMeta {
   return {
-    slug,
-    title: data.title ?? slug,
-    description: data.description ?? '',
-    date: data.date ?? '',
-    autor: data.autor ?? '',
-    excerpt: data.excerpt ?? '',
+    slug: r.slug,
+    title: r.title,
+    description: r.description,
+    date: r.date,
+    autor: r.autor,
+    excerpt: r.excerpt,
   };
 }
 
-export function getAllPosts(): PostMeta[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
-  return fs
-    .readdirSync(BLOG_DIR)
-    .filter((f) => f.endsWith('.mdx'))
-    .map(readMeta)
-    .sort((a, b) => (a.date < b.date ? 1 : -1)); // mais recente primeiro
+const ordenar = [{ date: 'desc' as const }, { createdAt: 'desc' as const }];
+
+// Público: só publicados, mais recentes primeiro.
+export async function getAllPosts(): Promise<PostMeta[]> {
+  try {
+    const rows = await prisma.blogPost.findMany({ where: { published: true }, orderBy: ordenar });
+    return rows.map(toMeta);
+  } catch {
+    return [];
+  }
 }
 
-export function getPost(slug: string): { meta: PostMeta; content: string } | null {
-  const file = path.join(BLOG_DIR, `${slug}.mdx`);
-  if (!fs.existsSync(file)) return null;
-  const raw = fs.readFileSync(file, 'utf-8');
-  const { data, content } = matter(raw);
-  return {
-    meta: {
-      slug,
-      title: data.title ?? slug,
-      description: data.description ?? '',
-      date: data.date ?? '',
-      autor: data.autor ?? '',
-      excerpt: data.excerpt ?? '',
-    },
-    content,
-  };
+// Admin: todos (inclui rascunhos).
+export async function getAllPostsAdmin(): Promise<Post[]> {
+  const rows = await prisma.blogPost.findMany({ orderBy: ordenar });
+  return rows.map((r) => ({ ...toMeta(r), content: r.content, published: r.published }));
+}
+
+export async function getPost(slug: string): Promise<Post | null> {
+  try {
+    const r = await prisma.blogPost.findUnique({ where: { slug } });
+    if (!r) return null;
+    return { ...toMeta(r), content: r.content, published: r.published };
+  } catch {
+    return null;
+  }
+}
+
+// Gera um slug limpo a partir de um texto.
+export function slugify(texto: string): string {
+  return texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // remove acentos
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '')
+    .slice(0, 80);
 }

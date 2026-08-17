@@ -8,8 +8,8 @@ export const contentType = 'image/png';
 
 export default async function BlogOgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPost(slug);
-  const titulo = post?.meta.title ?? 'Perazzo & Associados';
+  const post = await getPost(slug);
+  const titulo = post?.title ?? 'Perazzo & Associados';
 
   return new ImageResponse(
     (
