@@ -18,6 +18,13 @@ model SiteContent {
   updatedAt DateTime @updatedAt
 }
 
+// Rate limiting (janela fixa) para login e formulário. Chave = "escopo:ip".
+model RateLimit {
+  key       String   @id
+  count     Int      @default(0)
+  expiresAt DateTime
+}
+
 // Artigos do blog — editáveis pelo painel (antes eram arquivos MDX).
 model BlogPost {
   id          Int      @id @default(autoincrement())

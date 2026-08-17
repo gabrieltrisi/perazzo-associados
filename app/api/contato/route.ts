@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { enviarEmailContato } from '@/lib/email';
+import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
 
 // Verifica o reCAPTCHA v3. Se não houver secret configurada, o captcha é
 // considerado opcional (dev) e a verificação passa.
@@ -21,6 +22,15 @@ async function verificarRecaptcha(token: string | undefined): Promise<boolean> {
 }
 
 export async function POST(req: Request) {
+  // Rate limit por IP (anti-spam / não queimar a cota do Resend): 5 / 10 min.
+  const ip = ipDeHeaders(req.headers);
+  if (!(await rateLimit(`contato:${ip}`, 5, 600)).ok) {
+    return NextResponse.json(
+      { ok: false, erro: 'Muitas mensagens em pouco tempo. Aguarde alguns minutos.' },
+      { status: 429 },
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await req.json();

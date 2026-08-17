@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { ADMIN_COOKIE, assinarAdmin, credenciaisValidas } from '@/lib/admin-auth';
 import { getAdmin } from '@/lib/admin-session';
+import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
 
 export const metadata: Metadata = {
   title: 'Admin — Entrar',
@@ -20,6 +21,12 @@ export default async function AdminLoginPage({
 
   async function entrar(formData: FormData) {
     'use server';
+    // Rate limit por IP: trava brute-force (8 tentativas / 10 min).
+    const ip = ipDeHeaders(await headers());
+    if (!(await rateLimit(`login:${ip}`, 8, 600)).ok) {
+      redirect('/admin/login?erro=rate');
+    }
+
     const email = String(formData.get('email') ?? '');
     const senha = String(formData.get('senha') ?? '');
     const dest = String(formData.get('destino') ?? '/admin');
@@ -50,7 +57,9 @@ export default async function AdminLoginPage({
           <input type="hidden" name="destino" value={destino} />
           {sp.erro && (
             <p className="rounded border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
-              E-mail ou senha inválidos.
+              {sp.erro === 'rate'
+                ? 'Muitas tentativas. Aguarde alguns minutos e tente novamente.'
+                : 'E-mail ou senha inválidos.'}
             </p>
           )}
           <div>
