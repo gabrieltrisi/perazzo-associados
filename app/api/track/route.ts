@@ -1,16 +1,31 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
+// Só rotas reais do site são contáveis — impede que um atacante crie linhas
+// infinitas com paths arbitrários (bloat/DoS no banco).
+const ROTAS_FIXAS = new Set([
+  '/',
+  '/sobre',
+  '/areas-de-atuacao',
+  '/blog',
+  '/contato',
+  '/politica-de-privacidade',
+  '/termos-de-uso',
+]);
+
+function rotaValida(p: string): boolean {
+  return ROTAS_FIXAS.has(p) || /^\/blog\/[a-z0-9-]{1,80}$/.test(p);
+}
+
 // Contador simples de visitas. Recebe o caminho da página e incrementa o
-// agregado (path, dia). Ignora /admin e /api. Sem cookies/PII (LGPD-ok).
+// agregado (path, dia). Sem cookies/PII (LGPD-ok).
 export async function POST(req: Request) {
   try {
     const { path } = await req.json();
-    let p = String(path ?? '').split('?')[0].split('#')[0];
-    if (!p.startsWith('/') || p.startsWith('/admin') || p.startsWith('/api')) {
+    const p = String(path ?? '').split('?')[0].split('#')[0];
+    if (!rotaValida(p)) {
       return NextResponse.json({ ok: false });
     }
-    if (p.length > 160) p = p.slice(0, 160);
     const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
 
     await prisma.pageView.upsert({

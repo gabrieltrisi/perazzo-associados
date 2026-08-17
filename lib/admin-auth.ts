@@ -8,8 +8,22 @@ import { SignJWT, jwtVerify } from 'jose';
  */
 export const ADMIN_COOKIE = 'perazzo_admin';
 
+// Fail-closed: sem JWT_SECRET (ou fraco) NÃO há fallback conhecido — assinar
+// falha e verificar nega. Evita que alguém forje token com um segredo público.
 function secret(): Uint8Array {
-  return new TextEncoder().encode(process.env.JWT_SECRET || 'dev-inseguro-troque-em-producao');
+  const s = process.env.JWT_SECRET;
+  if (!s || s.length < 16) {
+    throw new Error('JWT_SECRET ausente ou muito curto — configure uma chave forte no ambiente.');
+  }
+  return new TextEncoder().encode(s);
+}
+
+// Comparação de tempo constante (sem node:crypto, roda no edge também).
+function igualTempoConstante(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
 }
 
 export async function assinarAdmin(email: string): Promise<string> {
@@ -35,5 +49,8 @@ export async function verificarAdmin(token?: string): Promise<{ email: string } 
 export function credenciaisValidas(email: string, senha: string): boolean {
   const e = process.env.ADMIN_EMAIL ?? '';
   const s = process.env.ADMIN_PASSWORD ?? '';
-  return Boolean(e && s) && email.trim().toLowerCase() === e.toLowerCase() && senha === s;
+  if (!e || !s) return false; // sem credenciais configuradas → ninguém entra
+  const emailOk = igualTempoConstante(email.trim().toLowerCase(), e.toLowerCase());
+  const senhaOk = igualTempoConstante(senha, s);
+  return emailOk && senhaOk;
 }
