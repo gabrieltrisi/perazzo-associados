@@ -11,6 +11,15 @@
       "[PLACEHOLDER — Parágrafo 2, opcional.]"
     ]
   },
+  "linhaDoTempo": {
+    "titulo": "Nossa trajetória",
+    "marcos": [
+      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Fundação]", "texto": "[PLACEHOLDER — breve descrição do marco inicial do escritório.]" },
+      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Especialização tributária]", "texto": "[PLACEHOLDER — foco em recuperação tributária.]" },
+      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Expansão / parcerias]", "texto": "[PLACEHOLDER — atuação em novas áreas por meio de parcerias.]" },
+      { "marco": "Hoje", "titulo": "[PLACEHOLDER — Atualidade]", "texto": "[PLACEHOLDER — como o escritório atua atualmente.]" }
+    ]
+  },
   "missaoVisaoValores": [
     { "titulo": "Missão", "texto": "[PLACEHOLDER — missão do escritório.]" },
     { "titulo": "Visão", "texto": "[PLACEHOLDER — visão do escritório.]" },

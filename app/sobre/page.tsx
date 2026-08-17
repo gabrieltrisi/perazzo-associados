@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Section from '@/components/ui/Section';
 import Kicker from '@/components/ui/Kicker';
 import Reveal from '@/components/ui/Reveal';
+import GoldRule from '@/components/ui/GoldRule';
+import Timeline from '@/components/Timeline';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
 import sobre from '@/content/sobre.json';
 
@@ -19,7 +21,7 @@ export default function SobrePage() {
         <Reveal>
           <div className="py-6">
             <span className="kicker">{sobre.hero.kicker}</span>
-            <span className="gold-rule mt-3" />
+            <GoldRule className="mt-3" />
             <h1 className="mt-6 text-[2rem] font-bold sm:text-h1">{sobre.hero.titulo}</h1>
           </div>
         </Reveal>
@@ -35,6 +37,15 @@ export default function SobrePage() {
               <p>{p}</p>
             </Reveal>
           ))}
+        </div>
+      </Section>
+
+      <Section variant="light">
+        <Reveal>
+          <Kicker>{sobre.linhaDoTempo.titulo}</Kicker>
+        </Reveal>
+        <div className="mt-8">
+          <Timeline itens={sobre.linhaDoTempo.marcos} />
         </div>
       </Section>
 

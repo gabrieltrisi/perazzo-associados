@@ -4,6 +4,7 @@ import { FaFileInvoiceDollar, FaBuilding, FaBalanceScale, FaUserTie } from 'reac
 import Section from '@/components/ui/Section';
 import Kicker from '@/components/ui/Kicker';
 import Reveal from '@/components/ui/Reveal';
+import GoldRule from '@/components/ui/GoldRule';
 import TiltCard from '@/components/ui/TiltCard';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
 import areas from '@/content/areas-de-atuacao.json';
@@ -29,7 +30,7 @@ export default function AreasPage() {
         <Reveal>
           <div className="max-w-2xl py-6">
             <span className="kicker">{areas.hero.kicker}</span>
-            <span className="gold-rule mt-3" />
+            <GoldRule className="mt-3" />
             <h1 className="mt-6 text-[2rem] font-bold sm:text-h1">{areas.hero.titulo}</h1>
             <p className="mt-4 text-white/80">{areas.hero.subtitulo}</p>
           </div>

@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { playKnock } from '@/lib/knock';
 
 const GOLD = '#C7A96F';
 const NAVY = '#0A1E40';
@@ -219,6 +220,7 @@ function JusticeScene() {
       if (!s.impacted && p >= IMPACT_AT) {
         s.impacted = true;
         s.impactT = t;
+        playKnock(); // "toc" sincronizado com a batida
       }
       if (p >= 1) s.active = false;
     }
@@ -234,7 +236,8 @@ function JusticeScene() {
 
     // Equilíbrio do travessão: mouse + onda lenta + tremor do golpe.
     if (beam.current) {
-      const target = pointer.current.x * 0.14 + Math.sin(t * 0.9) * 0.04 + kick;
+      const target =
+        pointer.current.x * 0.14 + Math.sin(t * 0.9) * 0.04 + Math.sin(scroll.current * 0.0016) * 0.05 + kick;
       beam.current.rotation.z = THREE.MathUtils.lerp(beam.current.rotation.z, target, kick ? 0.35 : 0.05);
       if (panL.current) panL.current.rotation.z = -beam.current.rotation.z;
       if (panR.current) panR.current.rotation.z = -beam.current.rotation.z;
@@ -261,6 +264,7 @@ function JusticeScene() {
     if (tilt.current) {
       tilt.current.rotation.y = THREE.MathUtils.lerp(tilt.current.rotation.y, pointer.current.x * 0.2, 0.04);
       tilt.current.rotation.x = THREE.MathUtils.lerp(tilt.current.rotation.x, -pointer.current.y * 0.1, 0.04);
+      tilt.current.rotation.z = THREE.MathUtils.lerp(tilt.current.rotation.z, Math.sin(scroll.current * 0.001) * 0.035, 0.05);
       tilt.current.position.y = -scroll.current * 0.0016;
     }
   });

@@ -11,6 +11,8 @@ import ScrollProgress from '@/components/effects/ScrollProgress';
 import BackToTop from '@/components/effects/BackToTop';
 import CustomCursor from '@/components/effects/CustomCursor';
 import LoadIntro from '@/components/effects/LoadIntro';
+import SoundToggle from '@/components/effects/SoundToggle';
+import { OrganizationJsonLd } from '@/components/StructuredData';
 
 // Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
 // (sans do corpo, legível). Expostas como variáveis CSS consumidas pelo Tailwind.
@@ -52,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
       <body>
+        <OrganizationJsonLd />
         <LoadIntro />
         <SmoothScroll />
         <ScrollProgress />
@@ -61,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <WhatsAppButton />
         <BackToTop />
+        <SoundToggle />
         <GrainOverlay />
         <CookieConsent />
       </body>

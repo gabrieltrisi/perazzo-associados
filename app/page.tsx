@@ -3,14 +3,19 @@ import Section from '@/components/ui/Section';
 import Kicker from '@/components/ui/Kicker';
 import Button from '@/components/ui/Button';
 import Reveal from '@/components/ui/Reveal';
+import GoldRule from '@/components/ui/GoldRule';
 import MaskReveal from '@/components/ui/MaskReveal';
 import TiltCard from '@/components/ui/TiltCard';
 import Magnetic from '@/components/effects/Magnetic';
 import Counter from '@/components/effects/Counter';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
 import Hero3D from '@/components/three/Hero3D';
+import AreasNarrative from '@/components/AreasNarrative';
+import Faq from '@/components/Faq';
+import { FaqJsonLd } from '@/components/StructuredData';
 import home from '@/content/home.json';
 import areas from '@/content/areas-de-atuacao.json';
+import faq from '@/content/faq.json';
 
 export const metadata: Metadata = {
   title: 'Perazzo & Associados Advogados | Recuperação Tributária em Salvador',
@@ -30,7 +35,7 @@ export default function HomePage() {
           <div className="max-w-3xl py-24 sm:py-36">
             <Reveal>
               <span className="kicker">{home.hero.kicker}</span>
-              <span className="gold-rule mt-3" />
+              <GoldRule className="mt-3" />
             </Reveal>
             <div className="mask-wrap mt-6">
               <h1 className="mask-line text-[2rem] font-bold leading-tight text-white sm:text-h1">
@@ -100,34 +105,29 @@ export default function HomePage() {
 
       {/* ÁREAS — resumo, com monograma parallax de fundo */}
       <Section variant="navy-deep" decoration={<ParallaxMonogram side="right" />}>
+        <AreasNarrative
+          kicker={home.areasResumo.kicker}
+          titulo={home.areasResumo.titulo}
+          subtitulo={home.areasResumo.subtitulo}
+          areas={areas.areas}
+        />
+      </Section>
+
+      {/* FAQ — dúvidas frequentes (+ rich result no Google) */}
+      <Section variant="light">
+        <FaqJsonLd itens={faq.itens} />
         <Reveal>
-          <Kicker>{home.areasResumo.kicker}</Kicker>
+          <Kicker>{faq.kicker}</Kicker>
         </Reveal>
         <MaskReveal>
-          <h2 className="text-2xl font-bold sm:text-h2">{home.areasResumo.titulo}</h2>
+          <h2 className="text-2xl font-bold text-navy sm:text-h2">{faq.titulo}</h2>
         </MaskReveal>
         <Reveal delay={0.05}>
-          <p className="mt-3 max-w-2xl text-white/70">{home.areasResumo.subtitulo}</p>
+          <p className="mt-3 max-w-2xl text-muted">{faq.subtitulo}</p>
         </Reveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {areas.areas.map((a, idx) => (
-            <Reveal key={a.titulo} delay={idx * 0.06}>
-              <div className="rounded-card border border-navy-light/40 bg-navy p-6 transition-transform hover:-translate-y-1">
-                <h3 className="text-h3 text-gold">{a.titulo}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-white/70">{a.descricao}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mt-8 max-w-3xl">
+          <Faq itens={faq.itens} />
         </div>
-        <Reveal delay={0.1}>
-          <div className="mt-8">
-            <Magnetic>
-              <Button href="/areas-de-atuacao" variant="secondary">
-                Ver todas as áreas
-              </Button>
-            </Magnetic>
-          </div>
-        </Reveal>
       </Section>
 
       {/* CTA FINAL */}

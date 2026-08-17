@@ -42,11 +42,17 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-sans text-sm tracking-wide transition-colors ${
+                className={`group relative font-sans text-sm tracking-wide transition-colors ${
                   active ? 'text-gold' : 'text-white/90 hover:text-gold'
                 }`}
               >
                 {item.label}
+                <span
+                  aria-hidden
+                  className={`absolute -bottom-1.5 left-0 h-[1.5px] w-full origin-left bg-gold transition-transform duration-300 ease-out ${
+                    active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
               </Link>
             );
           })}
