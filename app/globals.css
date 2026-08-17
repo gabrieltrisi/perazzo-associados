@@ -30,6 +30,31 @@ html.lenis body {
     @apply font-serif;
     text-wrap: balance;
   }
+  /* Foco visível consistente para navegação por teclado. */
+  :focus-visible {
+    outline: 2px solid #c7a96f;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* Link "pular para o conteúdo" — visível apenas quando focado (teclado). */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  background: #0a1e40;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #c7a96f;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* Transição de entrada de página (CSS puro — funciona sem JS). */

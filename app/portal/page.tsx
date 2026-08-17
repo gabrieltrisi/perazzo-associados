@@ -1,33 +1,55 @@
 import type { Metadata } from 'next';
-import Button from '@/components/ui/Button';
-import Magnetic from '@/components/effects/Magnetic';
+import { FaFolderOpen, FaFileContract, FaRegComments } from 'react-icons/fa';
 
-// Placeholder da futura ÁREA DO CLIENTE (portal). Ainda NÃO tem login —
-// esta página é pública e apenas sinaliza a funcionalidade futura.
-// A proteção por autenticação já está preparada em `middleware.ts`.
 export const metadata: Metadata = {
   title: 'Área do Cliente',
   robots: { index: false, follow: false },
 };
 
-export default function PortalPage() {
+// Dashboard scaffold — estrutura visual pronta; os dados virão quando o
+// backend/autenticação real forem plugados.
+const cards = [
+  {
+    icon: <FaFolderOpen size={20} />,
+    titulo: 'Meus processos',
+    texto: 'Acompanhe o andamento dos seus casos em tempo real.',
+  },
+  {
+    icon: <FaFileContract size={20} />,
+    titulo: 'Documentos',
+    texto: 'Acesse e envie documentos com segurança.',
+  },
+  {
+    icon: <FaRegComments size={20} />,
+    titulo: 'Mensagens',
+    texto: 'Fale diretamente com a equipe do escritório.',
+  },
+];
+
+export default function PortalDashboard() {
   return (
-    <section className="flex min-h-[70vh] items-center bg-navy">
-      <div className="container-px max-w-2xl">
-        <p className="kicker mb-4 inline-block">Portal do Cliente</p>
-        <h1 className="text-[2.2rem] font-bold text-white sm:text-5xl">Em breve</h1>
-        <p className="mt-5 leading-relaxed text-white/70">
-          Esta será a área restrita do cliente — acompanhamento de processos, documentos e
-          comunicação com o escritório. O acesso com login será habilitado em uma próxima fase.
-        </p>
-        <div className="mt-8">
-          <Magnetic>
-            <Button href="/" variant="secondary">
-              Voltar ao site
-            </Button>
-          </Magnetic>
-        </div>
+    <>
+      <h1 className="text-2xl font-bold text-navy sm:text-h2">Bem-vindo(a)</h1>
+      <p className="mt-2 text-muted">Este é o painel inicial da área do cliente.</p>
+
+      <div className="mt-8 grid gap-6 sm:grid-cols-3">
+        {cards.map((c) => (
+          <div key={c.titulo} className="rounded-card border border-navy/10 bg-white p-6 shadow-soft">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy text-gold">
+              {c.icon}
+            </span>
+            <h2 className="mt-4 text-h3 text-navy">{c.titulo}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">{c.texto}</p>
+            <span className="mt-4 inline-block text-xs uppercase tracking-wide text-gold/70">
+              Em breve
+            </span>
+          </div>
+        ))}
       </div>
-    </section>
+
+      <p className="mt-8 rounded-card border border-dashed border-muted/30 bg-white/60 p-4 text-xs text-muted">
+        Ambiente de demonstração. A autenticação e os dados reais serão habilitados em uma próxima fase.
+      </p>
+    </>
   );
 }

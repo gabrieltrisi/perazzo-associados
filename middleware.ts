@@ -1,25 +1,20 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
- * FRONTEIRA DE AUTENTICAÇÃO — pronta para o futuro Portal do Cliente.
- *
- * Hoje NÃO há login: a rota /portal é pública (placeholder "em breve").
- * Quando o portal for construído, é só:
- *   1. Adicionar um provedor de sessão (ex.: NextAuth/Auth.js).
- *   2. Descomentar o bloco abaixo (checa o cookie de sessão e redireciona
- *      para /login quando ausente).
- * O restante do site institucional NÃO é afetado — o matcher abaixo só
- * roda em /portal/*.
+ * FRONTEIRA DE AUTENTICAÇÃO do Portal do Cliente.
+ * Roda só em /portal/* (ver matcher). Sem cookie de sessão → manda pro /login.
+ * Cookie nome fixo aqui pois o middleware roda no edge (não importa lib/auth,
+ * que usa next/headers). Mantenha em sincronia com SESSION_COOKIE.
  */
-export function middleware(_request: NextRequest) {
-  // --- Ativar quando o portal ganhar login: ---
-  // const session = _request.cookies.get('session')?.value;
-  // if (!session) {
-  //   const loginUrl = new URL('/login', _request.url);
-  //   loginUrl.searchParams.set('redirect', _request.nextUrl.pathname);
-  //   return NextResponse.redirect(loginUrl);
-  // }
+const SESSION_COOKIE = 'perazzo_session';
 
+export function middleware(request: NextRequest) {
+  const session = request.cookies.get(SESSION_COOKIE)?.value;
+  if (!session) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', request.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
   return NextResponse.next();
 }
 

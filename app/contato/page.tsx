@@ -3,6 +3,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa'
 import Section from '@/components/ui/Section';
 import Reveal from '@/components/ui/Reveal';
 import ContactForm from '@/components/ContactForm';
+import { whatsappHref } from '@/lib/whatsapp';
 import site from '@/content/site-config.json';
 
 export const metadata: Metadata = {
@@ -36,8 +37,7 @@ function ContatoItem({
 
 export default function ContatoPage() {
   const maps = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL;
-  const wpp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-  const wppHref = wpp ? `https://wa.me/${wpp}` : 'https://wa.me/';
+  const wppHref = whatsappHref('Olá! Vim pelo site e gostaria de tirar uma dúvida com o escritório.');
 
   return (
     <>

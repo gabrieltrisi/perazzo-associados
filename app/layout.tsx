@@ -12,6 +12,7 @@ import BackToTop from '@/components/effects/BackToTop';
 import CustomCursor from '@/components/effects/CustomCursor';
 import LoadIntro from '@/components/effects/LoadIntro';
 import SoundToggle from '@/components/effects/SoundToggle';
+import MotionProvider from '@/components/effects/MotionProvider';
 import { OrganizationJsonLd } from '@/components/StructuredData';
 
 // Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
@@ -43,7 +44,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'Perazzo & Associados Advogados',
-    images: ['/logo-og.webp'],
+    // A imagem OG é gerada dinamicamente em app/opengraph-image.tsx
+    // (e app/blog/[slug]/opengraph-image.tsx para artigos).
   },
   robots: { index: true, follow: true },
   // Favicon/ícones via convenção de arquivo do App Router:
@@ -55,12 +57,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
       <body>
         <OrganizationJsonLd />
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <LoadIntro />
         <SmoothScroll />
         <ScrollProgress />
         <CustomCursor />
         <Header />
-        <main>{children}</main>
+        <main id="conteudo">
+          <MotionProvider>{children}</MotionProvider>
+        </main>
         <Footer />
         <WhatsAppButton />
         <BackToTop />

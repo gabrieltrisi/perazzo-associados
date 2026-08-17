@@ -1,4 +1,5 @@
 import { FaWhatsapp } from 'react-icons/fa';
+import { whatsappHref } from '@/lib/whatsapp';
 
 /**
  * Botão flutuante de WhatsApp, presente em todas as páginas.
@@ -6,9 +7,7 @@ import { FaWhatsapp } from 'react-icons/fa';
  * Cor: DOURADO sobre NAVY — nunca o verde oficial do WhatsApp.
  */
 export default function WhatsAppButton() {
-  const numero = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-  const mensagem = encodeURIComponent('Olá! Gostaria de falar com o escritório.');
-  const href = numero ? `https://wa.me/${numero}?text=${mensagem}` : 'https://wa.me/';
+  const href = whatsappHref();
 
   return (
     <a

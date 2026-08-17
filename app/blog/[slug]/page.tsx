@@ -3,7 +3,19 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Section from '@/components/ui/Section';
 import Reveal from '@/components/ui/Reveal';
+import ShareButtons from '@/components/blog/ShareButtons';
 import { getAllPosts, getPost } from '@/lib/blog';
+
+function formatarData(d: string) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+function tempoLeitura(texto: string) {
+  const palavras = texto.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(palavras / 200));
+}
 
 // Gera as páginas estáticas dos posts existentes (sem CMS).
 export function generateStaticParams() {
@@ -50,8 +62,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <article className="mx-auto max-w-3xl">
           <p className="text-kicker uppercase tracking-wide text-gold">{post.meta.autor}</p>
           <h1 className="mt-2 text-[2rem] font-bold text-navy sm:text-h1">{post.meta.title}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+            {post.meta.date && <span>{formatarData(post.meta.date)}</span>}
+            {post.meta.date && <span aria-hidden>·</span>}
+            <span>{tempoLeitura(post.content)} min de leitura</span>
+          </div>
           <div className="mt-6 space-y-4">
             <MDXRemote source={post.content} components={mdxComponents} />
+          </div>
+          <div className="mt-10 border-t border-navy/10 pt-6">
+            <ShareButtons title={post.meta.title} />
           </div>
         </article>
       </Reveal>
