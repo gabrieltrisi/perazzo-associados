@@ -3,8 +3,10 @@ import Section from '@/components/ui/Section';
 import Kicker from '@/components/ui/Kicker';
 import Button from '@/components/ui/Button';
 import Reveal from '@/components/ui/Reveal';
+import MaskReveal from '@/components/ui/MaskReveal';
 import TiltCard from '@/components/ui/TiltCard';
 import Magnetic from '@/components/effects/Magnetic';
+import Counter from '@/components/effects/Counter';
 import ParallaxMonogram from '@/components/effects/ParallaxMonogram';
 import Hero3D from '@/components/three/Hero3D';
 import home from '@/content/home.json';
@@ -30,11 +32,11 @@ export default function HomePage() {
               <span className="kicker">{home.hero.kicker}</span>
               <span className="gold-rule mt-3" />
             </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-6 text-[2rem] font-bold leading-tight text-white sm:text-h1">
+            <div className="mask-wrap mt-6">
+              <h1 className="mask-line text-[2rem] font-bold leading-tight text-white sm:text-h1">
                 {home.hero.titulo}
               </h1>
-            </Reveal>
+            </div>
             <Reveal delay={0.16}>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
                 {home.hero.subtitulo}
@@ -58,12 +60,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* NÚMEROS — contadores animados */}
+      <Section variant="navy-deep">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {home.numeros.map((n, i) => (
+            <Reveal key={i} delay={i * 0.1}>
+              <div className="text-center">
+                <div className="font-serif text-4xl font-bold text-gold sm:text-5xl">
+                  <Counter to={n.valor} suffix={n.sufixo} />
+                </div>
+                <p className="mt-2 text-xs uppercase tracking-[0.15em] text-white/60 sm:text-sm">
+                  {n.label}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       {/* CREDIBILIDADE — cards com tilt + spotlight */}
       <Section variant="light">
         <Reveal>
           <Kicker>{home.credibilidade.kicker}</Kicker>
-          <h2 className="text-2xl font-bold text-navy sm:text-h2">{home.credibilidade.titulo}</h2>
         </Reveal>
+        <MaskReveal>
+          <h2 className="text-2xl font-bold text-navy sm:text-h2">{home.credibilidade.titulo}</h2>
+        </MaskReveal>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {home.credibilidade.itens.map((i, idx) => (
             <Reveal key={i.titulo} delay={idx * 0.08} className="h-full">
@@ -80,7 +102,11 @@ export default function HomePage() {
       <Section variant="navy-deep" decoration={<ParallaxMonogram side="right" />}>
         <Reveal>
           <Kicker>{home.areasResumo.kicker}</Kicker>
+        </Reveal>
+        <MaskReveal>
           <h2 className="text-2xl font-bold sm:text-h2">{home.areasResumo.titulo}</h2>
+        </MaskReveal>
+        <Reveal delay={0.05}>
           <p className="mt-3 max-w-2xl text-white/70">{home.areasResumo.subtitulo}</p>
         </Reveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">

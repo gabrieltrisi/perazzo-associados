@@ -7,6 +7,10 @@ import WhatsAppButton from '@/components/layout/WhatsAppButton';
 import SmoothScroll from '@/components/effects/SmoothScroll';
 import GrainOverlay from '@/components/effects/GrainOverlay';
 import CookieConsent from '@/components/CookieConsent';
+import ScrollProgress from '@/components/effects/ScrollProgress';
+import BackToTop from '@/components/effects/BackToTop';
+import CustomCursor from '@/components/effects/CustomCursor';
+import LoadIntro from '@/components/effects/LoadIntro';
 
 // Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
 // (sans do corpo, legível). Expostas como variáveis CSS consumidas pelo Tailwind.
@@ -40,18 +44,23 @@ export const metadata: Metadata = {
     images: ['/logo-og.webp'],
   },
   robots: { index: true, follow: true },
-  icons: { icon: '/favicon.ico' },
+  // Favicon/ícones via convenção de arquivo do App Router:
+  // app/favicon.ico (16/32/48) + app/icon.png (512) + app/apple-icon.png (180).
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
       <body>
+        <LoadIntro />
         <SmoothScroll />
+        <ScrollProgress />
+        <CustomCursor />
         <Header />
         <main>{children}</main>
         <Footer />
         <WhatsAppButton />
+        <BackToTop />
         <GrainOverlay />
         <CookieConsent />
       </body>
