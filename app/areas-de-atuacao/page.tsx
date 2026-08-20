@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { IconType } from 'react-icons';
-import { FaFileInvoiceDollar, FaBuilding, FaBalanceScale, FaUserTie } from 'react-icons/fa';
+import { FaFileInvoiceDollar, FaBuilding, FaBalanceScale, FaUserTie, FaHome } from 'react-icons/fa';
 import Section from '@/components/ui/Section';
 import Kicker from '@/components/ui/Kicker';
 import Reveal from '@/components/ui/Reveal';
@@ -21,6 +21,7 @@ const ICONS: Record<string, IconType> = {
   company: FaBuilding,
   civil: FaBalanceScale,
   labor: FaUserTie,
+  realestate: FaHome,
 };
 
 export default async function AreasPage() {

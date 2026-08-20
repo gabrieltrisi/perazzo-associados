@@ -2,22 +2,22 @@
   "_comentario": "EDITE AQUI os dados de contato, endereço e redes sociais. Nenhum desses valores fica hardcoded no código — tudo é lido deste arquivo.",
   "nomeCurto": "Perazzo & Associados",
   "nomeCompleto": "Perazzo & Associados Advogados",
-  "tagline": "Recuperação Tributária · Advocacia em Salvador (BA)",
-  "oab": "[PLACEHOLDER — inscrição OAB, ex.: OAB/BA 00.000]",
-  "anoFundacao": "[PLACEHOLDER — ex.: 2015]",
+  "tagline": "Visão executiva + expertise jurídica · Salvador (BA)",
+  "oab": "OAB/BA 22.715",
+  "anoFundacao": "",
   "contato": {
-    "telefoneExibicao": "[PLACEHOLDER — (71) 90000-0000]",
-    "telefoneLink": "5571900000000",
-    "email": "[PLACEHOLDER — contato@perazzoadvogados.com.br]",
+    "telefoneExibicao": "(85) 98765-0244",
+    "telefoneLink": "5585987650244",
+    "email": "mwperazzo@gmail.com",
     "endereco": [
-      "[PLACEHOLDER — Av./Rua, nº, sala]",
-      "[PLACEHOLDER — Bairro — Salvador/BA]",
-      "[PLACEHOLDER — CEP 00000-000]"
+      "Hangar Business Park, Torre 01 — Sala 424",
+      "Av. Luís Viana Filho, 13233 — Paralela",
+      "São Cristóvão — Salvador/BA · CEP 41500-300"
     ]
   },
   "redes": {
-    "instagram": "[PLACEHOLDER — https://instagram.com/perazzoadvogados]",
-    "linkedin": "[PLACEHOLDER — https://linkedin.com/company/perazzoadvogados]",
+    "instagram": "",
+    "linkedin": "",
     "facebook": ""
   }
 }

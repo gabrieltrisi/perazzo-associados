@@ -1,38 +1,38 @@
 {
-  "_comentario": "Áreas de atuação. Recuperação Tributária é a principal; demais via parcerias. Substitua os [PLACEHOLDER].",
+  "_comentario": "Áreas de atuação do escritório. Tom sóbrio, sem promessa de resultado (OAB).",
   "hero": {
     "kicker": "Especialidades",
     "titulo": "Áreas de Atuação",
-    "subtitulo": "[PLACEHOLDER — frase introdutória sóbria.]"
+    "subtitulo": "Cobertura jurídica completa e multidisciplinar para pessoas físicas, empresas e entidades — com atendimento em todos os Estados do Brasil."
   },
   "areas": [
     {
       "icone": "tax",
-      "titulo": "Recuperação Tributária",
+      "titulo": "Direito Tributário",
       "destaque": true,
-      "descricao": "[PLACEHOLDER — descrição da área principal. Ex.: Análise e recuperação de créditos tributários pagos indevidamente ou a maior.]"
+      "descricao": "Planejamento tributário, defesa em autuações fiscais e recuperação de créditos, com ênfase em PIS/COFINS e na transição para o IBS/CBS. Estratégias de otimização da carga tributária para empresas de todos os portes."
     },
     {
       "icone": "company",
       "titulo": "Direito Empresarial",
       "destaque": false,
-      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
-    },
-    {
-      "icone": "civil",
-      "titulo": "Direito Civil",
-      "destaque": false,
-      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
+      "descricao": "Contratos, fusões e aquisições, compliance e governança corporativa para empresas de médio e grande porte, com expertise no setor de energia, inclusive GLP."
     },
     {
       "icone": "labor",
       "titulo": "Direito Trabalhista",
       "destaque": false,
-      "descricao": "[PLACEHOLDER — descrição. Atuação em parceria.]"
+      "descricao": "Assessoria a empregadores e trabalhadores em reclamações, acordos coletivos, reestruturações e litígios judiciais — com a visão de quem conhece ambos os lados da relação laboral."
+    },
+    {
+      "icone": "realestate",
+      "titulo": "Direito Imobiliário e Patrimonial",
+      "destaque": false,
+      "descricao": "Compra e venda, locações comerciais e residenciais, regularização de imóveis e consultoria em empreendimentos, além de planejamento patrimonial e sucessório."
     }
   ],
   "parcerias": {
     "titulo": "Atuação em rede",
-    "texto": "[PLACEHOLDER — explicar que áreas fora da tributária são conduzidas em parceria com profissionais especializados.]"
+    "texto": "Com estrutura multidisciplinar e associação a escritórios renomados, o Perazzo & Associados reúne profissionais de competências complementares para lidar com questões jurídicas de alta complexidade em todo o país."
   }
 }

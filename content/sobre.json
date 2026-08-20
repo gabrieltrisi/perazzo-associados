@@ -1,5 +1,5 @@
 {
-  "_comentario": "Página Sobre. Substitua os [PLACEHOLDER]. Tom institucional e sóbrio.",
+  "_comentario": "Página Sobre. Tom institucional e sóbrio.",
   "hero": {
     "kicker": "O escritório",
     "titulo": "Sobre o Perazzo & Associados"
@@ -7,30 +7,30 @@
   "historia": {
     "titulo": "Nossa história",
     "paragrafos": [
-      "[PLACEHOLDER — Parágrafo 1 da história do escritório.]",
-      "[PLACEHOLDER — Parágrafo 2, opcional.]"
+      "O Perazzo & Associados Advogados é conduzido pelo advogado Mário Wellington Perazzo, que reúne sólida formação acadêmica, ampla experiência profissional e uma trajetória consolidada nas áreas de gestão e advocacia. O escritório oferece cobertura jurídica completa para pessoas físicas, empresas e entidades dos diversos setores da economia — inclusive o setor de energia, com destaque para o segmento de GLP.",
+      "Seu diferencial está em unir a precisão técnico-jurídica à visão prática de quem esteve à frente de uma das maiores operações de GLP do Brasil. Essa integração permite antecipar riscos, estruturar operações juridicamente seguras e defender os interesses dos clientes com a competência de quem conhece profundamente o ambiente de negócios."
     ]
   },
   "linhaDoTempo": {
     "titulo": "Nossa trajetória",
     "marcos": [
-      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Fundação]", "texto": "[PLACEHOLDER — breve descrição do marco inicial do escritório.]" },
-      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Especialização tributária]", "texto": "[PLACEHOLDER — foco em recuperação tributária.]" },
-      { "marco": "[ANO]", "titulo": "[PLACEHOLDER — Expansão / parcerias]", "texto": "[PLACEHOLDER — atuação em novas áreas por meio de parcerias.]" },
-      { "marco": "Hoje", "titulo": "[PLACEHOLDER — Atualidade]", "texto": "[PLACEHOLDER — como o escritório atua atualmente.]" }
+      { "marco": "40+ anos", "titulo": "Do chão de fábrica a CEO", "texto": "Carreira construída com dedicação e liderança, com resultados concretos nas indústrias de energia e distribuição." },
+      { "marco": "Gestão", "titulo": "Grandes operações de GLP", "texto": "Experiência à frente de uma das maiores operações de GLP do Brasil e uma ampla rede de relacionamentos em todo o país." },
+      { "marco": "Direito", "titulo": "Especialização tributária", "texto": "Formação em diversas áreas do Direito, com ênfase em Direito Tributário e na recuperação de créditos." },
+      { "marco": "Hoje", "titulo": "Advocacia com visão executiva", "texto": "Expertise colocada a serviço de clientes em qualquer ponto do Brasil, unindo Direito e gestão de negócios." }
     ]
   },
   "missaoVisaoValores": [
-    { "titulo": "Missão", "texto": "[PLACEHOLDER — missão do escritório.]" },
-    { "titulo": "Visão", "texto": "[PLACEHOLDER — visão do escritório.]" },
-    { "titulo": "Valores", "texto": "[PLACEHOLDER — valores e princípios éticos.]" }
+    { "titulo": "Missão", "texto": "Oferecer soluções jurídicas eficazes e preventivas, alinhadas à realidade e aos objetivos de cada cliente." },
+    { "titulo": "Visão", "texto": "Ser referência na integração entre a advocacia e a visão executiva de negócios, com atuação em todo o Brasil." },
+    { "titulo": "Valores", "texto": "Ética, precisão técnica, responsabilidade e compromisso com os interesses do cliente." }
   ],
   "principios": {
     "titulo": "Princípios éticos",
     "itens": [
-      "[PLACEHOLDER — princípio 1, ex.: Transparência com o cliente.]",
-      "[PLACEHOLDER — princípio 2, ex.: Sigilo profissional.]",
-      "[PLACEHOLDER — princípio 3, ex.: Responsabilidade técnica.]"
+      "Transparência e clareza na relação com o cliente.",
+      "Sigilo profissional e responsabilidade técnica em cada caso.",
+      "Atuação em conformidade com o Código de Ética e Disciplina da OAB."
     ]
   }
 }

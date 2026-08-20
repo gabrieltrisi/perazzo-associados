@@ -1,9 +1,9 @@
 {
-  "_comentario": "Textos da Home. Substitua os [PLACEHOLDER]. Mantenha tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021).",
+  "_comentario": "Textos da Home. Tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021).",
   "hero": {
     "kicker": "Advocacia · Salvador — BA",
-    "titulo": "[PLACEHOLDER — Título institucional, ex.: Segurança jurídica em Recuperação Tributária]",
-    "subtitulo": "[PLACEHOLDER — 1 a 2 frases institucionais sóbrias, sem prometer resultado. Ex.: Atuação técnica e responsável na recuperação de tributos e no direito empresarial.]",
+    "titulo": "Expertise jurídica com visão executiva",
+    "subtitulo": "Cobertura jurídica completa para pessoas físicas, empresas e entidades — com a experiência de mais de 40 anos no Direito e na gestão de grandes operações, inclusive no setor de energia e GLP.",
     "ctaPrimario": "Fale com o escritório",
     "ctaSecundario": "Conheça as áreas de atuação"
   },
@@ -11,23 +11,23 @@
     "kicker": "O escritório",
     "titulo": "Atuação séria e comprometida",
     "itens": [
-      { "titulo": "[PLACEHOLDER — Inscrição na OAB]", "texto": "[PLACEHOLDER — ex.: Profissionais regularmente inscritos na OAB/BA.]" },
-      { "titulo": "[PLACEHOLDER — Anos de atuação]", "texto": "[PLACEHOLDER — ex.: Experiência acumulada em direito tributário.]" },
-      { "titulo": "[PLACEHOLDER — Foco em Recuperação Tributária]", "texto": "[PLACEHOLDER — ex.: Especialização na recuperação de créditos tributários.]" }
+      { "titulo": "OAB/BA 22.715", "texto": "Conduzido pelo advogado Mário Wellington Perazzo, regularmente inscrito na Ordem dos Advogados do Brasil, seção Bahia." },
+      { "titulo": "Mais de 40 anos de experiência", "texto": "Trajetória que une a prática da advocacia à gestão executiva nos setores de energia e distribuição — do chão de fábrica a CEO." },
+      { "titulo": "Especialização em Direito Tributário", "texto": "Ênfase na recuperação de créditos, incluindo PIS/COFINS e a transição para o IBS/CBS." }
     ]
   },
   "areasResumo": {
     "kicker": "Áreas de atuação",
     "titulo": "Como podemos ajudar",
-    "subtitulo": "[PLACEHOLDER — frase curta introduzindo as áreas.]"
+    "subtitulo": "Atuação multidisciplinar em Direito Empresarial, Tributário, Trabalhista e Imobiliário."
   },
   "ctaFinal": {
-    "titulo": "[PLACEHOLDER — Chamada final sóbria, ex.: Precisa de orientação jurídica?]",
-    "texto": "[PLACEHOLDER — ex.: Entre em contato para agendar uma conversa sobre o seu caso.]"
+    "titulo": "Precisa de orientação jurídica para o seu negócio?",
+    "texto": "Entre em contato para agendar uma conversa sobre o seu caso."
   },
   "numeros": [
-    { "valor": 15, "sufixo": "+", "label": "[PLACEHOLDER — anos de atuação]" },
+    { "valor": 40, "sufixo": "+", "label": "anos de experiência" },
     { "valor": 4, "sufixo": "", "label": "áreas de atuação" },
-    { "valor": 100, "sufixo": "%", "label": "[PLACEHOLDER — foco em recuperação tributária]" }
+    { "valor": 26, "sufixo": "+", "label": "estados atendidos" }
   ]
 }
