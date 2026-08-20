@@ -1,16 +1,16 @@
 {
-  "_comentario": "Áreas de atuação do escritório. Tom sóbrio, sem promessa de resultado (OAB).",
+  "_comentario": "Áreas de atuação. Foco em Recuperação Tributária; demais áreas via parcerias. Tom sóbrio (OAB).",
   "hero": {
     "kicker": "Especialidades",
     "titulo": "Áreas de Atuação",
-    "subtitulo": "Cobertura jurídica completa e multidisciplinar para pessoas físicas, empresas e entidades — com atendimento em todos os Estados do Brasil."
+    "subtitulo": "Recuperação tributária como especialidade principal, com atuação em todas as áreas do Direito por meio de parcerias com escritórios especializados — atendimento em todo o Brasil."
   },
   "areas": [
     {
       "icone": "tax",
-      "titulo": "Direito Tributário",
+      "titulo": "Recuperação Tributária",
       "destaque": true,
-      "descricao": "Planejamento tributário, defesa em autuações fiscais e recuperação de créditos, com ênfase em PIS/COFINS e na transição para o IBS/CBS. Estratégias de otimização da carga tributária para empresas de todos os portes."
+      "descricao": "Especialidade principal do escritório: identificação e recuperação de créditos tributários pagos de forma indevida ou a maior, com ênfase em PIS/COFINS e na transição para o IBS/CBS. Voltada especialmente a empresas do Lucro Real, com estratégias de otimização da carga tributária."
     },
     {
       "icone": "company",
@@ -33,6 +33,6 @@
   ],
   "parcerias": {
     "titulo": "Atuação em rede",
-    "texto": "Com estrutura multidisciplinar e associação a escritórios renomados, o Perazzo & Associados reúne profissionais de competências complementares para lidar com questões jurídicas de alta complexidade em todo o país."
+    "texto": "As demais áreas do Direito — como cível, previdenciário e outras — são conduzidas por meio de parcerias com escritórios e profissionais especializados. Essa estrutura multidisciplinar reúne competências complementares, com abordagem estratégica e precisão técnica para lidar com questões jurídicas de alta complexidade em todo o país."
   }
 }
