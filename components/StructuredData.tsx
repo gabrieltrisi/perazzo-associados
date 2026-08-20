@@ -2,25 +2,38 @@
 // renderizam <script type="application/ld+json"> — ajudam o Google a exibir
 // o negócio como escritório de advocacia e o FAQ como rich result.
 
+import { getSiteConfig } from '@/lib/site-content';
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://perazzoadvogados.com.br';
 
-// TODO (cliente): preencher telefone, endereço completo e redes (sameAs).
-export function OrganizationJsonLd() {
+export async function OrganizationJsonLd() {
+  const site = await getSiteConfig();
   const data = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
-    name: 'Perazzo & Associados Advogados',
+    name: site.nomeCompleto,
     url: SITE_URL,
     image: `${SITE_URL}/logo-og.webp`,
     description:
-      'Escritório de advocacia em Salvador (BA) com atuação em recuperação tributária e demais áreas do Direito.',
-    areaServed: { '@type': 'City', name: 'Salvador' },
+      'Escritório de advocacia em Salvador (BA) com foco em recuperação tributária e atuação em todas as áreas do Direito por meio de parcerias.',
+    telephone: `+${site.contato.telefoneLink}`,
+    email: site.contato.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Av. Luís Viana Filho, 13223 — Sala 424 (Hangar Business Park)',
+      addressLocality: 'Salvador',
+      addressRegion: 'BA',
+      postalCode: '41500-300',
+      addressCountry: 'BR',
+    },
+    areaServed: { '@type': 'Country', name: 'Brasil' },
+    founder: { '@type': 'Person', name: 'Mário Wellington Perazzo', jobTitle: 'Advogado' },
     knowsAbout: [
       'Recuperação Tributária',
       'Direito Tributário',
       'Direito Empresarial',
-      'Direito Civil',
       'Direito Trabalhista',
+      'Direito Imobiliário',
     ],
     availableLanguage: 'pt-BR',
   };

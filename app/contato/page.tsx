@@ -104,22 +104,15 @@ export default async function ContatoPage() {
 
       <Section variant="light">
         <Reveal>
-          {maps ? (
-            <div className="h-[360px] w-full overflow-hidden rounded-card shadow-soft">
-              <iframe
-                src={maps}
-                className="h-full w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localização do escritório no mapa"
-              />
-            </div>
-          ) : (
-            <p className="rounded-card border border-dashed border-muted/40 p-6 text-sm text-muted">
-              [PLACEHOLDER — configure <code>NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL</code> no .env.local
-              para exibir o mapa do endereço aqui.]
-            </p>
-          )}
+          <div className="h-[360px] w-full overflow-hidden rounded-card shadow-soft">
+            <iframe
+              src={maps}
+              className="h-full w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localização do escritório no mapa"
+            />
+          </div>
         </Reveal>
       </Section>
     </>
