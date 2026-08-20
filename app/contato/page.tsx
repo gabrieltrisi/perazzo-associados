@@ -37,7 +37,11 @@ function ContatoItem({
 
 export default async function ContatoPage() {
   const site = await getSiteConfig();
-  const maps = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL;
+  // Usa a URL configurada (se houver) ou gera o mapa a partir do endereço do site-config.
+  const enderecoQuery = encodeURIComponent(site.contato.endereco.join(', ').replace(/[—·]/g, ' ').replace(/\s+/g, ' ').trim());
+  const maps =
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ||
+    `https://www.google.com/maps?q=${enderecoQuery}&output=embed`;
   const wppHref = whatsappHref('Olá! Vim pelo site e gostaria de tirar uma dúvida com o escritório.');
 
   return (
