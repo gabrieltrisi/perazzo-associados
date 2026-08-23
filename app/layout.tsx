@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cinzel, Mulish } from 'next/font/google';
+import { Bodoni_Moda, Inter, Inter_Tight } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -18,17 +18,24 @@ import { OrganizationJsonLd } from '@/components/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
 import Tracker from '@/components/analytics/Tracker';
 
-// Fontes: Cinzel (serif de títulos — romana, monumental, "justiça") + Mulish
-// (sans do corpo, legível). Expostas como variáveis CSS consumidas pelo Tailwind.
-const serif = Cinzel({
+// Fontes: Bodoni Moda (serif editorial dos títulos) + Inter (corpo/UI) +
+// Inter Tight (números/labels). Expostas como variáveis CSS consumidas pelo Tailwind.
+const serif = Bodoni_Moda({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['500', '600'],
   variable: '--font-serif',
   display: 'swap',
 });
-const sans = Mulish({
+const sans = Inter({
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-sans',
+  display: 'swap',
+});
+const tight = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['500'],
+  variable: '--font-tight',
   display: 'swap',
 });
 
@@ -57,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="pt-BR" className={`${serif.variable} ${sans.variable} ${tight.variable}`}>
       <body>
         <OrganizationJsonLd />
         <a href="#conteudo" className="skip-link">

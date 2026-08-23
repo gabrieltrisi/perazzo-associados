@@ -1,33 +1,114 @@
 {
-  "_comentario": "Textos da Home. Tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021).",
+  "_comentario": "Conteúdo da Home (design página única). Tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021). Editável no painel admin.",
   "hero": {
-    "kicker": "Advocacia · Salvador — BA",
-    "titulo": "Expertise jurídica com visão executiva",
-    "subtitulo": "Cobertura jurídica completa para pessoas físicas, empresas e entidades — com a experiência de mais de 40 anos no Direito e na gestão de grandes operações, inclusive no setor de energia e GLP.",
-    "ctaPrimario": "Fale com o escritório",
-    "ctaSecundario": "Conheça as áreas de atuação"
-  },
-  "credibilidade": {
-    "kicker": "O escritório",
-    "titulo": "Atuação séria e comprometida",
-    "itens": [
-      { "titulo": "OAB/BA 22.715", "texto": "Conduzido pelo advogado Mário Wellington Perazzo, regularmente inscrito na Ordem dos Advogados do Brasil, seção Bahia." },
-      { "titulo": "Mais de 40 anos de experiência", "texto": "Trajetória que une a prática da advocacia à gestão executiva nos setores de energia e distribuição — do chão de fábrica a CEO." },
-      { "titulo": "Foco em Recuperação Tributária", "texto": "Especialidade na recuperação de créditos (PIS/COFINS e transição para o IBS/CBS), com atuação em todas as áreas do Direito por meio de parcerias." }
+    "badge": "OAB/BA 22.715 · Salvador",
+    "titulo1": "Do chão de fábrica",
+    "titulo2": "ao tribunal.",
+    "titulo2Destaque": "tribunal",
+    "subtitulo": "Quarenta anos construindo, dirigindo e defendendo operações — da linha de produção à cadeira de CEO, e da cadeira de CEO ao Direito. Hoje essa experiência trabalha pela sua empresa.",
+    "ctaPrimario": "Falar com o escritório",
+    "ctaSecundario": "Ver áreas de atuação",
+    "perfil": {
+      "nome": "Mário W. Perazzo",
+      "cargo": "Advogado · OAB/BA 22.715",
+      "descricao": "Especialidade em recuperação tributária, com a leitura de quem dirigiu operações de grande porte.",
+      "nota": "Atuação em todo o território nacional"
+    },
+    "stats": [
+      { "valor": "40 anos", "label": "entre a indústria e o Direito" },
+      { "valor": "Tributário", "label": "recuperação de créditos" },
+      { "valor": "Salvador", "label": "atuação em todo o Brasil" },
+      { "valor": "Todas as áreas", "label": "por associados especializados" }
     ]
   },
-  "areasResumo": {
-    "kicker": "Áreas de atuação",
-    "titulo": "Como podemos ajudar",
-    "subtitulo": "Recuperação tributária como foco, com atuação em todas as áreas do Direito por meio de parcerias com escritórios especializados."
+  "problema": {
+    "kicker": "O problema",
+    "titulo": "O advogado que não conhece a operação defende no escuro. O gestor que não enxerga o risco jurídico decide no escuro. Sua empresa paga pelos dois.",
+    "destaque": "no escuro"
   },
-  "ctaFinal": {
-    "titulo": "Precisa de orientação jurídica para o seu negócio?",
-    "texto": "Entre em contato para agendar uma conversa sobre o seu caso."
+  "especialidade": {
+    "kicker": "Especialidade principal",
+    "titulo": "Recuperação tributária",
+    "tituloDestaque": "tributária",
+    "texto": "Identificação e recuperação de créditos tributários pagos a maior ou de forma indevida, com ênfase em PIS/COFINS e na transição para o IBS/CBS. Voltada especialmente a empresas enquadradas no Lucro Real.",
+    "passos": [
+      { "num": "01", "titulo": "Diagnóstico", "texto": "Levantamento dos últimos cinco anos de apuração para identificar créditos não aproveitados." },
+      { "num": "02", "titulo": "Recuperação", "texto": "Condução do pedido pela via administrativa ou judicial, conforme o cenário de cada empresa." },
+      { "num": "03", "titulo": "Blindagem", "texto": "Reorganização da rotina fiscal para que o crédito não volte a escapar nos próximos exercícios." }
+    ],
+    "cta": "Entender se minha empresa tem crédito a recuperar"
   },
-  "numeros": [
-    { "valor": 40, "sufixo": "+", "label": "anos de experiência" },
-    { "valor": 4, "sufixo": "", "label": "áreas de atuação" },
-    { "valor": 26, "sufixo": "+", "label": "estados atendidos" }
-  ]
+  "trajetoria": {
+    "kicker": "Trajetória",
+    "titulo": "Dois caminhos que se encontram",
+    "tituloDestaque": "se encontram",
+    "texto": "Poucos advogados dirigiram a operação que hoje defendem. Essa é a diferença que o Dr. Perazzo traz para cada caso.",
+    "marcos": [
+      { "lado": "esq", "icone": "calculator", "titulo": "Contabilidade", "texto": "Formação que ensinou a ler um balanço antes de ler uma peça processual." },
+      { "lado": "dir", "icone": "book", "titulo": "Direito e Sociologia", "texto": "Formação jurídica somada a Sociologia — o Direito como fato social, não só como norma." },
+      { "lado": "esq", "icone": "truck", "titulo": "Gestão e distribuição", "texto": "Anos na operação de energia e distribuição, do chão de fábrica à diretoria." },
+      { "lado": "dir", "icone": "cap", "titulo": "Especializações", "texto": "Processo Civil, Gestão Ambiental e Marketing — o Direito aplicado ao negócio real." },
+      { "lado": "esq", "icone": "building", "titulo": "CEO — GLP", "texto": "Direção de uma das maiores operações de GLP do Brasil, com rede de relacionamento em todo o território nacional." }
+    ],
+    "hoje": { "label": "Hoje", "titulo": "Perazzo & Associados", "texto": "As duas trajetórias a serviço do cliente: precisão técnica de quem conhece a norma, visão prática de quem conheceu a operação." }
+  },
+  "autoridade": {
+    "kicker": "Presença e reconhecimento",
+    "titulo": "Uma voz ouvida no setor",
+    "tituloDestaque": "ouvida",
+    "texto": "Advogado, consultor e palestrante, com participação em debates e fóruns do setor de energia e forte acesso a órgãos e entidades de classe. A rede de relacionamentos construída em quatro décadas se estende por todo o território nacional — e é um ativo colocado a serviço dos clientes em qualquer ponto do Brasil.",
+    "itens": [
+      { "titulo": "OAB/BA 22.715", "texto": "inscrição regular na Ordem dos Advogados do Brasil, seção Bahia." },
+      { "titulo": "Rede nacional", "texto": "relacionamento e atuação em todo o território brasileiro." },
+      { "titulo": "Setor de energia", "texto": "vivência executiva no segmento de GLP e distribuição." }
+    ],
+    "galeria": [
+      { "img": "/assets/cnj.jpg", "legenda": "Conselho Nacional de Justiça · Brasília" },
+      { "img": "/assets/oab-encontro.jpg", "legenda": "Encontro da OAB · 2026" },
+      { "img": "/assets/adapta-arena.jpg", "legenda": "Congresso setorial · 2026" },
+      { "img": "/assets/reuniao.jpg", "legenda": "Reunião de trabalho · escritório" }
+    ]
+  },
+  "principios": {
+    "kicker": "Princípios",
+    "titulo": "O que orienta cada caso",
+    "tituloDestaque": "caso",
+    "missao": "Oferecer orientação e soluções jurídicas com excelência técnica, ética e dedicação, compreendendo as particularidades de cada cliente e atuando de forma personalizada, responsável e integrada na proteção de seus interesses.",
+    "visao": "Ser reconhecido pela confiança, credibilidade e excelência na atuação jurídica, construindo relações duradouras e integrando diferentes competências profissionais.",
+    "valores": [
+      { "titulo": "Ética e integridade", "desc": "Conduta pautada pelo Código de Ética da OAB em cada ato do escritório, sem exceção." },
+      { "titulo": "Excelência técnica", "desc": "Estudo permanente da legislação e da jurisprudência aplicáveis a cada demanda." },
+      { "titulo": "Confiança e credibilidade", "desc": "Relações construídas sobre informação clara e expectativas realistas, do primeiro contato ao encerramento." },
+      { "titulo": "Compromisso com o cliente", "desc": "O interesse do cliente orienta a estratégia — inclusive quando a recomendação é não litigar." },
+      { "titulo": "Atuação personalizada", "desc": "Cada caso é lido a partir da realidade da empresa ou da pessoa, não de um modelo padrão." },
+      { "titulo": "Integração e cooperação", "desc": "Trabalho conjunto com profissionais e escritórios associados, somando competências complementares." },
+      { "titulo": "Responsabilidade", "desc": "Prazos, comunicação e prestação de contas tratados como parte do serviço, não como cortesia." },
+      { "titulo": "Confidencialidade", "desc": "Sigilo profissional sobre tudo o que é confiado ao escritório, durante e depois do caso." },
+      { "titulo": "Aprimoramento contínuo", "desc": "Formação continuada e atualização diante de mudanças legislativas, como a reforma tributária." }
+    ]
+  },
+  "diagnostico": {
+    "kicker": "Diagnóstico em 4 perguntas",
+    "titulo": "Sua empresa pode ter crédito a recuperar?",
+    "tituloDestaque": "crédito a recuperar",
+    "subtitulo": "Quatro perguntas rápidas para entender se faz sentido conversar. Sem cadastro para ver o resultado.",
+    "disclaimer": "Este diagnóstico é orientativo e não substitui a análise técnica de documentos.",
+    "perguntas": [
+      { "pergunta": "Qual o regime tributário da empresa?", "opcoes": [ { "texto": "Lucro Real", "peso": "A" }, { "texto": "Lucro Presumido", "peso": "B" }, { "texto": "Simples Nacional", "peso": "C" }, { "texto": "Não sei", "peso": "C" } ] },
+      { "pergunta": "Faturamento anual aproximado", "opcoes": [ { "texto": "Até R$ 5 milhões", "peso": "-" }, { "texto": "R$ 5 a 30 milhões", "peso": "-" }, { "texto": "Acima de R$ 30 milhões", "peso": "-" }, { "texto": "Prefiro não informar", "peso": "-" } ] },
+      { "pergunta": "A empresa já fez algum levantamento de créditos tributários?", "opcoes": [ { "texto": "Nunca", "peso": "A" }, { "texto": "Há mais de 3 anos", "peso": "A" }, { "texto": "Nos últimos 2 anos", "peso": "B" } ] },
+      { "pergunta": "Existe algum processo, autuação ou fiscalização em curso?", "opcoes": [ { "texto": "Sim", "peso": "-" }, { "texto": "Não", "peso": "-" }, { "texto": "Não tenho certeza", "peso": "-" } ] }
+    ],
+    "resultados": {
+      "A": "Seu perfil é o mais comum entre as empresas que encontram créditos não aproveitados. Uma análise dos últimos cinco anos de apuração é o próximo passo natural.",
+      "B": "Há caminhos possíveis, mas o cenário exige uma leitura mais específica da sua apuração antes de qualquer conclusão.",
+      "C": "O primeiro passo é entender o enquadramento atual. Muitas empresas descobrem nessa conversa que o regime em que estão não é o mais eficiente."
+    },
+    "cta": "Conversar sobre o meu caso"
+  },
+  "contato": {
+    "titulo": "Vamos conversar sobre o seu caso.",
+    "tituloDestaque": "seu caso",
+    "subtitulo": "Uma primeira conversa para entender a situação, sem compromisso."
+  }
 }

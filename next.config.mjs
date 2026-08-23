@@ -40,6 +40,14 @@ const nextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
+  // Página única: rotas antigas viram âncoras da home (308, preserva SEO).
+  async redirects() {
+    return [
+      { source: '/sobre', destination: '/#trajetoria', permanent: true },
+      { source: '/areas-de-atuacao', destination: '/#areas', permanent: true },
+      { source: '/contato', destination: '/#contato', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

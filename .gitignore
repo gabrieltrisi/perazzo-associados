@@ -34,3 +34,9 @@ next-env.d.ts
 /prisma/dev.db
 /prisma/dev.db-journal
 *.db
+# Arquivos de handoff/design (referência — não fazem parte do app)
+/assets/
+/perazzo-home.html
+/shaders.js
+/support.js
+/HANDOFF_Perazzo_Advogados.md

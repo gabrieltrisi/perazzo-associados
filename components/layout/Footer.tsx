@@ -17,10 +17,11 @@ export default async function Footer() {
   return (
     <footer className="bg-navy-deep text-white/80">
       <div className="container-px grid gap-10 py-14 md:grid-cols-4">
-        {/* Logo textual + endereço */}
+        {/* Logo + endereço */}
         <div>
-          <p className="font-serif text-lg font-bold text-white">{site.nomeCompleto}</p>
-          <address className="mt-3 whitespace-pre-line not-italic text-sm leading-relaxed text-white/70">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-perazzo.png" alt={site.nomeCompleto} className="h-11 w-auto" />
+          <address className="mt-4 whitespace-pre-line not-italic text-sm leading-relaxed text-white/70">
             {site.contato.endereco.map((linha) => (
               <span key={linha} className="block">
                 {linha}

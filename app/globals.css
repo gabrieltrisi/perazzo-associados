@@ -20,6 +20,8 @@ html.lenis body {
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Offset das âncoras da página única por causa do header fixo (~72px). */
+    scroll-padding-top: 88px;
   }
   body {
     @apply bg-offwhite text-ink font-sans antialiased;
@@ -166,3 +168,7 @@ html.has-custom-cursor * {
     @apply mx-auto w-full max-w-content px-5 sm:px-8;
   }
 }
+/* Home (novo design) — atmosfera do Hero */
+@keyframes pzDrift { 0% { transform: translate3d(-2%, -1.5%, 0) scale(1.04); } 100% { transform: translate3d(2%, 1.5%, 0) scale(1.12); } }
+@keyframes pzFloat { 0% { transform: translate(-50%, -52%); } 100% { transform: translate(-50%, -47%); } }
+@media (prefers-reduced-motion: reduce) { .animate-\[pzDrift_30s_ease-in-out_infinite_alternate\], .animate-\[pzFloat_16s_ease-in-out_infinite_alternate\] { animation: none !important; } }

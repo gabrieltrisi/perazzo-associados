@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export type DadosContato = {
   nome: string;
@@ -48,37 +49,64 @@ function montarHtml(d: DadosContato): string {
 }
 
 /**
- * Envia a mensagem do formulário para o e-mail institucional via Resend.
- * Se as variáveis não estiverem configuradas (ex.: em dev), NÃO falha —
- * apenas registra e retorna `enviado: false` com motivo 'nao-configurado'.
+ * Envia a mensagem do formulário para o e-mail institucional.
+ * Provedor escolhido por variáveis de ambiente, nesta ordem:
+ *   1) SMTP do Zoho (ZOHO_SMTP_USER + ZOHO_SMTP_PASS) — recomendado;
+ *   2) Resend (RESEND_API_KEY);
+ *   3) nenhum configurado → NÃO falha, retorna 'nao-configurado' (ok em dev).
  */
 export async function enviarEmailContato(dados: DadosContato) {
+  const subject = `Novo contato pelo site — ${dados.nome}`;
+  const text =
+    `Nome: ${dados.nome}\n` +
+    `E-mail: ${dados.email}\n` +
+    `Telefone: ${dados.telefone || '—'}\n\n` +
+    `Mensagem:\n${dados.mensagem}`;
+  const html = montarHtml(dados);
+
+  const zohoUser = process.env.ZOHO_SMTP_USER;
+  const zohoPass = process.env.ZOHO_SMTP_PASS;
+  const to = process.env.CONTACT_EMAIL_TO || zohoUser;
+  const from = process.env.CONTACT_EMAIL_FROM || (zohoUser ? `Perazzo & Associados <${zohoUser}>` : undefined);
+
+  // 1) Zoho SMTP (preferido)
+  if (zohoUser && zohoPass && to && from) {
+    const port = Number(process.env.ZOHO_SMTP_PORT || 465);
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.com',
+        port,
+        secure: port === 465, // 465 = SSL; 587 = STARTTLS
+        auth: { user: zohoUser, pass: zohoPass },
+      });
+      await transporter.sendMail({ from, to, replyTo: dados.email, subject, text, html });
+      return { enviado: true as const };
+    } catch (err) {
+      console.error('[contato] Erro Zoho SMTP:', err instanceof Error ? err.message : err);
+      return { enviado: false, motivo: 'erro-envio' as const };
+    }
+  }
+
+  // 2) Resend (fallback)
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_EMAIL_TO;
-  const from = process.env.CONTACT_EMAIL_FROM || 'Perazzo & Associados <onboarding@resend.dev>';
-
-  if (!apiKey || !to) {
-    console.warn('[contato] RESEND_API_KEY/CONTACT_EMAIL_TO ausentes — e-mail NÃO enviado (ok em dev).');
-    return { enviado: false, motivo: 'nao-configurado' as const };
+  if (apiKey && to) {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: from || 'Perazzo & Associados <onboarding@resend.dev>',
+      to,
+      replyTo: dados.email,
+      subject,
+      text,
+      html,
+    });
+    if (error) {
+      console.error('[contato] Erro Resend:', error);
+      return { enviado: false, motivo: 'erro-envio' as const };
+    }
+    return { enviado: true as const };
   }
 
-  const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({
-    from,
-    to,
-    replyTo: dados.email,
-    subject: `Novo contato pelo site — ${dados.nome}`,
-    text:
-      `Nome: ${dados.nome}\n` +
-      `E-mail: ${dados.email}\n` +
-      `Telefone: ${dados.telefone || '—'}\n\n` +
-      `Mensagem:\n${dados.mensagem}`,
-    html: montarHtml(dados),
-  });
-
-  if (error) {
-    console.error('[contato] Erro Resend:', error);
-    return { enviado: false, motivo: 'erro-envio' as const };
-  }
-  return { enviado: true as const };
+  // 3) Nada configurado
+  console.warn('[contato] Nenhum provedor de e-mail configurado (Zoho/Resend) — e-mail NÃO enviado (ok em dev).');
+  return { enviado: false, motivo: 'nao-configurado' as const };
 }

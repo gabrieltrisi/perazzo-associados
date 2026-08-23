@@ -29,6 +29,18 @@
       "titulo": "Direito Imobiliário e Patrimonial",
       "destaque": false,
       "descricao": "Compra e venda, locações comerciais e residenciais, regularização de imóveis e consultoria em empreendimentos, além de planejamento patrimonial e sucessório."
+    },
+    {
+      "icone": "civel",
+      "titulo": "Cível e Contratual",
+      "destaque": false,
+      "descricao": "Contencioso cível, responsabilidade civil, contratos e negociações extrajudiciais, com abordagem estratégica caso a caso."
+    },
+    {
+      "icone": "previdenciario",
+      "titulo": "Previdenciário",
+      "destaque": false,
+      "descricao": "Benefícios, revisões e planejamento previdenciário para pessoas físicas e empresas, conduzido por profissionais associados."
     }
   ],
   "parcerias": {

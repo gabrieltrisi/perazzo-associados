@@ -8,12 +8,19 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://perazzoadvogados.c
 
 export async function OrganizationJsonLd() {
   const site = await getSiteConfig();
+  // Só inclui redes realmente preenchidas (evita URLs placeholder no schema).
+  const sameAs = [site.redes.instagram, site.redes.linkedin, site.redes.facebook].filter(
+    (u): u is string => !!u && !u.startsWith('['),
+  );
   const data = {
     '@context': 'https://schema.org',
-    '@type': 'LegalService',
+    '@type': ['LegalService', 'Attorney'],
+    '@id': `${SITE_URL}/#escritorio`,
     name: site.nomeCompleto,
     url: SITE_URL,
     image: `${SITE_URL}/logo-og.webp`,
+    logo: `${SITE_URL}/logo-perazzo.png`,
+    slogan: 'Visão executiva + expertise jurídica',
     description:
       'Escritório de advocacia em Salvador (BA) com foco em recuperação tributária e atuação em todas as áreas do Direito por meio de parcerias.',
     telephone: `+${site.contato.telefoneLink}`,
@@ -27,15 +34,25 @@ export async function OrganizationJsonLd() {
       addressCountry: 'BR',
     },
     areaServed: { '@type': 'Country', name: 'Brasil' },
-    founder: { '@type': 'Person', name: 'Mário Wellington Perazzo', jobTitle: 'Advogado' },
+    founder: {
+      '@type': 'Person',
+      name: 'Mário Wellington Perazzo',
+      jobTitle: 'Advogado',
+      knowsAbout: ['Recuperação Tributária', 'Direito Tributário', 'Setor de energia e GLP'],
+    },
     knowsAbout: [
       'Recuperação Tributária',
       'Direito Tributário',
+      'PIS/COFINS',
+      'Reforma Tributária (IBS/CBS)',
       'Direito Empresarial',
       'Direito Trabalhista',
       'Direito Imobiliário',
+      'Direito Previdenciário',
+      'Direito Cível',
     ],
     availableLanguage: 'pt-BR',
+    ...(sameAs.length ? { sameAs } : {}),
   };
   return (
     <script

@@ -1,8 +1,9 @@
-// Itens do menu principal — usados no Header e no Footer.
+// Itens do menu principal — página única (âncoras) + Blog (rota real).
+// href com "/#id" funciona de qualquer página (na Home rola, fora dela navega e rola).
 export const NAV = [
-  { href: '/', label: 'Home' },
-  { href: '/sobre', label: 'Sobre' },
-  { href: '/areas-de-atuacao', label: 'Áreas de Atuação' },
+  { href: '/#especialidade', label: 'Especialidade' },
+  { href: '/#trajetoria', label: 'Trajetória' },
+  { href: '/#areas', label: 'Áreas' },
+  { href: '/#autoridade', label: 'Autoridade' },
   { href: '/blog', label: 'Blog' },
-  { href: '/contato', label: 'Contato' },
 ] as const;

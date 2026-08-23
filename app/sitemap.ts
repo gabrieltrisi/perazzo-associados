@@ -4,12 +4,11 @@ import { getAllPosts } from '@/lib/blog';
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://perazzoadvogados.com.br';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Página única: /sobre, /areas-de-atuacao e /contato agora redirecionam
+  // para âncoras da home (308) — por isso não entram no sitemap.
   const rotas = [
     '',
-    '/sobre',
-    '/areas-de-atuacao',
     '/blog',
-    '/contato',
     '/politica-de-privacidade',
     '/termos-de-uso',
   ];

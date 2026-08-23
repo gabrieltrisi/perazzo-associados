@@ -21,9 +21,9 @@ export default function Logo() {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/logo.webp"
+      src="/logo-perazzo.png"
       alt="Perazzo & Associados Advogados"
-      className="h-10 w-auto"
+      className="h-9 w-auto sm:h-10"
       onError={() => setErro(true)}
     />
   );

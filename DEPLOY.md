@@ -1,121 +1,57 @@
-# Deploy — VPS (Hostinger / Ubuntu)
+# Deploy — Perazzo & Associados
 
-Guia para publicar o site (Next.js + Prisma) num VPS. O banco é o **Neon
-(PostgreSQL)** — já configurado, separado do servidor.
-
-> Specs recomendadas: **KVM 2 (2 vCPU, 8 GB)**, Ubuntu 22.04/24.04 limpo.
-> Com KVM 1 (4 GB), adicione swap (passo 4).
+**Hospedagem:** Vercel, conectada ao GitHub `gabrieltrisi/perazzo-associados`.
+**Fluxo:** `git push` na branch **`main`** → a Vercel builda e publica em produção automaticamente.
+**Banco:** Neon (PostgreSQL) — externo, mesma `DATABASE_URL` de dev e prod.
 
 ---
 
-## 1. Domínio → VPS
-No painel do domínio (ex.: Registro.br), aponte para o IP do VPS:
-- Registro **A** `@` → `IP_DO_VPS`
-- Registro **A** `www` → `IP_DO_VPS`
+## Publicar (deploy)
 
-(A propagação leva de minutos a algumas horas.)
-
-## 2. Acessar o servidor
 ```bash
-ssh root@IP_DO_VPS
+git add -A
+git commit -m "sua mensagem"
+git push origin main      # Vercel detecta o push e faz o deploy de produção
 ```
 
-## 3. Pacotes base
-```bash
-apt update && apt upgrade -y
-# Node 20 LTS
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt install -y nodejs git nginx
-npm install -g pm2
-```
+Acompanhe o build em https://vercel.com → projeto **perazzo-associados** → Deployments.
 
-## 4. (Só KVM 1 / 4 GB) — swap para o build não faltar memória
-```bash
-fallocate -l 2G /swapfile && chmod 600 /swapfile
-mkswap /swapfile && swapon /swapfile
-echo '/swapfile none swap sw 0 0' >> /etc/fstab
-```
+---
 
-## 5. Baixar o projeto
-```bash
-mkdir -p /var/www && cd /var/www
-git clone https://github.com/gabrieltrisi/perazzo-associados.git perazzo
-cd perazzo
-```
+## Variáveis de ambiente (Vercel → Settings → Environment Variables)
 
-## 6. Variáveis de ambiente
-Crie o arquivo `.env` (NÃO é versionado):
-```bash
-nano .env
-```
-Conteúdo (troque os valores):
-```
-DATABASE_URL="postgresql://...neon.../neondb?sslmode=require&channel_binding=require"
-JWT_SECRET="uma-chave-aleatoria-forte"
-ADMIN_EMAIL="seu-email"
-ADMIN_PASSWORD="uma-senha-forte"
-NEXT_PUBLIC_SITE_URL="https://perazzoadvogados.com.br"
-# Opcionais: RESEND_API_KEY, CONTACT_EMAIL_TO, NEXT_PUBLIC_WHATSAPP_NUMBER, etc.
-```
-Gerar um JWT_SECRET: `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`
+As de produção já existem (o site roda). Ao ligar o **envio do formulário**, adicione o bloco Zoho:
 
-## 7. Instalar, migrar e buildar
-```bash
-npm ci
-npx prisma generate
-npx prisma migrate deploy   # cria/atualiza as tabelas no Neon (idempotente)
-npm run build
-```
+| Variável | Obrigatória | Observação |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | ✅ | `https://perazzoadvogados.com.br` |
+| `DATABASE_URL` | ✅ | String **pooled** do Neon |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | ✅ | Login do painel (senha forte) |
+| `JWT_SECRET` | ✅ | Aleatório forte (≥ 32 chars) |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | ✅ | `55` + DDD + número |
+| `CONTACT_EMAIL_TO` / `CONTACT_EMAIL_FROM` | ✅ | Caixa contato@ |
+| **`ZOHO_SMTP_HOST/PORT/USER/PASS`** | ✅ (p/ enviar) | **Adicionar.** Sem `ZOHO_SMTP_PASS` o form não envia. |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY` | ⬜ | Anti-spam (recomendado) |
+| `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` | ⬜ | Sem ela o mapa usa fallback pelo endereço |
+| `RESEND_API_KEY` | ⬜ | Só se NÃO usar o Zoho |
 
-## 8. Subir com PM2
-```bash
-pm2 start ecosystem.config.cjs
-pm2 save
-pm2 startup    # rode o comando que ele imprimir (liga o PM2 no boot)
-```
-O app agora roda em `127.0.0.1:3000`.
+> Depois de adicionar/alterar variável na Vercel, faça um **Redeploy** para valer.
 
-## 9. Nginx (proxy reverso)
+Gerar segredos fortes:
 ```bash
-cp deploy/nginx.conf.example /etc/nginx/sites-available/perazzo
-# ajuste o server_name se o domínio for outro:
-nano /etc/nginx/sites-available/perazzo
-ln -s /etc/nginx/sites-available/perazzo /etc/nginx/sites-enabled/
-rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl reload nginx
-```
-
-## 10. HTTPS (SSL grátis, Let's Encrypt)
-```bash
-apt install -y certbot python3-certbot-nginx
-certbot --nginx -d perazzoadvogados.com.br -d www.perazzoadvogados.com.br
-```
-Renova sozinho. O site já responde em **https://**.
-
-## 11. Firewall (recomendado)
-```bash
-ufw allow OpenSSH
-ufw allow 'Nginx Full'
-ufw --force enable
+node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"  # JWT_SECRET
+node -e "console.log(require('crypto').randomBytes(12).toString('base64url'))"  # ADMIN_PASSWORD
 ```
 
 ---
 
-## Atualizar o site depois (nova versão)
-```bash
-cd /var/www/perazzo && bash deploy/update.sh
-```
+## Notas
 
-## Segurança (antes do go-live)
-- [ ] **Resetar a senha do Neon** (apareceu em conversa) e usar a nova no `.env`
-- [ ] `ADMIN_PASSWORD` forte (nunca `admin123`)
-- [ ] `JWT_SECRET` só no `.env` do servidor (nunca no código)
-- [ ] Firewall ligado (passo 11)
-- [ ] Ligar reCAPTCHA no formulário (chaves no `.env`) — opcional
-
-## Comandos úteis
-```bash
-pm2 logs perazzo     # ver logs
-pm2 restart perazzo  # reiniciar
-pm2 monit            # monitorar
-```
+- **Build:** `npm run build` (= `prisma generate && next build`). Validado localmente — passa limpo.
+- **Migrations não rodam no build.** O schema já está no Neon; só rode `npx prisma migrate deploy`
+  se apontar para um banco novo.
+- **Conteúdo do `/admin`** grava no Neon e **sobrepõe** os JSON de `content/` (JSON = padrão de fábrica / fallback).
+- **DNS/E-mail:** o domínio já aponta pra Vercel; MX/SPF/DKIM do Zoho permanecem intocados.
+- **Checklist pós-deploy:** Hero 3D abre · header sólido ao rolar · `/sobre` `/areas-de-atuacao` `/contato`
+  redirecionam (308) · formulário chega em contato@ (exige `ZOHO_SMTP_PASS`) · `/admin` salva e reflete ·
+  favicon (monograma P) na aba.

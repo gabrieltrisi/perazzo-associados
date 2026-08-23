@@ -15,7 +15,7 @@ export default async function TermosDeUsoPage() {
   const email = site.contato.email;
 
   return (
-    <Section variant="light">
+    <Section variant="light" className="pt-[clamp(112px,13vw,152px)]">
       <article className="mx-auto max-w-3xl">
         <span className="kicker">Legal</span>
         <span className="gold-rule mt-3" />
