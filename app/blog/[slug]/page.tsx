@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import type { Components } from 'react-markdown';
 import Reveal from '@/components/ui/Reveal';
 import ShareButtons from '@/components/blog/ShareButtons';
 import { LuArrowLeft } from 'react-icons/lu';
@@ -38,18 +40,20 @@ export async function generateMetadata({
   };
 }
 
-// Estilo dos elementos MDX no novo design (títulos em Bodoni, corpo legível).
-const mdxComponents = {
-  h2: (p: React.ComponentProps<'h2'>) => <h2 className="mt-10 font-serif text-[26px] font-medium text-ink" {...p} />,
-  h3: (p: React.ComponentProps<'h3'>) => <h3 className="mt-7 font-serif text-[21px] font-medium text-ink" {...p} />,
-  p: (p: React.ComponentProps<'p'>) => <p className="text-[17px] leading-[1.8] text-ink/85" {...p} />,
-  ul: (p: React.ComponentProps<'ul'>) => <ul className="list-disc space-y-2 pl-5 text-[17px] leading-[1.8] text-ink/85" {...p} />,
-  ol: (p: React.ComponentProps<'ol'>) => <ol className="list-decimal space-y-2 pl-5 text-[17px] leading-[1.8] text-ink/85" {...p} />,
-  a: (p: React.ComponentProps<'a'>) => <a className="text-gold-dark underline underline-offset-2 hover:text-gold" {...p} />,
-  blockquote: (p: React.ComponentProps<'blockquote'>) => (
+// Estilo dos elementos do Markdown no novo design (títulos em Bodoni, corpo legível).
+// Usamos react-markdown (NÃO executa JSX/expressões — elimina o vetor de RCE do MDX).
+const mdComponents: Components = {
+  h2: ({ node, ...p }) => <h2 className="mt-10 font-serif text-[26px] font-medium text-ink" {...p} />,
+  h3: ({ node, ...p }) => <h3 className="mt-7 font-serif text-[21px] font-medium text-ink" {...p} />,
+  p: ({ node, ...p }) => <p className="text-[17px] leading-[1.8] text-ink/85" {...p} />,
+  ul: ({ node, ...p }) => <ul className="list-disc space-y-2 pl-5 text-[17px] leading-[1.8] text-ink/85" {...p} />,
+  ol: ({ node, ...p }) => <ol className="list-decimal space-y-2 pl-5 text-[17px] leading-[1.8] text-ink/85" {...p} />,
+  a: ({ node, ...p }) => <a className="text-gold-dark underline underline-offset-2 hover:text-gold" {...p} />,
+  blockquote: ({ node, ...p }) => (
     <blockquote className="rounded-r-lg border-l-4 border-gold bg-offwhite p-5 font-serif text-[19px] italic text-muted" {...p} />
   ),
-  em: (p: React.ComponentProps<'em'>) => <em className="text-muted" {...p} />,
+  strong: ({ node, ...p }) => <strong className="font-semibold text-ink" {...p} />,
+  em: ({ node, ...p }) => <em className="text-muted" {...p} />,
 };
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -94,7 +98,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       >
         <article className="relative mx-auto max-w-3xl">
           <div className="space-y-5">
-            <MDXRemote source={post.content} components={mdxComponents} />
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+              {post.content}
+            </ReactMarkdown>
           </div>
           <div className="mt-12 border-t border-line pt-6">
             <ShareButtons title={post.title} />
