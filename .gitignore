@@ -40,3 +40,5 @@ next-env.d.ts
 /shaders.js
 /support.js
 /HANDOFF_Perazzo_Advogados.md
+
+.vercel

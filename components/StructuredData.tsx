@@ -6,6 +6,12 @@ import { getSiteConfig } from '@/lib/site-content';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://perazzoadvogados.com.br';
 
+// Serializa com escape de "<" para JSON-LD — impede que um campo do CMS
+// contendo "</script>" quebre o bloco e injete HTML/JS (stored XSS).
+function jsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 export async function OrganizationJsonLd() {
   const site = await getSiteConfig();
   // Só inclui redes realmente preenchidas (evita URLs placeholder no schema).
@@ -57,7 +63,7 @@ export async function OrganizationJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLd(data) }}
     />
   );
 }
@@ -75,7 +81,7 @@ export function FaqJsonLd({ itens }: { itens: { pergunta: string; resposta: stri
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLd(data) }}
     />
   );
 }

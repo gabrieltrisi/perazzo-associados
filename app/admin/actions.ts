@@ -10,20 +10,39 @@ async function exigirAdmin() {
   if (!(await getAdmin())) redirect('/admin/login');
 }
 
-// Lê um campo de lista (JSON serializado pelo ListaEditor).
+const MAX_ITENS = 60; // teto de itens por lista
+const MAX_CAMPO = 8000; // teto de caracteres por campo
+const MAX_JSON = 200_000; // teto do JSON bruto (anti-DoS/bloat)
+
+// Lê um campo de lista (JSON serializado pelo ListaEditor), com limites de
+// segurança: rejeita payload gigante, limita nº de itens e tamanho dos campos.
 function lista(formData: FormData, name: string): Record<string, unknown>[] {
   try {
-    const arr = JSON.parse(String(formData.get(name) ?? '[]'));
-    return Array.isArray(arr) ? arr : [];
+    const raw = String(formData.get(name) ?? '[]');
+    if (raw.length > MAX_JSON) return [];
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return [];
+    return arr.slice(0, MAX_ITENS).map((it) => {
+      const o: Record<string, unknown> = {};
+      for (const [k, v] of Object.entries(it ?? {})) {
+        o[k] = typeof v === 'boolean' ? v : String(v ?? '').slice(0, MAX_CAMPO);
+      }
+      return o;
+    });
   } catch {
     return [];
   }
 }
 
+// Lê um campo de texto do form, limitado a MAX_CAMPO caracteres.
+function campo(formData: FormData, k: string): string {
+  return String(formData.get(k) ?? '').slice(0, MAX_CAMPO);
+}
+
 export async function salvarHome(formData: FormData) {
   await exigirAdmin();
   const atual = await getHome();
-  const g = (k: string) => String(formData.get(k) ?? '');
+  const g = (k: string) => campo(formData, k);
 
   const novo = {
     ...atual,
@@ -123,7 +142,7 @@ export async function salvarHome(formData: FormData) {
 export async function salvarContato(formData: FormData) {
   await exigirAdmin();
   const atual = await getSiteConfig();
-  const g = (k: string) => String(formData.get(k) ?? '');
+  const g = (k: string) => campo(formData, k);
 
   const novo = {
     ...atual,
@@ -158,7 +177,7 @@ export async function salvarContato(formData: FormData) {
 export async function salvarFaq(formData: FormData) {
   await exigirAdmin();
   const atual = await getFaq();
-  const g = (k: string) => String(formData.get(k) ?? '');
+  const g = (k: string) => campo(formData, k);
   const novo = {
     ...atual,
     kicker: g('kicker'),
@@ -175,7 +194,7 @@ export async function salvarFaq(formData: FormData) {
 export async function salvarAreas(formData: FormData) {
   await exigirAdmin();
   const atual = await getAreas();
-  const g = (k: string) => String(formData.get(k) ?? '');
+  const g = (k: string) => campo(formData, k);
   const novo = {
     ...atual,
     hero: {
@@ -197,7 +216,7 @@ export async function salvarAreas(formData: FormData) {
 export async function salvarSobre(formData: FormData) {
   await exigirAdmin();
   const atual = await getSobre();
-  const g = (k: string) => String(formData.get(k) ?? '');
+  const g = (k: string) => campo(formData, k);
   const strList = (name: string) => lista(formData, name).map((o) => String(o.v ?? ''));
   const novo = {
     ...atual,
