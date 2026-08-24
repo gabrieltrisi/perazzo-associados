@@ -53,7 +53,7 @@ export default function Contato({ content, site }: Props) {
                 <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gold/15 text-gold"><LuPhone className="h-5 w-5" /></span>
                 <span><span className="block text-[11px] uppercase tracking-[0.12em] text-gold">Telefone</span><span className="text-[15px] text-white">{c.telefoneExibicao}</span></span>
               </a>
-              <a href={`mailto:${c.email}`} className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-navy-deep/40 p-4 transition hover:border-gold/50">
+              <a href={`mailto:${c.email}?subject=${encodeURIComponent('Contato pelo site — Perazzo & Associados')}`} className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-navy-deep/40 p-4 transition hover:border-gold/50">
                 <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gold/15 text-gold"><LuMail className="h-5 w-5" /></span>
                 <span><span className="block text-[11px] uppercase tracking-[0.12em] text-gold">E-mail</span><span className="break-all text-[15px] text-white">{c.email}</span></span>
               </a>
