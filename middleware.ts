@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { ADMIN_COOKIE, verificarAdmin } from '@/lib/admin-auth';
+import { ADMIN_COOKIE, verificarToken } from '@/lib/admin-auth';
 
 /**
  * Fronteiras de autenticação:
@@ -15,8 +15,8 @@ export async function middleware(request: NextRequest) {
   // ---- Admin (dono) ----
   if (pathname.startsWith('/admin')) {
     if (pathname === '/admin/login') return NextResponse.next();
-    const admin = await verificarAdmin(request.cookies.get(ADMIN_COOKIE)?.value);
-    if (!admin) {
+    const tok = await verificarToken(request.cookies.get(ADMIN_COOKIE)?.value);
+    if (!tok) {
       const url = new URL('/admin/login', request.url);
       url.searchParams.set('redirect', pathname);
       return NextResponse.redirect(url);

@@ -2,12 +2,17 @@
 
 import { revalidateTag, revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getAdmin } from '@/lib/admin-session';
+import { headers } from 'next/headers';
+import { exigirAdmin, exigirOwner } from '@/lib/admin-session';
+import { registrarAudit } from '@/lib/audit';
+import { criarUsuario, setUsuarioAtivo, redefinirSenha } from '@/lib/users';
+import { ipDeHeaders } from '@/lib/rate-limit';
 import { setContent, contentTag } from '@/lib/content';
 import { getHome, getSiteConfig, getFaq, getAreas, getSobre } from '@/lib/site-content';
 
-async function exigirAdmin() {
-  if (!(await getAdmin())) redirect('/admin/login');
+// Registra no audit log qual admin salvou qual seção.
+async function auditar(email: string, secao: string) {
+  await registrarAudit(email, `salvar:${secao}`, '', ipDeHeaders(await headers()));
 }
 
 const MAX_ITENS = 60; // teto de itens por lista
@@ -40,7 +45,7 @@ function campo(formData: FormData, k: string): string {
 }
 
 export async function salvarHome(formData: FormData) {
-  await exigirAdmin();
+  const admin = await exigirAdmin();
   const atual = await getHome();
   const g = (k: string) => campo(formData, k);
 
@@ -134,13 +139,14 @@ export async function salvarHome(formData: FormData) {
   };
 
   await setContent('home', novo);
+  await auditar(admin.email, 'home');
   revalidateTag(contentTag('home'));
   revalidatePath('/');
   redirect('/admin/home?salvo=1');
 }
 
 export async function salvarContato(formData: FormData) {
-  await exigirAdmin();
+  const admin = await exigirAdmin();
   const atual = await getSiteConfig();
   const g = (k: string) => campo(formData, k);
 
@@ -169,13 +175,14 @@ export async function salvarContato(formData: FormData) {
   };
 
   await setContent('site-config', novo);
+  await auditar(admin.email, 'contato');
   revalidateTag(contentTag('site-config'));
   revalidatePath('/', 'layout'); // contato + rodapé (em todas as páginas)
   redirect('/admin/contato?salvo=1');
 }
 
 export async function salvarFaq(formData: FormData) {
-  await exigirAdmin();
+  const admin = await exigirAdmin();
   const atual = await getFaq();
   const g = (k: string) => campo(formData, k);
   const novo = {
@@ -186,13 +193,14 @@ export async function salvarFaq(formData: FormData) {
     itens: lista(formData, 'itens'),
   };
   await setContent('faq', novo);
+  await auditar(admin.email, 'faq');
   revalidateTag(contentTag('faq'));
   revalidatePath('/'); // FAQ aparece na home
   redirect('/admin/faq?salvo=1');
 }
 
 export async function salvarAreas(formData: FormData) {
-  await exigirAdmin();
+  const admin = await exigirAdmin();
   const atual = await getAreas();
   const g = (k: string) => campo(formData, k);
   const novo = {
@@ -207,6 +215,7 @@ export async function salvarAreas(formData: FormData) {
     parcerias: { ...atual.parcerias, titulo: g('parcerias.titulo'), texto: g('parcerias.texto') },
   };
   await setContent('areas', novo);
+  await auditar(admin.email, 'areas');
   revalidateTag(contentTag('areas'));
   revalidatePath('/');
   revalidatePath('/areas-de-atuacao');
@@ -214,7 +223,7 @@ export async function salvarAreas(formData: FormData) {
 }
 
 export async function salvarSobre(formData: FormData) {
-  await exigirAdmin();
+  const admin = await exigirAdmin();
   const atual = await getSobre();
   const g = (k: string) => campo(formData, k);
   const strList = (name: string) => lista(formData, name).map((o) => String(o.v ?? ''));
@@ -231,7 +240,52 @@ export async function salvarSobre(formData: FormData) {
     principios: { ...atual.principios, titulo: g('principios.titulo'), itens: strList('principios') },
   };
   await setContent('sobre', novo);
+  await auditar(admin.email, 'sobre');
   revalidateTag(contentTag('sobre'));
   revalidatePath('/sobre');
   redirect('/admin/sobre?salvo=1');
+}
+
+// ─── Gestão de usuários (somente owner) ──────────────────────────────────
+
+export async function criarUsuarioAction(formData: FormData) {
+  const admin = await exigirOwner();
+  const email = campo(formData, 'email').trim().toLowerCase();
+  const name = campo(formData, 'name').trim();
+  const senha = String(formData.get('senha') ?? '');
+  const role = campo(formData, 'role') === 'owner' ? 'owner' : 'editor';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || senha.length < 8) {
+    redirect('/admin/usuarios?erro=dados');
+  }
+  try {
+    await criarUsuario({ email, name, senha, role });
+  } catch {
+    redirect('/admin/usuarios?erro=existe'); // provável e-mail duplicado
+  }
+  await registrarAudit(admin.email, 'user:criar', `${email} (${role})`, ipDeHeaders(await headers()));
+  revalidatePath('/admin/usuarios');
+  redirect('/admin/usuarios?salvo=1');
+}
+
+export async function alternarAtivoAction(formData: FormData) {
+  const admin = await exigirOwner();
+  const id = Number(formData.get('id'));
+  const ativar = String(formData.get('ativar')) === '1';
+  if (!Number.isInteger(id)) redirect('/admin/usuarios?erro=dados');
+  if (id === admin.id) redirect('/admin/usuarios?erro=self'); // não desative a si mesmo
+  await setUsuarioAtivo(id, ativar);
+  await registrarAudit(admin.email, ativar ? 'user:ativar' : 'user:desativar', `id=${id}`, ipDeHeaders(await headers()));
+  revalidatePath('/admin/usuarios');
+  redirect('/admin/usuarios?salvo=1');
+}
+
+export async function redefinirSenhaAction(formData: FormData) {
+  const admin = await exigirOwner();
+  const id = Number(formData.get('id'));
+  const senha = String(formData.get('senha') ?? '');
+  if (!Number.isInteger(id) || senha.length < 8) redirect('/admin/usuarios?erro=dados');
+  await redefinirSenha(id, senha);
+  await registrarAudit(admin.email, 'user:senha', `id=${id}`, ipDeHeaders(await headers()));
+  revalidatePath('/admin/usuarios');
+  redirect('/admin/usuarios?salvo=1');
 }

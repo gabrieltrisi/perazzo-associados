@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { cookies, headers } from 'next/headers';
-import { ADMIN_COOKIE, assinarAdmin, credenciaisValidas } from '@/lib/admin-auth';
+import { ADMIN_COOKIE, assinarAdmin, credenciaisEnvValidas } from '@/lib/admin-auth';
 import { getAdmin } from '@/lib/admin-session';
+import { verificarLogin, contarUsuarios, criarUsuario } from '@/lib/users';
+import { registrarAudit } from '@/lib/audit';
 import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
 
 export const metadata: Metadata = {
@@ -31,10 +33,17 @@ export default async function AdminLoginPage({
     const senha = String(formData.get('senha') ?? '');
     const dest = String(formData.get('destino') ?? '/admin');
 
-    if (!credenciaisValidas(email, senha)) {
+    let user = await verificarLogin(email, senha);
+    // Seed do 1º owner: se a tabela está vazia e as credenciais batem com as
+    // variáveis de ambiente (ADMIN_EMAIL/ADMIN_PASSWORD), cria o dono inicial.
+    if (!user && (await contarUsuarios()) === 0 && credenciaisEnvValidas(email, senha)) {
+      user = await criarUsuario({ email, name: 'Administrador', senha, role: 'owner' });
+      await registrarAudit(user.email, 'seed:owner', 'Primeiro usuário criado a partir do ambiente', ip);
+    }
+    if (!user) {
       redirect('/admin/login?erro=1');
     }
-    const token = await assinarAdmin(email);
+    const token = await assinarAdmin({ uid: user.id, email: user.email, role: user.role, tv: user.tokenVersion });
     const store = await cookies();
     store.set(ADMIN_COOKIE, token, {
       httpOnly: true,
@@ -43,6 +52,7 @@ export default async function AdminLoginPage({
       path: '/',
       maxAge: 60 * 60 * 8,
     });
+    await registrarAudit(user.email, 'login', '', ip);
     redirect(dest.startsWith('/admin') ? dest : '/admin');
   }
 

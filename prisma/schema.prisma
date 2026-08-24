@@ -40,6 +40,34 @@ model BlogPost {
   updatedAt   DateTime @updatedAt
 }
 
+// Usuários do painel (equipe interna). Senha guardada como hash bcrypt.
+// role: "owner" (gerencia usuários) | "editor" (só edita conteúdo).
+// tokenVersion: incrementar invalida todas as sessões (JWT) do usuário.
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String   @default("")
+  passwordHash String
+  role         String   @default("editor")
+  active       Boolean  @default(true)
+  tokenVersion Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Trilha de auditoria: quem fez o quê no painel. Guarda o e-mail (durável
+// mesmo se o usuário for removido depois).
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userEmail String   @default("")
+  action    String
+  detail    String   @default("")
+  ip        String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
 // Contador simples de visitas por página e dia (resumo no painel).
 // Agregado (não guarda 1 linha por acesso) para não crescer sem controle.
 model PageView {

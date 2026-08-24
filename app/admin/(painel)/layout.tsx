@@ -9,8 +9,8 @@ const nav = [
   { href: '/admin/contato', label: 'Contato' },
   { href: '/admin/faq', label: 'FAQ' },
   { href: '/admin/areas', label: 'Áreas' },
-  { href: '/admin/sobre', label: 'Sobre' },
   { href: '/admin/blog', label: 'Blog' },
+  { href: '/admin/usuarios', label: 'Usuários', owner: true },
 ];
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {
@@ -34,6 +34,9 @@ export default async function PainelLayout({ children }: { children: React.React
               Painel
             </Link>
             <div className="flex shrink-0 items-center gap-4 text-sm">
+              <span className="hidden text-white/50 md:inline">
+                {admin.name || admin.email} · {admin.role === 'owner' ? 'Dono' : 'Editor'}
+              </span>
               <Link href="/" className="hidden text-white/60 transition-colors hover:text-gold sm:inline">
                 Ver site ↗
               </Link>
@@ -46,15 +49,17 @@ export default async function PainelLayout({ children }: { children: React.React
           </div>
           {/* Linha 2: navegação — rola na horizontal no celular */}
           <nav className="-mb-px flex items-center gap-5 overflow-x-auto whitespace-nowrap pb-2 text-sm [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {nav.map((n) => (
-              <Link
-                key={n.href}
-                href={n.href}
-                className="shrink-0 text-white/80 transition-colors hover:text-gold"
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav
+              .filter((n) => !n.owner || admin.role === 'owner')
+              .map((n) => (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className="shrink-0 text-white/80 transition-colors hover:text-gold"
+                >
+                  {n.label}
+                </Link>
+              ))}
           </nav>
         </div>
       </header>
