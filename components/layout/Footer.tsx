@@ -7,12 +7,24 @@ export default async function Footer() {
   const site = await getSiteConfig();
   const ano = new Date().getFullYear(); // ano dinâmico
 
+  // Extrai o "@usuario" do fim da URL da rede (ex.: .../perazzo_advogados → @perazzo_advogados).
+  const arroba = (url: string) => {
+    try {
+      const seg = new URL(url).pathname.replace(/\/+$/, '').split('/').filter(Boolean).pop();
+      return seg ? `@${seg}` : '';
+    } catch {
+      return '';
+    }
+  };
+
   // Só mostra redes que estão realmente preenchidas (ignora placeholders).
   const redes = [
     { href: site.redes.instagram, Icon: FaInstagram, label: 'Instagram' },
     { href: site.redes.linkedin, Icon: FaLinkedinIn, label: 'LinkedIn' },
     { href: site.redes.facebook, Icon: FaFacebookF, label: 'Facebook' },
-  ].filter((r) => r.href && !r.href.startsWith('['));
+  ]
+    .filter((r) => r.href && !r.href.startsWith('['))
+    .map((r) => ({ ...r, texto: arroba(r.href) || r.label }));
 
   return (
     <footer className="bg-navy-deep text-white/80">
@@ -60,17 +72,20 @@ export default async function Footer() {
             </li>
           </ul>
           {redes.length > 0 && (
-            <div className="mt-4 flex gap-3">
-              {redes.map(({ href, Icon, label }) => (
+            <div className="mt-4 flex flex-col gap-2">
+              {redes.map(({ href, Icon, label, texto }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors hover:bg-gold hover:text-navy"
+                  className="group inline-flex items-center gap-2.5 text-sm text-white/80 transition-colors hover:text-gold"
                 >
-                  <Icon size={16} />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                    <Icon size={16} />
+                  </span>
+                  {texto}
                 </a>
               ))}
             </div>
