@@ -6,6 +6,7 @@ import { getAdmin } from '@/lib/admin-session';
 import { verificarLogin, contarUsuarios, criarUsuario } from '@/lib/users';
 import { registrarAudit } from '@/lib/audit';
 import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
+import LoadIntro from '@/components/effects/LoadIntro';
 
 export const metadata: Metadata = {
   title: 'Admin — Entrar',
@@ -58,6 +59,7 @@ export default async function AdminLoginPage({
 
   return (
     <section className="flex min-h-screen items-center bg-navy-deep">
+      <LoadIntro />
       <div className="container-px w-full max-w-md">
         <p className="kicker mb-3 inline-block">Painel do site</p>
         <h1 className="text-[2rem] font-bold text-white">Entrar como administrador</h1>
