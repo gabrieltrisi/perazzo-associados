@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaInstagram, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
+import { FaInstagram, FaLinkedinIn, FaFacebookF, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { getSiteConfig } from '@/lib/site-content';
 import { NAV } from '@/lib/nav';
 
@@ -56,40 +56,49 @@ export default async function Footer() {
           </ul>
         </div>
 
-        {/* Contato + redes */}
+        {/* Contato + redes — tudo no mesmo padrão (chip + texto), enfileirado */}
         <div>
           <p className="kicker mb-3">Contato</p>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <a href={`tel:${site.contato.telefoneLink}`} className="hover:text-gold">
-                {site.contato.telefoneExibicao}
+          <div className="flex flex-col gap-2 text-sm">
+            {/* Telefone — ícone de ligação (tel:) */}
+            <a
+              href={`tel:${site.contato.telefoneLink}`}
+              aria-label="Ligar"
+              className="group inline-flex items-center gap-2.5 text-white/80 transition-colors hover:text-gold"
+            >
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                <FaPhone size={14} />
+              </span>
+              {site.contato.telefoneExibicao}
+            </a>
+            {/* E-mail — ícone de envelope (mailto:) */}
+            <a
+              href={`mailto:${site.contato.email}`}
+              aria-label="Enviar e-mail"
+              className="group inline-flex items-center gap-2.5 break-all text-white/80 transition-colors hover:text-gold"
+            >
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                <FaEnvelope size={14} />
+              </span>
+              {site.contato.email}
+            </a>
+            {/* Redes */}
+            {redes.map(({ href, Icon, label, texto }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 text-white/80 transition-colors hover:text-gold"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                  <Icon size={16} />
+                </span>
+                {texto}
               </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.contato.email}`} className="hover:text-gold">
-                {site.contato.email}
-              </a>
-            </li>
-          </ul>
-          {redes.length > 0 && (
-            <div className="mt-4 flex flex-col gap-2">
-              {redes.map(({ href, Icon, label, texto }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 text-sm text-white/80 transition-colors hover:text-gold"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
-                    <Icon size={16} />
-                  </span>
-                  {texto}
-                </a>
-              ))}
-            </div>
-          )}
+            ))}
+          </div>
         </div>
 
         {/* Legal */}
