@@ -1,6 +1,7 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
+import { Environment, Lightformer } from '@react-three/drei';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { playKnock } from '@/lib/knock';
@@ -9,7 +10,7 @@ const GOLD = '#C7A96F';
 const NAVY = '#0A1E40';
 
 // Estado do golpe do martelo, compartilhado entre os elementos da cena.
-type Strike = { requested: boolean; active: boolean; start: number; impacted: boolean; impactT: number };
+type Strike = { requested: boolean; active: boolean; start: number; impacted: boolean; impactT: number; everStruck: boolean };
 
 const STRIKE_DUR = 0.9; // duração total do golpe (s)
 const IMPACT_AT = 0.34; // fração do golpe em que o martelo atinge o bloco
@@ -126,6 +127,11 @@ function Gavel({ strike }: { strike: React.RefObject<Strike> }) {
       }
       g.current.position.y = restY - d;
       g.current.rotation.z = restRot * (1 - d / DROP); // nivela ao descer
+    } else if (!s.everStruck) {
+      // Dica de interatividade: um leve "respirar" até o usuário clicar a 1ª vez.
+      const b = Math.sin(state.clock.elapsedTime * 2) * 0.06;
+      g.current.position.y = restY + b;
+      g.current.rotation.z = restRot + b * 0.18;
     } else {
       g.current.position.y = restY;
       g.current.rotation.z = restRot;
@@ -172,7 +178,8 @@ function JusticeScene() {
   const rippleMat = useRef<THREE.MeshBasicMaterial>(null);
   const pointer = useRef({ x: 0, y: 0 });
   const scroll = useRef(0);
-  const strike = useRef<Strike>({ requested: false, active: false, start: 0, impacted: false, impactT: 0 });
+  const strike = useRef<Strike>({ requested: false, active: false, start: 0, impacted: false, impactT: 0, everStruck: false });
+  const mouseLight = useRef<THREE.PointLight>(null);
 
   const arm = 1.4;
   const pivotY = 1.32;
@@ -212,6 +219,13 @@ function JusticeScene() {
       s.start = t;
       s.impacted = false;
       s.requested = false;
+      s.everStruck = true;
+    }
+
+    // Luz que segue o mouse — o ouro "acende" conforme o cursor se move.
+    if (mouseLight.current) {
+      mouseLight.current.position.x = THREE.MathUtils.lerp(mouseLight.current.position.x, pointer.current.x * 4.5, 0.08);
+      mouseLight.current.position.y = THREE.MathUtils.lerp(mouseLight.current.position.y, pointer.current.y * 3.2, 0.08);
     }
 
     // Progresso do golpe + detecção do impacto.
@@ -270,8 +284,11 @@ function JusticeScene() {
   });
 
   return (
-    <group ref={tilt} position={[0, -0.1, 0]}>
-      <group ref={sway}>
+    <>
+      {/* Luz que acompanha o cursor — realça o brilho do ouro ao mover o mouse. */}
+      <pointLight ref={mouseLight} position={[0, 0, 4.5]} intensity={22} color={GOLD} distance={16} decay={2} />
+      <group ref={tilt} position={[0, -0.1, 0]}>
+        <group ref={sway}>
         {/* ----- Coluna e base da balança ----- */}
         <mesh position={[0, -0.2, 0]}>
           <cylinderGeometry args={[0.055, 0.075, 3.05, 16]} />
@@ -343,16 +360,17 @@ function JusticeScene() {
         </mesh>
       </group>
     </group>
+    </>
   );
 }
 
-export default function HeroScene() {
+export default function HeroScene({ paused = false }: { paused?: boolean }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 6.2], fov: 45 }}
       dpr={[1, 1.8]}
       gl={{ antialias: true, alpha: true }}
-      frameloop="always"
+      frameloop={paused ? 'never' : 'always'}
     >
       <fog attach="fog" args={['#071530', 7, 16]} />
       <ambientLight intensity={0.6} />
@@ -360,6 +378,12 @@ export default function HeroScene() {
       <directionalLight position={[0, 3, 6]} intensity={0.8} color="#F7F6F2" />
       <pointLight position={[-5, -2, 4]} intensity={45} color={GOLD} />
       <pointLight position={[4, 4, -3]} intensity={30} color="#40537B" />
+      {/* Reflexos no ouro — ambiente procedural (sem assets externos, CSP-safe). */}
+      <Environment resolution={128} frames={1}>
+        <Lightformer intensity={1.4} color="#F7F6F2" position={[0, 2, 5]} scale={[8, 8, 1]} />
+        <Lightformer intensity={1.0} color={GOLD} position={[-5, -1, 3]} scale={[5, 5, 1]} />
+        <Lightformer intensity={0.6} color="#40537B" position={[5, 3, -2]} scale={[5, 5, 1]} />
+      </Environment>
       <GoldDust />
       <JusticeScene />
     </Canvas>
