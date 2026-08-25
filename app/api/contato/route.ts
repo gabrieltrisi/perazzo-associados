@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { enviarEmailContato } from '@/lib/email';
 import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
+import { prisma } from '@/lib/db';
 
 // Verifica o reCAPTCHA v3. Se não houver secret configurada, o captcha é
 // considerado opcional (dev) e a verificação passa.
@@ -71,6 +72,14 @@ export async function POST(req: Request) {
   // Anti-spam
   if (!(await verificarRecaptcha(recaptchaToken))) {
     return NextResponse.json({ ok: false, erro: 'Falha na verificação anti-spam.' }, { status: 400 });
+  }
+
+  // Salva o lead no banco ANTES de enviar — assim o contato nunca se perde,
+  // mesmo que o envio de e-mail falhe. Falha aqui não derruba o formulário.
+  try {
+    await prisma.lead.create({ data: { nome, email, telefone, mensagem, ip } });
+  } catch (e) {
+    console.error('[contato] falha ao salvar lead:', e instanceof Error ? e.message : e);
   }
 
   const r = await enviarEmailContato({ nome, email, telefone, mensagem });

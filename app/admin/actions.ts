@@ -7,6 +7,7 @@ import { exigirAdmin, exigirOwner } from '@/lib/admin-session';
 import { registrarAudit } from '@/lib/audit';
 import { criarUsuario, setUsuarioAtivo, redefinirSenha } from '@/lib/users';
 import { ipDeHeaders } from '@/lib/rate-limit';
+import { prisma } from '@/lib/db';
 import { setContent, contentTag } from '@/lib/content';
 import { getHome, getSiteConfig, getFaq, getAreas, getSobre } from '@/lib/site-content';
 
@@ -288,4 +289,27 @@ export async function redefinirSenhaAction(formData: FormData) {
   await registrarAudit(admin.email, 'user:senha', `id=${id}`, ipDeHeaders(await headers()));
   revalidatePath('/admin/usuarios');
   redirect('/admin/usuarios?salvo=1');
+}
+
+// ─── Leads (formulário de contato) ───────────────────────────────────────
+
+export async function marcarLeadAction(formData: FormData) {
+  const admin = await exigirAdmin();
+  const id = Number(formData.get('id'));
+  const status = String(formData.get('status')) === 'atendido' ? 'atendido' : 'novo';
+  if (!Number.isInteger(id)) redirect('/admin/leads');
+  await prisma.lead.update({ where: { id }, data: { status } });
+  await registrarAudit(admin.email, 'lead:status', `id=${id} -> ${status}`, ipDeHeaders(await headers()));
+  revalidatePath('/admin/leads');
+  redirect('/admin/leads');
+}
+
+export async function excluirLeadAction(formData: FormData) {
+  const admin = await exigirAdmin();
+  const id = Number(formData.get('id'));
+  if (!Number.isInteger(id)) redirect('/admin/leads');
+  await prisma.lead.delete({ where: { id } });
+  await registrarAudit(admin.email, 'lead:excluir', `id=${id}`, ipDeHeaders(await headers()));
+  revalidatePath('/admin/leads');
+  redirect('/admin/leads');
 }

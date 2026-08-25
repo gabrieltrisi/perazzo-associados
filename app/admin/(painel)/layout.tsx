@@ -5,6 +5,7 @@ import { getAdmin } from '@/lib/admin-session';
 import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 const nav = [
+  { href: '/admin/leads', label: 'Leads' },
   { href: '/admin/home', label: 'Home' },
   { href: '/admin/contato', label: 'Contato' },
   { href: '/admin/faq', label: 'FAQ' },

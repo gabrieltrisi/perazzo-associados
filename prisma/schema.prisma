@@ -68,6 +68,22 @@ model AuditLog {
   @@index([createdAt])
 }
 
+// Leads do formulário de contato. Salvos aqui além do e-mail, para não perder
+// nenhum contato (mesmo se o envio de e-mail falhar) e ter histórico no painel.
+model Lead {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String
+  telefone  String   @default("")
+  mensagem  String
+  status    String   @default("novo") // "novo" | "atendido"
+  ip        String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
 // Contador simples de visitas por página e dia (resumo no painel).
 // Agregado (não guarda 1 linha por acesso) para não crescer sem controle.
 model PageView {
