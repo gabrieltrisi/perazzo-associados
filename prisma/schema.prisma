@@ -1,0 +1,97 @@
+// Banco do mini-CMS. PostgreSQL (Neon) em dev e produção — DATABASE_URL vem do
+// ambiente. Aplique o schema com `prisma migrate deploy`.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Conteúdo editável do site: cada seção (home, contato, faq, ...) é uma linha,
+// com o JSON serializado em `data`. String (não Json) para portabilidade entre
+// SQLite e Postgres.
+model SiteContent {
+  key       String   @id
+  data      String
+  updatedAt DateTime @updatedAt
+}
+
+// Rate limiting (janela fixa) para login e formulário. Chave = "escopo:ip".
+model RateLimit {
+  key       String   @id
+  count     Int      @default(0)
+  expiresAt DateTime
+}
+
+// Artigos do blog — editáveis pelo painel (antes eram arquivos MDX).
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String   @default("")
+  excerpt     String   @default("")
+  autor       String   @default("")
+  date        String   @default("") // YYYY-MM-DD
+  content     String   @default("") // Markdown/MDX
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Usuários do painel (equipe interna). Senha guardada como hash bcrypt.
+// role: "owner" (gerencia usuários) | "editor" (só edita conteúdo).
+// tokenVersion: incrementar invalida todas as sessões (JWT) do usuário.
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String   @default("")
+  passwordHash String
+  role         String   @default("editor")
+  active       Boolean  @default(true)
+  tokenVersion Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Trilha de auditoria: quem fez o quê no painel. Guarda o e-mail (durável
+// mesmo se o usuário for removido depois).
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userEmail String   @default("")
+  action    String
+  detail    String   @default("")
+  ip        String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Leads do formulário de contato. Salvos aqui além do e-mail, para não perder
+// nenhum contato (mesmo se o envio de e-mail falhar) e ter histórico no painel.
+model Lead {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String
+  telefone  String   @default("")
+  mensagem  String
+  status    String   @default("novo") // "novo" | "atendido"
+  ip        String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+// Contador simples de visitas por página e dia (resumo no painel).
+// Agregado (não guarda 1 linha por acesso) para não crescer sem controle.
+model PageView {
+  id    Int    @id @default(autoincrement())
+  path  String
+  day   String // YYYY-MM-DD
+  count Int    @default(0)
+
+  @@unique([path, day])
+  @@index([day])
+}

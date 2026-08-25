@@ -1,0 +1,2 @@
+# Scripts de shell SEMPRE com LF (rodam no Linux/servidor).
+*.sh text eol=lf

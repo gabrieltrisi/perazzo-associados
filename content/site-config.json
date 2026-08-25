@@ -1,0 +1,23 @@
+{
+  "_comentario": "EDITE AQUI os dados de contato, endereço e redes sociais. Nenhum desses valores fica hardcoded no código — tudo é lido deste arquivo.",
+  "nomeCurto": "Perazzo & Associados",
+  "nomeCompleto": "Perazzo & Associados Advogados",
+  "tagline": "Visão executiva + expertise jurídica · Salvador (BA)",
+  "oab": "OAB/BA 22.715",
+  "anoFundacao": "",
+  "contato": {
+    "telefoneExibicao": "(85) 98765-0244",
+    "telefoneLink": "5585987650244",
+    "email": "perazzo@perazzoadvogados.com.br",
+    "endereco": [
+      "Hangar Business Park, Torre 01 — Sala 424",
+      "Av. Luís Viana Filho, 13223 — Paralela",
+      "São Cristóvão — Salvador/BA · CEP 41500-300"
+    ]
+  },
+  "redes": {
+    "instagram": "https://www.instagram.com/perazzo_advogados",
+    "linkedin": "",
+    "facebook": ""
+  }
+}

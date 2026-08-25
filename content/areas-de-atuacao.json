@@ -1,0 +1,50 @@
+{
+  "_comentario": "Áreas de atuação. Foco em Recuperação Tributária; demais áreas via parcerias. Tom sóbrio (OAB).",
+  "hero": {
+    "kicker": "Especialidades",
+    "titulo": "Áreas de Atuação",
+    "subtitulo": "Recuperação tributária como especialidade principal, com atuação em todas as áreas do Direito por meio de parcerias com escritórios especializados — atendimento em todo o Brasil."
+  },
+  "areas": [
+    {
+      "icone": "tax",
+      "titulo": "Recuperação Tributária",
+      "destaque": true,
+      "descricao": "Especialidade principal do escritório: identificação e recuperação de créditos tributários pagos de forma indevida ou a maior, com ênfase em PIS/COFINS e na transição para o IBS/CBS. Voltada especialmente a empresas do Lucro Real, com estratégias de otimização da carga tributária."
+    },
+    {
+      "icone": "company",
+      "titulo": "Direito Empresarial",
+      "destaque": false,
+      "descricao": "Contratos, fusões e aquisições, compliance e governança corporativa para empresas de médio e grande porte, com expertise no setor de energia, inclusive GLP."
+    },
+    {
+      "icone": "labor",
+      "titulo": "Direito Trabalhista",
+      "destaque": false,
+      "descricao": "Assessoria a empregadores e trabalhadores em reclamações, acordos coletivos, reestruturações e litígios judiciais — com a visão de quem conhece ambos os lados da relação laboral."
+    },
+    {
+      "icone": "realestate",
+      "titulo": "Direito Imobiliário e Patrimonial",
+      "destaque": false,
+      "descricao": "Compra e venda, locações comerciais e residenciais, regularização de imóveis e consultoria em empreendimentos, além de planejamento patrimonial e sucessório."
+    },
+    {
+      "icone": "civel",
+      "titulo": "Cível e Contratual",
+      "destaque": false,
+      "descricao": "Contencioso cível, responsabilidade civil, contratos e negociações extrajudiciais, com abordagem estratégica caso a caso."
+    },
+    {
+      "icone": "previdenciario",
+      "titulo": "Previdenciário",
+      "destaque": false,
+      "descricao": "Benefícios, revisões e planejamento previdenciário para pessoas físicas e empresas, conduzido por profissionais associados."
+    }
+  ],
+  "parcerias": {
+    "titulo": "Atuação em rede",
+    "texto": "As demais áreas do Direito — como cível, previdenciário e outras — são conduzidas por meio de parcerias com escritórios e profissionais especializados. Essa estrutura multidisciplinar reúne competências complementares, com abordagem estratégica e precisão técnica para lidar com questões jurídicas de alta complexidade em todo o país."
+  }
+}

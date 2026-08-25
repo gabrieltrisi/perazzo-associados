@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lenis (smooth scroll) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset das âncoras da página única por causa do header fixo (~72px). */
+    scroll-padding-top: 88px;
+  }
+  body {
+    @apply bg-offwhite text-ink font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+    text-wrap: balance;
+  }
+  /* Foco visível consistente para navegação por teclado. */
+  :focus-visible {
+    outline: 2px solid #c7a96f;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* Link "pular para o conteúdo" — visível apenas quando focado (teclado). */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  background: #0a1e40;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #c7a96f;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Transição de entrada de página (CSS puro — funciona sem JS). */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-page-in {
+  animation: pageIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-in {
+    animation: none;
+  }
+}
+
+/* ---- Cursor personalizado ---- */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #c7a96f;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid #c7a96f;
+  transition: width 0.22s ease, height 0.22s ease, background 0.22s ease;
+}
+.cursor-ring.cursor-hover {
+  width: 54px;
+  height: 54px;
+  background: rgba(199, 169, 111, 0.12);
+}
+
+/* ---- Intro de carregamento (véu com monograma que sobe) ---- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: #071530;
+  pointer-events: none;
+  animation: introCurtain 0.8s cubic-bezier(0.7, 0, 0.3, 1) 1.15s forwards;
+}
+.intro-mono {
+  width: clamp(110px, 20vw, 200px);
+  height: auto;
+  opacity: 0;
+  animation: introReveal 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+  filter: drop-shadow(0 14px 44px rgba(0, 0, 0, 0.45));
+}
+@keyframes introReveal {
+  0% { opacity: 0; transform: scale(0.8) translateY(6px); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes introCurtain {
+  to { transform: translateY(-100%); }
+}
+
+/* ---- Máscara de revelação do hero (no carregamento) ---- */
+.mask-wrap { overflow: hidden; }
+.mask-line {
+  transform: translateY(110%);
+  animation: maskIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.25s forwards;
+}
+@keyframes maskIn {
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay { display: none; }
+  .mask-line { transform: none; animation: none; }
+}
+
+@layer components {
+  /* Kicker: label de categoria — sans, bold, uppercase, dourado, com espaçamento. */
+  .kicker {
+    @apply font-sans text-kicker uppercase tracking-[0.05em] text-gold font-bold;
+  }
+  /* Divisor decorativo dourado sob kickers/títulos (~60–80px). */
+  .gold-rule {
+    @apply block h-[2px] w-16 bg-gold;
+  }
+  /* Container padrão centralizado com respiro lateral. */
+  .container-px {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+}
+/* Home (novo design) — atmosfera do Hero */
+@keyframes pzDrift { 0% { transform: translate3d(-2%, -1.5%, 0) scale(1.04); } 100% { transform: translate3d(2%, 1.5%, 0) scale(1.12); } }
+@keyframes pzFloat { 0% { transform: translate(-50%, -52%); } 100% { transform: translate(-50%, -47%); } }
+@media (prefers-reduced-motion: reduce) { .animate-\[pzDrift_30s_ease-in-out_infinite_alternate\], .animate-\[pzFloat_16s_ease-in-out_infinite_alternate\] { animation: none !important; } }

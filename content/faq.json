@@ -1,0 +1,32 @@
+{
+  "_comentario": "Perguntas frequentes. Textos sóbrios e genéricos (sem promessa de resultado, conforme Código de Ética da OAB). REVISAR com o(a) advogado(a) responsável antes de publicar.",
+  "kicker": "Dúvidas frequentes",
+  "titulo": "Perguntas frequentes",
+  "subtitulo": "Respostas gerais sobre as áreas de atuação e o atendimento do escritório.",
+  "itens": [
+    {
+      "pergunta": "O que é recuperação tributária?",
+      "resposta": "É o procedimento de identificar e reaver valores de tributos pagos a maior ou de forma indevida, dentro dos limites e prazos previstos na legislação."
+    },
+    {
+      "pergunta": "Minha empresa pode ter valores a recuperar?",
+      "resposta": "Cada caso exige uma análise específica da situação fiscal da empresa. Em uma primeira conversa, avaliamos a documentação para verificar a viabilidade."
+    },
+    {
+      "pergunta": "Quanto tempo leva o processo?",
+      "resposta": "O prazo varia conforme a via adotada (administrativa ou judicial) e a complexidade do caso. Uma estimativa é informada após a análise inicial."
+    },
+    {
+      "pergunta": "Preciso ir até o escritório?",
+      "resposta": "Não necessariamente. O atendimento é feito presencialmente em Salvador e também de forma remota, por videoconferência, para clientes de outras localidades."
+    },
+    {
+      "pergunta": "Como funcionam os honorários?",
+      "resposta": "Os honorários são definidos de forma transparente, conforme a natureza e a complexidade do trabalho, sempre em observância ao Código de Ética e Disciplina da OAB."
+    },
+    {
+      "pergunta": "Quais documentos são necessários?",
+      "resposta": "Em geral, documentos fiscais e contábeis do período analisado. A relação exata é informada de acordo com cada caso."
+    }
+  ]
+}

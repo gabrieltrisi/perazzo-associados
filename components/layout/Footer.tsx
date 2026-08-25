@@ -1,0 +1,130 @@
+import Link from 'next/link';
+import { FaInstagram, FaLinkedinIn, FaFacebookF, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { getSiteConfig } from '@/lib/site-content';
+import { NAV } from '@/lib/nav';
+
+export default async function Footer() {
+  const site = await getSiteConfig();
+  const ano = new Date().getFullYear(); // ano dinâmico
+
+  // Extrai o "@usuario" do fim da URL da rede (ex.: .../perazzo_advogados → @perazzo_advogados).
+  const arroba = (url: string) => {
+    try {
+      const seg = new URL(url).pathname.replace(/\/+$/, '').split('/').filter(Boolean).pop();
+      return seg ? `@${seg}` : '';
+    } catch {
+      return '';
+    }
+  };
+
+  // Só mostra redes que estão realmente preenchidas (ignora placeholders).
+  const redes = [
+    { href: site.redes.instagram, Icon: FaInstagram, label: 'Instagram' },
+    { href: site.redes.linkedin, Icon: FaLinkedinIn, label: 'LinkedIn' },
+    { href: site.redes.facebook, Icon: FaFacebookF, label: 'Facebook' },
+  ]
+    .filter((r) => r.href && !r.href.startsWith('['))
+    .map((r) => ({ ...r, texto: arroba(r.href) || r.label }));
+
+  return (
+    <footer className="bg-navy-deep text-white/80">
+      <div className="container-px grid gap-10 py-14 md:grid-cols-4">
+        {/* Logo + endereço */}
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-perazzo.png" alt={site.nomeCompleto} className="h-11 w-auto" />
+          <address className="mt-4 whitespace-pre-line not-italic text-sm leading-relaxed text-white/70">
+            {site.contato.endereco.map((linha) => (
+              <span key={linha} className="block">
+                {linha}
+              </span>
+            ))}
+          </address>
+        </div>
+
+        {/* Navegação */}
+        <div>
+          <p className="kicker mb-3">Navegação</p>
+          <ul className="space-y-2 text-sm">
+            {NAV.map((i) => (
+              <li key={i.href}>
+                <Link href={i.href} className="transition-colors hover:text-gold">
+                  {i.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contato + redes — tudo no mesmo padrão (chip + texto), enfileirado */}
+        <div>
+          <p className="kicker mb-3">Contato</p>
+          <div className="flex flex-col gap-2 text-sm">
+            {/* Telefone — ícone de ligação (tel:) */}
+            <a
+              href={`tel:${site.contato.telefoneLink}`}
+              aria-label="Ligar"
+              className="group inline-flex items-center gap-2.5 text-white/80 transition-colors hover:text-gold"
+            >
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                <FaPhone size={14} />
+              </span>
+              {site.contato.telefoneExibicao}
+            </a>
+            {/* E-mail — ícone de envelope (mailto:) */}
+            <a
+              href={`mailto:${site.contato.email}?subject=${encodeURIComponent('Contato pelo site — Perazzo & Associados')}`}
+              aria-label="Enviar e-mail"
+              className="group inline-flex items-center gap-2.5 break-all text-white/80 transition-colors hover:text-gold"
+            >
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                <FaEnvelope size={14} />
+              </span>
+              {site.contato.email}
+            </a>
+            {/* Redes */}
+            {redes.map(({ href, Icon, label, texto }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 text-white/80 transition-colors hover:text-gold"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                  <Icon size={16} />
+                </span>
+                {texto}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Legal */}
+        <div>
+          <p className="kicker mb-3">Legal</p>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/politica-de-privacidade" className="hover:text-gold">
+                Política de Privacidade
+              </Link>
+            </li>
+            <li>
+              <Link href="/termos-de-uso" className="hover:text-gold">
+                Termos de Uso
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-navy-light/20">
+        <div className="container-px py-5 text-xs text-white/50">
+          © {ano} {site.nomeCompleto}. Todos os direitos reservados.
+          {!site.oab.startsWith('[') && ` · ${site.oab}`}
+        </div>
+      </div>
+    </footer>
+  );
+}
