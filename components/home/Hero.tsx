@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -35,6 +36,26 @@ export default function Hero({ content }: { content: HeroContent }) {
     ? (c.titulo2 ?? '').split(c.titulo2Destaque)
     : [c.titulo2 ?? ''];
 
+  // Parallax sutil: a foto e a balança seguem levemente o mouse (só desktop,
+  // respeita "reduzir movimento"). Normalizado em -1..1.
+  const [par, setPar] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    let raf = 0;
+    const onMove = (e: MouseEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() =>
+        setPar({ x: (e.clientX / window.innerWidth - 0.5) * 2, y: (e.clientY / window.innerHeight - 0.5) * 2 }),
+      );
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section id="top" className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-navy px-6 pt-36 md:pt-[148px]">
       {/* Animação 3D de fundo (WebGL, client-only, respeita reduced-motion) */}
@@ -61,11 +82,16 @@ export default function Hero({ content }: { content: HeroContent }) {
         <div className="absolute left-[calc(50%-90px)] top-[316px] h-0.5 w-[180px] bg-current" />
       </div>
 
-      {/* Foto do Dr. Perazzo */}
+      {/* Foto do Dr. Perazzo (com parallax sutil ao mouse) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 left-1/2 z-[1] h-[86%] w-[min(540px,44vw)] -translate-x-1/2"
-        style={{ WebkitMaskImage: 'linear-gradient(180deg,#000 0%,#000 74%,transparent 98%)', maskImage: 'linear-gradient(180deg,#000 0%,#000 74%,transparent 98%)' }}
+        className="pointer-events-none absolute bottom-0 left-1/2 z-[1] h-[86%] w-[min(540px,44vw)]"
+        style={{
+          WebkitMaskImage: 'linear-gradient(180deg,#000 0%,#000 74%,transparent 98%)',
+          maskImage: 'linear-gradient(180deg,#000 0%,#000 74%,transparent 98%)',
+          transform: `translate(calc(-50% + ${par.x * 14}px), ${par.y * 10}px)`,
+          transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+        }}
       >
         <Image src="/assets/perazzo-hero.png" alt="Mário Wellington Perazzo, advogado" fill priority sizes="540px" className="object-contain object-bottom [filter:drop-shadow(0_24px_60px_rgba(0,0,0,.5))_saturate(.92)]" />
       </div>
