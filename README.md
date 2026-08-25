@@ -4,6 +4,14 @@ Site institucional **full-stack** para um escritório de advocacia (Salvador/BA)
 
 🔗 **Ao vivo:** https://perazzoadvogados.com.br
 
+<p align="center">
+  <a href="https://perazzoadvogados.com.br">
+    <img src="docs/hero-3d.gif" width="100%" alt="Hero 3D em WebGL — balança da justiça em ouro que reage ao mouse (React Three Fiber)" />
+  </a>
+</p>
+
+<p align="center"><sub>Hero 3D em <strong>WebGL / React Three Fiber</strong> — a balança se equilibra com o mouse. Melhor ao vivo 👆</sub></p>
+
 ---
 
 ## ✨ Destaques
