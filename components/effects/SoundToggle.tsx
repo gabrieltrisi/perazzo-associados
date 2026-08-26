@@ -30,7 +30,7 @@ export default function SoundToggle() {
       aria-pressed={on}
       aria-label={on ? 'Desativar som' : 'Ativar som'}
       title={on ? 'Som ativado' : 'Som desativado'}
-      className="fixed bottom-6 left-6 z-40 grid h-11 w-11 place-items-center rounded-full border border-gold/40 bg-navy/80 text-gold backdrop-blur transition-colors hover:border-gold hover:bg-navy"
+      className="fixed bottom-6 left-6 z-40 hidden h-11 w-11 place-items-center rounded-full border border-gold/40 bg-navy/80 text-gold backdrop-blur transition-colors hover:border-gold hover:bg-navy sm:grid"
     >
       {on ? <FiVolume2 size={18} /> : <FiVolumeX size={18} />}
     </button>

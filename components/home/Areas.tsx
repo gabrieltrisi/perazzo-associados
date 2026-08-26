@@ -32,6 +32,7 @@ export default function Areas({ content }: Props) {
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const dotRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const offset = useRef(0);
+  const target = useRef(0);
   const paused = useRef(false);
   const dragging = useRef(false);
 
@@ -43,10 +44,13 @@ export default function Areas({ content }: Props) {
 
     const cardW = () => (cardRefs.current[0] ? cardRefs.current[0]!.offsetWidth + GAP : 346);
     const loopW = () => cardW() * base;
+    const mobile = () => window.innerWidth < 900;
+    const centerOffset = (i: number) => i * cardW() - (vp.clientWidth - cardW() + GAP) / 2;
+    const clampM = (v: number) => Math.max(centerOffset(0), Math.min(centerOffset(cards.length - 1), v));
 
     const apply = () => {
       const L = loopW();
-      if (L > 0) { while (offset.current < 0) offset.current += L; while (offset.current >= L) offset.current -= L; }
+      if (L > 0 && !mobile()) { while (offset.current < 0) offset.current += L; while (offset.current >= L) offset.current -= L; }
       track.style.transform = `translateX(${-offset.current}px)`;
       const centerX = vp.clientWidth / 2;
       const flat = reduced || window.innerWidth < 900;
@@ -58,7 +62,7 @@ export default function Areas({ content }: Props) {
         const ad = Math.abs(d);
         if (ad < bestD) { bestD = ad; best = i; }
         card.style.transform = flat ? 'none' : `perspective(1500px) rotateY(${-d * 24}deg) scale(${1 - Math.min(0.16, ad * 0.4)}) translateZ(${-ad * 140}px)`;
-        card.style.opacity = String(Math.max(0.5, 1 - ad * 0.95));
+        card.style.opacity = String(flat ? Math.max(0.85, 1 - ad * 0.5) : Math.max(0.5, 1 - ad * 0.95));
       });
       cardRefs.current.forEach((card, i) => {
         if (!card) return;
@@ -77,7 +81,11 @@ export default function Areas({ content }: Props) {
 
     let raf = 0;
     const tick = () => {
-      if (!paused.current && !dragging.current && !reduced) { offset.current += 0.35; apply(); }
+      if (!dragging.current) {
+        if (mobile()) offset.current += (target.current - offset.current) * 0.18;
+        else if (!paused.current && !reduced) offset.current += 0.35;
+      }
+      apply();
       raf = requestAnimationFrame(tick);
     };
 
@@ -85,8 +93,11 @@ export default function Areas({ content }: Props) {
     const onLeave = () => { paused.current = false; };
     let startX = 0, startOffset = 0;
     const onDown = (e: PointerEvent) => { dragging.current = true; startX = e.clientX; startOffset = offset.current; track.style.cursor = 'grabbing'; track.setPointerCapture(e.pointerId); };
-    const onMove = (e: PointerEvent) => { if (!dragging.current) return; offset.current = startOffset - (e.clientX - startX); apply(); };
-    const onUp = () => { dragging.current = false; track.style.cursor = 'grab'; };
+    const onMove = (e: PointerEvent) => { if (!dragging.current) return; offset.current = startOffset - (e.clientX - startX); if (mobile()) offset.current = clampM(offset.current); apply(); };
+    const onUp = () => {
+      dragging.current = false; track.style.cursor = 'grab';
+      if (mobile()) { const w = cardW(); const i = Math.round((offset.current + (vp.clientWidth - w + GAP) / 2) / w); target.current = clampM(centerOffset(i)); }
+    };
     const onResize = () => apply();
 
     vp.addEventListener('mouseenter', onEnter);
@@ -98,6 +109,8 @@ export default function Areas({ content }: Props) {
     track.addEventListener('pointercancel', onUp);
     window.addEventListener('resize', onResize);
 
+    if (mobile()) offset.current = centerOffset(base);
+    target.current = offset.current;
     apply();
     raf = requestAnimationFrame(tick);
     return () => {
@@ -115,12 +128,22 @@ export default function Areas({ content }: Props) {
 
   const step = (dir: number) => {
     const w = cardRefs.current[0] ? cardRefs.current[0]!.offsetWidth + GAP : 346;
-    offset.current += dir * w;
+    const vp = vpRef.current;
+    if (vp && window.innerWidth < 900) {
+      const c = (vp.clientWidth - w + GAP) / 2;
+      const i = Math.max(0, Math.min(base * 3 - 1, Math.round((offset.current + c) / w) + dir));
+      target.current = i * w - c;
+    } else {
+      offset.current += dir * w;
+    }
   };
   const goTo = (i: number) => {
     const vp = vpRef.current;
     const w = cardRefs.current[0] ? cardRefs.current[0]!.offsetWidth + GAP : 346;
-    if (vp) offset.current = i * w - (vp.clientWidth - w + GAP) / 2;
+    if (!vp) return;
+    const c = (vp.clientWidth - w + GAP) / 2;
+    if (window.innerWidth < 900) target.current = (base + i) * w - c;
+    else offset.current = i * w - c;
   };
 
   return (
@@ -179,8 +202,8 @@ export default function Areas({ content }: Props) {
             })}
           </div>
           {/* Fades das bordas */}
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[90px]" style={{ background: 'linear-gradient(90deg,#0A1E40 0%,transparent 100%)' }} />
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[90px]" style={{ background: 'linear-gradient(270deg,#071530 0%,transparent 100%)' }} />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[24px] sm:w-[90px]" style={{ background: 'linear-gradient(90deg,#0A1E40 0%,transparent 100%)' }} />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[24px] sm:w-[90px]" style={{ background: 'linear-gradient(270deg,#071530 0%,transparent 100%)' }} />
         </div>
 
         {/* Dots + nota */}
