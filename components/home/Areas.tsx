@@ -146,6 +146,30 @@ export default function Areas({ content }: Props) {
     else offset.current = i * w - c;
   };
 
+  // As setas do carrossel aparecem em dois lugares conforme a largura: no cabecalho
+  // da secao no desktop, e junto dos pontinhos no mobile. No mobile o cabecalho fica
+  // muito acima dos cards — quem rola ate o carrossel perde o controle de vista.
+  const setas = (classe: string) => (
+    <div className={`items-center gap-3 ${classe}`}>
+      <button
+        type="button"
+        onClick={() => step(-1)}
+        aria-label="Área anterior"
+        className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-gold/40 text-gold transition hover:bg-gold/15"
+      >
+        <LuArrowLeft className="h-[18px] w-[18px]" />
+      </button>
+      <button
+        type="button"
+        onClick={() => step(1)}
+        aria-label="Próxima área"
+        className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-gold/40 text-gold transition hover:bg-gold/15"
+      >
+        <LuArrowRight className="h-[18px] w-[18px]" />
+      </button>
+    </div>
+  );
+
   return (
     <section
       id="areas"
@@ -166,10 +190,7 @@ export default function Areas({ content }: Props) {
               <h2 className="mt-5 font-serif text-[clamp(27px,3.2vw,36px)] font-medium tracking-[-0.01em] text-white">Cobertura completa, <span className="text-gold">sem generalismo</span></h2>
             </Reveal>
           </div>
-          <div className="flex items-center gap-3">
-            <button type="button" onClick={() => step(-1)} aria-label="Área anterior" className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-gold/40 text-gold transition hover:bg-gold/15"><LuArrowLeft className="h-[18px] w-[18px]" /></button>
-            <button type="button" onClick={() => step(1)} aria-label="Próxima área" className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-gold/40 text-gold transition hover:bg-gold/15"><LuArrowRight className="h-[18px] w-[18px]" /></button>
-          </div>
+          {setas('hidden md:flex')}
         </div>
         <Reveal delay={0.12}>
           <p className="mt-5 max-w-[62ch] text-[clamp(17px,1.7vw,20px)] leading-[1.7] text-cloud [text-wrap:pretty]">{hero.subtitulo}</p>
@@ -208,10 +229,13 @@ export default function Areas({ content }: Props) {
 
         {/* Dots + nota */}
         <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-4">
+            {setas('flex md:hidden')}
+            <div className="flex gap-2">
             {areas.map((_, i) => (
               <button key={i} type="button" ref={(el) => { dotRefs.current[i] = el; }} onClick={() => goTo(i)} aria-label={`Ir para a área ${i + 1}`} className="h-[6px] w-[6px] rounded-full transition-all duration-300" style={{ background: '#40537B' }} />
             ))}
+            </div>
           </div>
           <p className="max-w-[60ch] text-[12px] leading-[1.7] text-navy-light">Atuação em áreas complementares por meio de escritórios e profissionais associados, conforme a natureza de cada demanda.</p>
         </div>

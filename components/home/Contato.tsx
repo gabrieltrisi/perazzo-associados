@@ -55,7 +55,7 @@ export default function Contato({ content, site }: Props) {
               </a>
               <a href={`mailto:${c.email}?subject=${encodeURIComponent('Contato pelo site — Perazzo & Associados')}`} className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-navy-deep/40 p-4 transition hover:border-gold/50">
                 <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gold/15 text-gold"><LuMail className="h-5 w-5" /></span>
-                <span><span className="block text-[11px] uppercase tracking-[0.12em] text-gold">E-mail</span><span className="break-all text-[15px] text-white">{c.email}</span></span>
+                <span><span className="block text-[11px] uppercase tracking-[0.12em] text-gold">E-mail</span><span className="text-[clamp(12px,3.4vw,15px)] text-white [overflow-wrap:anywhere]">{c.email}</span></span>
               </a>
               <a href={wpp} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-navy-deep/40 p-4 transition hover:border-gold/50">
                 <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gold/15 text-gold"><FaWhatsapp className="h-5 w-5" /></span>

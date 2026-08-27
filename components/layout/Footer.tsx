@@ -75,7 +75,7 @@ export default async function Footer() {
             <a
               href={`mailto:${site.contato.email}?subject=${encodeURIComponent('Contato pelo site — Perazzo & Associados')}`}
               aria-label="Enviar e-mail"
-              className="group inline-flex items-center gap-2.5 break-all text-white/80 transition-colors hover:text-gold"
+              className="group inline-flex items-center gap-2.5 text-[clamp(12px,3.4vw,15px)] text-white/80 transition-colors hover:text-gold [overflow-wrap:anywhere]"
             >
               <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-navy-light/40 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
                 <FaEnvelope size={14} />

@@ -2,12 +2,17 @@
   "_comentario": "Conteúdo da Home (design página única). Tom sóbrio — sem promessa de resultado (OAB, Prov. 205/2021). Editável no painel admin.",
   "hero": {
     "badge": "OAB/BA 22.715 · Salvador",
-    "titulo1": "Do chão de fábrica",
-    "titulo2": "ao tribunal.",
-    "titulo2Destaque": "tribunal",
-    "subtitulo": "Quarenta anos construindo, dirigindo e defendendo operações — da linha de produção à cadeira de CEO, e da cadeira de CEO ao Direito. Hoje essa experiência trabalha pela sua empresa.",
-    "ctaPrimario": "Falar com o escritório",
+    "titulo1": "Advocacia com",
+    "titulo2": "leitura de negócio",
+    "titulo2Destaque": "negócio",
+    "subtitulo": "Mais de 40 anos construindo, dirigindo e defendendo operações e negócios de grande porte.",
+    "ctaPrimario": "Falar com especialista",
     "ctaSecundario": "Ver áreas de atuação",
+    "passos": [
+      { "icone": "factory", "titulo": "Linha de\nprodução" },
+      { "icone": "briefcase", "titulo": "Cadeira\nde CEO" },
+      { "icone": "scale", "titulo": "Direito" }
+    ],
     "perfil": {
       "nome": "Mário W. Perazzo",
       "cargo": "Advogado · OAB/BA 22.715",
