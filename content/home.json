@@ -26,6 +26,20 @@
       { "valor": "Todas as áreas", "label": "por associados especializados" }
     ]
   },
+  "quemSomos": {
+    "eyebrow": "O profissional",
+    "titulo": "Quem é Mário W. Perazzo?",
+    "destaque": "Perazzo",
+    "paragrafo1": "Advogado, consultor e palestrante com mais de quarenta anos de experiência. Dirigiu uma das maiores operações de GLP do Brasil antes de voltar ao Direito.",
+    "paragrafo2": "Hoje defende empresas em recuperação tributária, estruturação operacional e contencioso, com a experiência de quem já foi CEO.",
+    "cta": "Entrar em contato",
+    "indicadores": [
+      { "icone": "award", "count": 40, "suffix": " anos", "valor": "40 anos", "label": "entre a indústria e o Direito" },
+      { "icone": "receipt", "valor": "Tributário", "label": "recuperação de créditos" },
+      { "icone": "mappin", "valor": "Salvador", "label": "atuação em todo o Brasil" },
+      { "icone": "scale", "valor": "Todas as áreas", "label": "por associados especializados" }
+    ]
+  },
   "problema": {
     "kicker": "O problema",
     "titulo": "O advogado que não conhece a operação defende no escuro. O gestor que não enxerga o risco jurídico decide no escuro. Sua empresa paga pelos dois.",

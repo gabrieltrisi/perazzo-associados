@@ -18,6 +18,7 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('shot')) return; // preview/screenshot
     try {
       if (!localStorage.getItem(KEY)) setVisible(true);
     } catch {

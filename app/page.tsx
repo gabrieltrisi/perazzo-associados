@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
+import QuemSomos from '@/components/home/QuemSomos';
 import Problema from '@/components/home/Problema';
 import Especialidade from '@/components/home/Especialidade';
 import Trajetoria from '@/components/home/Trajetoria';
@@ -24,6 +25,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero content={home.hero} />
+      <QuemSomos content={home.quemSomos} />
       <Problema content={home.problema} />
       <Especialidade content={home.especialidade} />
       <Trajetoria content={home.trajetoria} />
