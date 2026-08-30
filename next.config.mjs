@@ -1,13 +1,15 @@
 // Content-Security-Policy: permite só as origens que o site realmente usa
-// (self, reCAPTCHA e Google Maps embed). Bloqueia o resto.
+// (self, reCAPTCHA e Google Maps embed) + a toolbar da Vercel (vercel.live),
+// que a Vercel injeta APENAS para quem está logado na conta (nunca para os
+// visitantes) — liberá-la só evita o erro de console na visão do dono. Bloqueia o resto.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
-  "font-src 'self' data:",
-  "connect-src 'self' https://www.google.com",
-  "frame-src 'self' https://www.google.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://vercel.live",
+  "style-src 'self' 'unsafe-inline' https://vercel.live",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data: https://vercel.live https://assets.vercel.com",
+  "connect-src 'self' https://www.google.com https://vercel.live wss://ws-us3.pusher.com https://sockjs-us3.pusher.com",
+  "frame-src 'self' https://www.google.com https://vercel.live",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

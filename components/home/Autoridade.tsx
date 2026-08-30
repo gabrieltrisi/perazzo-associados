@@ -58,9 +58,9 @@ export default function Autoridade({ content }: Props) {
           </Reveal>
           <Reveal delay={0.2}>
             <figure className="m-0 mt-10">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-gold/22">
+              <div className="aspect-[16/9] overflow-hidden rounded-xl border border-gold/22">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/debate.jpg" alt="Mesa de debate setorial com o Dr. Perazzo" loading="lazy" className="absolute inset-x-0 bottom-0 w-full object-cover" style={{ height: '230%', objectPosition: '50% 100%', filter: 'saturate(.85)' }} />
+                <img src="/assets/debate.jpg" alt="Dr. Perazzo em debate setorial" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: '50% 6%', filter: 'saturate(.85)' }} />
               </div>
               <figcaption className="mt-3 text-[13px] text-navy-light">Debate setorial · 2026</figcaption>
             </figure>
@@ -77,7 +77,7 @@ export default function Autoridade({ content }: Props) {
           {galeria.map((g, i) => (
             <Reveal key={i} delay={0.05 + i * 0.06}>
               <figure className="group m-0">
-                <div className="aspect-[4/3] overflow-hidden rounded-xl border border-gold/18">
+                <div className="aspect-[3/4] overflow-hidden rounded-xl border border-gold/18">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={g.img} alt={g.legenda} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06] [filter:saturate(.82)]" />
                 </div>
