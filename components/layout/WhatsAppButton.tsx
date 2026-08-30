@@ -20,8 +20,8 @@ export default function WhatsAppButton() {
       <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold transition-all duration-300 group-hover:max-w-[140px] group-hover:pl-5">
         Fale conosco
       </span>
-      <span className="grid h-14 w-14 shrink-0 place-items-center">
-        <FaWhatsapp size={28} />
+      <span className="grid h-12 w-12 shrink-0 place-items-center sm:h-14 sm:w-14">
+        <FaWhatsapp className="h-6 w-6 sm:h-7 sm:w-7" />
       </span>
     </a>
   );

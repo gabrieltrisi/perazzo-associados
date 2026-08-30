@@ -92,7 +92,7 @@ export default function Hero({ content }: { content: HeroContent }) {
   }, []);
 
   return (
-    <section id="top" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-navy px-6 pt-32 md:pt-[120px]">
+    <section id="top" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-navy px-6 pt-20 md:pt-[120px]">
       {/* Camada 1 (fundo, profundidade distante) — a cena: cidade, martelo, livros */}
       <div
         aria-hidden
@@ -143,7 +143,7 @@ export default function Hero({ content }: { content: HeroContent }) {
       {/* Camada 2 (meio, profundidade próxima) — o Dr. Perazzo (só desktop) */}
       <div
         aria-hidden
-        className="pointer-events-none relative z-[1] mx-auto h-[clamp(150px,32vh,320px)] w-[min(340px,74vw)] md:absolute md:bottom-0 md:right-[1%] md:mx-0 md:h-full md:w-[min(780px,50vw)]"
+        className="pointer-events-none relative z-[1] mx-auto -mt-2 h-[clamp(210px,40vh,360px)] w-[min(400px,86vw)] md:absolute md:bottom-0 md:right-[1%] md:mx-0 md:mt-0 md:h-full md:w-[min(780px,50vw)]"
         style={{
           WebkitMaskImage: 'linear-gradient(180deg,#000 0%,#000 82%,transparent 99%)',
           maskImage: 'linear-gradient(180deg,#000 0%,#000 82%,transparent 99%)',
@@ -182,7 +182,7 @@ export default function Hero({ content }: { content: HeroContent }) {
             </motion.span>
           </h1>
 
-          <motion.p initial="hidden" animate="show" custom={3} variants={fadeUp} className="mx-auto mt-6 max-w-[86vw] text-[15px] leading-[1.7] text-cloud sm:max-w-[440px] sm:text-[17px] md:mx-0">{c.subtitulo}</motion.p>
+          <motion.p initial="hidden" animate="show" custom={3} variants={fadeUp} className="mx-auto mt-6 max-w-[94vw] text-[14px] leading-[1.55] text-cloud sm:max-w-[440px] sm:text-[17px] sm:leading-[1.7] md:mx-0">{c.subtitulo}</motion.p>
 
           {/* Os 3 passos da trajetória (Linha de produção → Cadeira de CEO → Direito) */}
           {passos.length > 0 && (
