@@ -214,7 +214,7 @@ export default function Areas({ content }: Props) {
                     background: a.destaque ? 'linear-gradient(150deg,#16294B 0%,#0C1D3C 100%)' : 'rgba(255,255,255,.035)',
                   }}
                 >
-                  {a.destaque && <span className="mb-4 inline-block rounded-[3px] border border-gold/50 px-2 py-1 font-tight text-[10px] font-semibold uppercase tracking-[0.16em] text-gold">Principal</span>}
+                  {a.destaque && <span className="mb-4 inline-block rounded-[3px] border border-gold/50 px-2 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-gold">Principal</span>}
                   <span className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-gold/[0.12] text-gold"><Icon className="h-[23px] w-[23px]" /></span>
                   <h3 className="mt-[22px] font-serif text-[22px] font-medium text-white">{a.titulo}</h3>
                   <p className="mt-3 text-[15px] leading-[1.7] text-cloud">{a.descricao}</p>

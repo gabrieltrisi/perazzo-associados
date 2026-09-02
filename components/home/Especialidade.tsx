@@ -40,7 +40,7 @@ export default function Especialidade({ content }: Props) {
           {passos.map((p, i) => (
             <Reveal key={i} delay={0.1 + i * 0.08}>
               <article className="group h-full rounded-[10px] border border-gold/25 p-7 transition duration-200 hover:-translate-y-1 hover:border-gold">
-                <div className="font-tight text-[13px] font-medium tracking-[0.12em] text-navy-light transition group-hover:text-gold">{p.num}</div>
+                <div className="font-sans text-[13px] font-medium tracking-[0.12em] text-navy-light transition group-hover:text-gold">{p.num}</div>
                 <h3 className="mt-3.5 font-serif text-[21px] font-medium text-white">{p.titulo}</h3>
                 <p className="mt-3 text-base leading-[1.7] text-cloud">{p.texto}</p>
               </article>

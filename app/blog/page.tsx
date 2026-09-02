@@ -55,7 +55,7 @@ export default async function BlogPage() {
               {posts.map((p, idx) => (
                 <Reveal key={p.slug} delay={(idx % 3) * 0.08} className="h-full">
                   <Link href={`/blog/${p.slug}`} className="group flex h-full flex-col rounded-2xl border border-line bg-white p-7 shadow-[0_10px_30px_rgba(10,30,64,.06)] transition duration-200 hover:-translate-y-1 hover:border-gold">
-                    <p className="font-tight text-[13px] font-medium tracking-[0.1em] text-gold-dark">{formatDate(p.date)}</p>
+                    <p className="font-sans text-[13px] font-medium tracking-[0.1em] text-gold-dark">{formatDate(p.date)}</p>
                     <h3 className="mt-3 font-serif text-[22px] font-medium leading-[1.3] text-ink">{p.title}</h3>
                     <p className="mt-3 flex-1 text-[15px] leading-[1.7] text-muted">{p.excerpt}</p>
                     <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-gold-dark transition group-hover:text-gold">Ler artigo <LuArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5" /></span>

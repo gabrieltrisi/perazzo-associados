@@ -36,7 +36,6 @@ const config: Config = {
         // Fontes carregadas via next/font em app/layout.tsx (variáveis CSS).
         serif: ['var(--font-serif)', 'Georgia', 'Cambria', 'serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        tight: ['var(--font-tight)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Escala tipográfica do doc 03 (desktop). Mobile ajustado nos componentes.

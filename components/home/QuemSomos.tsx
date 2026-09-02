@@ -102,7 +102,7 @@ export default function QuemSomos({ content }: Props) {
                     <Icon className="h-[18px] w-[18px]" />
                   </span>
                   <div>
-                    <div className="font-tight text-[22px] font-medium tabular-nums text-white">
+                    <div className="font-sans text-[22px] font-medium tabular-nums text-white">
                       {typeof ind.count === 'number' ? <Counter to={ind.count} suffix={ind.suffix ?? ''} /> : ind.valor}
                     </div>
                     <div className="mt-[3px] text-[13px] text-slate2">{ind.label}</div>

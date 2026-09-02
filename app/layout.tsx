@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Bodoni_Moda, Inter, Inter_Tight } from 'next/font/google';
+import { Bodoni_Moda, Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -18,8 +18,8 @@ import { OrganizationJsonLd } from '@/components/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
 import Tracker from '@/components/analytics/Tracker';
 
-// Fontes: Bodoni Moda (serif editorial dos títulos) + Inter (corpo/UI) +
-// Inter Tight (números/labels). Expostas como variáveis CSS consumidas pelo Tailwind.
+// Duas fontes padronizadas: Bodoni Moda (serif editorial dos títulos) +
+// Inter (corpo/UI/números/labels). Expostas como variáveis CSS consumidas pelo Tailwind.
 const serif = Bodoni_Moda({
   subsets: ['latin'],
   weight: ['500', '600'],
@@ -30,12 +30,6 @@ const sans = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-sans',
-  display: 'swap',
-});
-const tight = Inter_Tight({
-  subsets: ['latin'],
-  weight: ['500'],
-  variable: '--font-tight',
   display: 'swap',
 });
 
@@ -64,7 +58,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${serif.variable} ${sans.variable} ${tight.variable}`}>
+    <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
       <body>
         <OrganizationJsonLd />
         <a href="#conteudo" className="skip-link">

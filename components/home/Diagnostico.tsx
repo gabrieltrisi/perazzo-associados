@@ -78,7 +78,7 @@ export default function Diagnostico({ content }: Props) {
                 {!done ? (
                   <motion.div key={step} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
                     <div className="flex items-center gap-3.5">
-                      <span className="font-tight text-[12px] tabular-nums tracking-[0.16em] text-gold">{String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+                      <span className="font-sans text-[12px] tabular-nums tracking-[0.16em] text-gold">{String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
                       <span className="h-px flex-1 bg-gold/20" />
                     </div>
                     <h3 className="mt-[18px] font-serif text-[clamp(22px,2.4vw,28px)] font-medium leading-[1.25]">{perguntas[step].pergunta}</h3>
@@ -99,7 +99,7 @@ export default function Diagnostico({ content }: Props) {
                   <motion.div key="resultado" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
                     <div className="inline-flex items-center gap-2.5 rounded-full border border-gold/40 bg-gold/[0.14] px-4 py-2">
                       <LuSparkles className="h-[14px] w-[14px] text-gold" />
-                      <span className="font-tight text-[11px] font-semibold uppercase tracking-[0.16em] text-gold">Resultado</span>
+                      <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-gold">Resultado</span>
                     </div>
                     <p className="mt-5 font-serif text-[clamp(20px,2.2vw,26px)] leading-[1.45] text-white [text-wrap:pretty]">{resultados[chave]}</p>
                     <div className="mt-[30px] border-t border-gold/20 pt-6">
