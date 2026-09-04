@@ -52,7 +52,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-content items-center justify-between px-6">
-        <Link href="/" aria-label="Página inicial — Perazzo & Associados" className="flex items-center">
+        <Link href="/" aria-label="Página inicial, Perazzo & Associados" className="flex items-center">
           <Logo />
         </Link>
 

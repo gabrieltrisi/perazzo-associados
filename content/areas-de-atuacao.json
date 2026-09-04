@@ -3,7 +3,7 @@
   "hero": {
     "kicker": "Especialidades",
     "titulo": "Áreas de Atuação",
-    "subtitulo": "Recuperação tributária como especialidade principal, com atuação em todas as áreas do Direito por meio de parcerias com escritórios especializados — atendimento em todo o Brasil."
+    "subtitulo": "Recuperação tributária como especialidade principal, com atuação em todas as áreas do Direito por meio de parcerias com escritórios especializados, com atendimento em todo o Brasil."
   },
   "areas": [
     {
@@ -22,7 +22,7 @@
       "icone": "labor",
       "titulo": "Direito Trabalhista",
       "destaque": false,
-      "descricao": "Assessoria a empregadores e trabalhadores em reclamações, acordos coletivos, reestruturações e litígios judiciais — com a visão de quem conhece ambos os lados da relação laboral."
+      "descricao": "Assessoria a empregadores e trabalhadores em reclamações, acordos coletivos, reestruturações e litígios judiciais, com a visão de quem conhece ambos os lados da relação laboral."
     },
     {
       "icone": "realestate",
@@ -45,6 +45,6 @@
   ],
   "parcerias": {
     "titulo": "Atuação em rede",
-    "texto": "As demais áreas do Direito — como cível, previdenciário e outras — são conduzidas por meio de parcerias com escritórios e profissionais especializados. Essa estrutura multidisciplinar reúne competências complementares, com abordagem estratégica e precisão técnica para lidar com questões jurídicas de alta complexidade em todo o país."
+    "texto": "As demais áreas do Direito (como cível, previdenciário e outras) são conduzidas por meio de parcerias com escritórios e profissionais especializados. Essa estrutura multidisciplinar reúne competências complementares, com abordagem estratégica e precisão técnica para lidar com questões jurídicas de alta complexidade em todo o país."
   }
 }

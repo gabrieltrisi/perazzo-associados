@@ -51,7 +51,7 @@ export default function Autoridade({ content }: Props) {
               {itens.map((it, i) => (
                 <div key={i} className="flex items-baseline gap-3.5">
                   <span aria-hidden className="text-[12px] text-gold">◈</span>
-                  <p className="text-[16px] leading-[1.7] text-cloud"><span className="font-semibold text-white">{it.titulo}</span> — {it.texto}</p>
+                  <p className="text-[16px] leading-[1.7] text-cloud"><span className="font-semibold text-white">{it.titulo}</span>: {it.texto}</p>
                 </div>
               ))}
             </div>

@@ -7,8 +7,8 @@
   "historia": {
     "titulo": "Nossa história",
     "paragrafos": [
-      "O Perazzo & Associados Advogados é conduzido pelo advogado Mário Wellington Perazzo, que reúne mais de quarenta anos de experiência — adquirida tanto na prática da advocacia quanto em sua trajetória nas indústrias de energia, distribuição e direito. Uma carreira construída com dedicação, liderança e resultados concretos, do chão de fábrica a CEO.",
-      "Com formação em Contabilidade, Sociologia e Direito, além de especializações em Processo Civil, Gestão Ambiental e Marketing, dedica hoje sua atenção ao desenvolvimento do escritório. Ao longo de sua trajetória em diversos segmentos, construiu uma rede de relacionamentos e um conhecimento de mercado que se estende por todo o território nacional — um ativo estratégico colocado a serviço dos clientes em qualquer ponto do Brasil.",
+      "O Perazzo & Associados Advogados é conduzido pelo advogado Mário Wellington Perazzo, que reúne mais de quarenta anos de experiência, adquirida tanto na prática da advocacia quanto em sua trajetória nas indústrias de energia, distribuição e direito. Uma carreira construída com dedicação, liderança e resultados concretos, do chão de fábrica a CEO.",
+      "Com formação em Contabilidade, Sociologia e Direito, além de especializações em Processo Civil, Gestão Ambiental e Marketing, dedica hoje sua atenção ao desenvolvimento do escritório. Ao longo de sua trajetória em diversos segmentos, construiu uma rede de relacionamentos e um conhecimento de mercado que se estende por todo o território nacional: um ativo estratégico colocado a serviço dos clientes em qualquer ponto do Brasil.",
       "Seu diferencial mais singular está na capacidade de transitar com igual fluência entre os mundos empresarial e jurídico-trabalhista, com forte acesso a diversos órgãos e entidades de classe. A integração entre a precisão técnico-jurídica e a visão prática de quem geriu uma das maiores operações de GLP do Brasil resulta em soluções mais eficazes, preventivas e alinhadas à realidade dos clientes."
     ]
   },
@@ -24,20 +24,20 @@
   "missaoVisaoValores": [
     { "titulo": "Missão", "texto": "Oferecer orientação e soluções jurídicas com excelência técnica, ética e dedicação, compreendendo as particularidades de cada cliente e atuando de forma personalizada, responsável e integrada na proteção de seus interesses." },
     { "titulo": "Visão", "texto": "Ser reconhecido pela confiança, credibilidade e excelência na atuação jurídica, construindo relações duradouras e integrando diferentes competências profissionais para oferecer aos clientes uma atuação ampla, estratégica e responsável." },
-    { "titulo": "Valores", "texto": "Ética e integridade, excelência técnica, confiança, compromisso com o cliente e atuação personalizada e integrada — os princípios que orientam cada trabalho." }
+    { "titulo": "Valores", "texto": "Ética e integridade, excelência técnica, confiança, compromisso com o cliente e atuação personalizada e integrada: os princípios que orientam cada trabalho." }
   ],
   "principios": {
     "titulo": "Nossos valores",
     "itens": [
-      "Ética e integridade — atuar com independência, honestidade, lealdade e respeito aos princípios que regem a advocacia.",
-      "Excelência técnica — buscar permanente atualização e aprimoramento, mantendo elevado padrão de qualidade na atuação profissional.",
-      "Confiança e credibilidade — construir relações sólidas e duradouras, pautadas pela transparência, respeito e discrição.",
-      "Compromisso com o cliente — dedicar atenção, zelo e responsabilidade a cada demanda, compreendendo suas necessidades e particularidades.",
-      "Atuação personalizada — reconhecer que cada pessoa, empresa e situação possui características próprias, buscando a orientação mais adequada a cada realidade.",
-      "Integração e cooperação — unir conhecimentos, experiências e competências entre profissionais e escritórios associados.",
-      "Responsabilidade — exercer a advocacia com seriedade e consciência de seu papel perante os clientes, as instituições e a sociedade.",
-      "Confidencialidade — preservar o sigilo profissional e tratar todas as informações e relações com a máxima discrição.",
-      "Aprimoramento contínuo — manter-se em constante evolução, acompanhando as transformações do Direito, da sociedade e das novas tecnologias."
+      "Ética e integridade: atuar com independência, honestidade, lealdade e respeito aos princípios que regem a advocacia.",
+      "Excelência técnica: buscar permanente atualização e aprimoramento, mantendo elevado padrão de qualidade na atuação profissional.",
+      "Confiança e credibilidade: construir relações sólidas e duradouras, pautadas pela transparência, respeito e discrição.",
+      "Compromisso com o cliente: dedicar atenção, zelo e responsabilidade a cada demanda, compreendendo suas necessidades e particularidades.",
+      "Atuação personalizada: reconhecer que cada pessoa, empresa e situação possui características próprias, buscando a orientação mais adequada a cada realidade.",
+      "Integração e cooperação: unir conhecimentos, experiências e competências entre profissionais e escritórios associados.",
+      "Responsabilidade: exercer a advocacia com seriedade e consciência de seu papel perante os clientes, as instituições e a sociedade.",
+      "Confidencialidade: preservar o sigilo profissional e tratar todas as informações e relações com a máxima discrição.",
+      "Aprimoramento contínuo: manter-se em constante evolução, acompanhando as transformações do Direito, da sociedade e das novas tecnologias."
     ]
   }
 }

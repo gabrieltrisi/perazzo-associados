@@ -64,10 +64,10 @@
     "texto": "Poucos advogados dirigiram a operação que hoje defendem. Essa é a diferença que o Dr. Perazzo traz para cada caso.",
     "marcos": [
       { "lado": "esq", "icone": "calculator", "titulo": "Contabilidade", "texto": "Formação que ensinou a ler um balanço antes de ler uma peça processual." },
-      { "lado": "dir", "icone": "book", "titulo": "Direito e Sociologia", "texto": "Formação jurídica somada a Sociologia — o Direito como fato social, não só como norma." },
+      { "lado": "dir", "icone": "book", "titulo": "Direito e Sociologia", "texto": "Formação jurídica somada a Sociologia: o Direito como fato social, não só como norma." },
       { "lado": "esq", "icone": "truck", "titulo": "Gestão e distribuição", "texto": "Anos na operação de energia e distribuição, do chão de fábrica à diretoria." },
-      { "lado": "dir", "icone": "cap", "titulo": "Especializações", "texto": "Processo Civil, Gestão Ambiental e Marketing — o Direito aplicado ao negócio real." },
-      { "lado": "esq", "icone": "building", "titulo": "CEO — GLP", "texto": "Direção de uma das maiores operações de GLP do Brasil, com rede de relacionamento em todo o território nacional." }
+      { "lado": "dir", "icone": "cap", "titulo": "Especializações", "texto": "Processo Civil, Gestão Ambiental e Marketing: o Direito aplicado ao negócio real." },
+      { "lado": "esq", "icone": "building", "titulo": "CEO de GLP", "texto": "Direção de uma das maiores operações de GLP do Brasil, com rede de relacionamento em todo o território nacional." }
     ],
     "hoje": { "label": "Hoje", "titulo": "Perazzo & Associados", "texto": "As duas trajetórias a serviço do cliente: precisão técnica de quem conhece a norma, visão prática de quem conheceu a operação." }
   },
@@ -75,7 +75,7 @@
     "kicker": "Presença e reconhecimento",
     "titulo": "Uma voz ouvida no setor",
     "tituloDestaque": "ouvida",
-    "texto": "Advogado, consultor e palestrante, com participação em debates e fóruns do setor de energia e forte acesso a órgãos e entidades de classe. A rede de relacionamentos construída em quatro décadas se estende por todo o território nacional — e é um ativo colocado a serviço dos clientes em qualquer ponto do Brasil.",
+    "texto": "Advogado, consultor e palestrante, com participação em debates e fóruns do setor de energia e forte acesso a órgãos e entidades de classe. A rede de relacionamentos construída em quatro décadas se estende por todo o território nacional e é um ativo colocado a serviço dos clientes em qualquer ponto do Brasil.",
     "itens": [
       { "titulo": "OAB/BA 22.715", "texto": "inscrição regular na Ordem dos Advogados do Brasil, seção Bahia." },
       { "titulo": "Rede nacional", "texto": "relacionamento e atuação em todo o território brasileiro." },
@@ -98,7 +98,7 @@
       { "titulo": "Ética e integridade", "desc": "Conduta pautada pelo Código de Ética da OAB em cada ato do escritório, sem exceção." },
       { "titulo": "Excelência técnica", "desc": "Estudo permanente da legislação e da jurisprudência aplicáveis a cada demanda." },
       { "titulo": "Confiança e credibilidade", "desc": "Relações construídas sobre informação clara e expectativas realistas, do primeiro contato ao encerramento." },
-      { "titulo": "Compromisso com o cliente", "desc": "O interesse do cliente orienta a estratégia — inclusive quando a recomendação é não litigar." },
+      { "titulo": "Compromisso com o cliente", "desc": "O interesse do cliente orienta a estratégia, inclusive quando a recomendação é não litigar." },
       { "titulo": "Atuação personalizada", "desc": "Cada caso é lido a partir da realidade da empresa ou da pessoa, não de um modelo padrão." },
       { "titulo": "Integração e cooperação", "desc": "Trabalho conjunto com profissionais e escritórios associados, somando competências complementares." },
       { "titulo": "Responsabilidade", "desc": "Prazos, comunicação e prestação de contas tratados como parte do serviço, não como cortesia." },
