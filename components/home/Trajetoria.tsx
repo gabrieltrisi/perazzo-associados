@@ -26,7 +26,6 @@ export default function Trajetoria({ content }: Props) {
         <Reveal>
           <div className="flex items-center gap-4">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-deep">{kicker}</span>
-            <span className="block h-0.5 w-16 bg-gold" />
           </div>
         </Reveal>
         <Reveal delay={0.08}>

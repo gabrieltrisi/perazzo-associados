@@ -17,7 +17,6 @@ export default function NotFound() {
       <div className="relative mx-auto max-w-2xl text-center">
         <div className="flex flex-col items-center gap-4">
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">Erro 404</span>
-          <span className="block h-0.5 w-16 bg-gold" />
         </div>
         <div className="mt-6 font-serif text-[clamp(88px,18vw,180px)] font-medium leading-none tracking-[-0.02em] text-white/90">
           4<span className="text-gold">0</span>4

@@ -17,7 +17,6 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       <div className="relative mx-auto max-w-xl text-center">
         <div className="flex flex-col items-center gap-4">
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">Ops</span>
-          <span className="block h-0.5 w-16 bg-gold" />
         </div>
         <h1 className="mt-6 font-serif text-[clamp(26px,3.6vw,38px)] font-medium tracking-[-0.01em]">Algo deu errado ao carregar esta página</h1>
         <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.7] text-cloud">Tente novamente em instantes. Se persistir, volte ao início.</p>

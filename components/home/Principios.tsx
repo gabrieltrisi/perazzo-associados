@@ -29,7 +29,6 @@ export default function Principios({ content }: Props) {
         <Reveal>
           <div className="flex items-center gap-4">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-deep">{kicker}</span>
-            <span className="block h-0.5 w-16 bg-gold" />
           </div>
         </Reveal>
         <Reveal delay={0.08}>
@@ -73,7 +72,6 @@ export default function Principios({ content }: Props) {
           <Reveal>
             <div className="flex flex-wrap items-baseline gap-4">
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-deep">Valores</span>
-              <span className="block h-0.5 w-16 bg-gold" />
               <h3 className="font-serif text-[clamp(21px,2.2vw,26px)] font-medium">{valores.length} compromissos · toque em cada um para ler</h3>
             </div>
           </Reveal>

@@ -59,7 +59,6 @@ export default function Diagnostico({ content }: Props) {
         <div className="text-center">
           <div className="flex flex-col items-center gap-4">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-deep">{kicker}</span>
-            <span className="block h-0.5 w-16 bg-gold" />
           </div>
           <h2 className="mt-6 font-serif text-[clamp(27px,3.2vw,36px)] font-medium tracking-[-0.01em] [text-wrap:balance]">{tp[0]}<span className="text-gold-dark">{tituloDestaque}</span>{tp[1] ?? ''}</h2>
           <p className="mx-auto mt-4 max-w-[56ch] text-[clamp(17px,1.7vw,20px)] leading-[1.7] text-muted">{subtitulo}</p>
