@@ -25,7 +25,7 @@ export default async function PoliticaPrivacidadePage() {
           <p>
             Esta Política de Privacidade descreve como o <strong>{site.nomeCompleto}</strong> ({site.oab})
             trata os dados pessoais coletados por meio deste site, em conformidade com a
-            Lei Geral de Proteção de Dados Pessoais — <strong>LGPD (Lei nº 13.709/2018)</strong>.
+            Lei Geral de Proteção de Dados Pessoais, a <strong>LGPD (Lei nº 13.709/2018)</strong>.
             Ao utilizar o site e enviar seus dados pelo formulário de contato, você declara estar
             ciente das práticas aqui descritas.
           </p>

@@ -33,7 +33,7 @@ export async function OrganizationJsonLd() {
     email: site.contato.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Av. Luís Viana Filho, 13223 — Sala 424 (Hangar Business Park)',
+      streetAddress: 'Av. Luís Viana Filho, 13223, Sala 424 (Hangar Business Park)',
       addressLocality: 'Salvador',
       addressRegion: 'BA',
       postalCode: '41500-300',

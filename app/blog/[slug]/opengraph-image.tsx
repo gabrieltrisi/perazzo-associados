@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import { getPost } from '@/lib/blog';
 
 // OG por artigo: mostra o título do post na arte branded.
-export const alt = 'Artigo — Perazzo & Associados';
+export const alt = 'Artigo · Perazzo & Associados';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

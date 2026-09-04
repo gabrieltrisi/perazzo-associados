@@ -49,7 +49,7 @@ export default function OpengraphImage() {
             marginTop: 28,
           }}
         >
-          ADVOCACIA · SALVADOR — BA
+          ADVOCACIA · SALVADOR/BA
         </div>
 
         <div
