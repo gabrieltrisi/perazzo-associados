@@ -5,6 +5,8 @@ import { getSession, SESSION_COOKIE } from '@/lib/auth';
 // Casca da área protegida: valida a sessão no servidor (além do middleware)
 // e oferece o logout. Defense-in-depth.
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
+  if (process.env.NODE_ENV === 'production') redirect('/');
+
   const session = await getSession();
   if (!session) redirect('/login?redirect=/portal');
 

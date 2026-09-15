@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { ipDeHeaders, rateLimit } from '@/lib/rate-limit';
 
 // Só rotas reais do site são contáveis — impede que um atacante crie linhas
 // infinitas com paths arbitrários (bloat/DoS no banco).
@@ -21,6 +22,11 @@ function rotaValida(p: string): boolean {
 // agregado (path, dia). Sem cookies/PII (LGPD-ok).
 export async function POST(req: Request) {
   try {
+    const ip = ipDeHeaders(req.headers);
+    if (!(await rateLimit(`track:${ip}`, 120, 60)).ok) {
+      return NextResponse.json({ ok: false }, { status: 429 });
+    }
+
     const { path } = await req.json();
     const p = String(path ?? '').split('?')[0].split('#')[0];
     if (!rotaValida(p)) {

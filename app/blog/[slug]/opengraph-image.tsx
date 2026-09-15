@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { getPost } from '@/lib/blog';
+import { getPublishedPost } from '@/lib/blog';
 
 // OG por artigo: mostra o título do post na arte branded.
 export const alt = 'Artigo · Perazzo & Associados';
@@ -8,7 +8,7 @@ export const contentType = 'image/png';
 
 export default async function BlogOgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPublishedPost(slug);
   const titulo = post?.title ?? 'Perazzo & Associados';
 
   return new ImageResponse(

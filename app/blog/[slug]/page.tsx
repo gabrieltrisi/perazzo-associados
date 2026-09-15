@@ -7,7 +7,7 @@ import type { Components } from 'react-markdown';
 import Reveal from '@/components/ui/Reveal';
 import ShareButtons from '@/components/blog/ShareButtons';
 import { LuArrowLeft } from 'react-icons/lu';
-import { getAllPosts, getPost } from '@/lib/blog';
+import { getAllPosts, getPublishedPost } from '@/lib/blog';
 
 function formatarData(d: string) {
   if (!d) return '';
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPublishedPost(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -58,8 +58,8 @@ const mdComponents: Components = {
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPost(slug);
-  if (!post || !post.published) notFound();
+  const post = await getPublishedPost(slug);
+  if (!post) notFound();
 
   return (
     <>

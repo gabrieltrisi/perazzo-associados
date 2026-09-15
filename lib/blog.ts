@@ -62,6 +62,16 @@ export async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
+export async function getPublishedPost(slug: string): Promise<Post | null> {
+  try {
+    const r = await prisma.blogPost.findFirst({ where: { slug, published: true } });
+    if (!r) return null;
+    return { ...toMeta(r), content: r.content, published: r.published };
+  } catch {
+    return null;
+  }
+}
+
 // Gera um slug limpo a partir de um texto.
 export function slugify(texto: string): string {
   return texto

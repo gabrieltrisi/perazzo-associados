@@ -25,6 +25,11 @@ export async function middleware(request: NextRequest) {
   }
 
   // ---- Portal do cliente (mock) ----
+  if (process.env.NODE_ENV === 'production') {
+    const url = new URL('/', request.url);
+    return NextResponse.redirect(url);
+  }
+
   if (!request.cookies.get(CLIENT_COOKIE)?.value) {
     const url = new URL('/login', request.url);
     url.searchParams.set('redirect', pathname);

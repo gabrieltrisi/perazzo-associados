@@ -3,11 +3,17 @@ import { enviarEmailContato } from '@/lib/email';
 import { rateLimit, ipDeHeaders } from '@/lib/rate-limit';
 import { prisma } from '@/lib/db';
 
+const MAX_BODY = 20_000;
+const MAX_NOME = 120;
+const MAX_EMAIL = 254;
+const MAX_TELEFONE = 40;
+const MAX_MENSAGEM = 4000;
+
 // Verifica o reCAPTCHA v3. Se não houver secret configurada, o captcha é
 // considerado opcional (dev) e a verificação passa.
 async function verificarRecaptcha(token: string | undefined): Promise<boolean> {
   const secret = process.env.RECAPTCHA_SECRET_KEY;
-  if (!secret) return true;
+  if (!secret) return process.env.NODE_ENV !== 'production';
   if (!token) return false;
   try {
     const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
@@ -32,17 +38,30 @@ export async function POST(req: Request) {
     );
   }
 
+  const contentLength = Number(req.headers.get('content-length') ?? 0);
+  if (contentLength > MAX_BODY) {
+    return NextResponse.json({ ok: false, erro: 'Mensagem muito grande.' }, { status: 413 });
+  }
+
   let body: Record<string, unknown>;
   try {
-    body = await req.json();
+    const raw = await req.text();
+    if (raw.length > MAX_BODY) {
+      return NextResponse.json({ ok: false, erro: 'Mensagem muito grande.' }, { status: 413 });
+    }
+    body = JSON.parse(raw);
   } catch {
     return NextResponse.json({ ok: false, erro: 'Requisição inválida.' }, { status: 400 });
   }
 
-  const nome = String(body.nome ?? '').trim();
-  const email = String(body.email ?? '').trim();
-  const telefone = String(body.telefone ?? '').trim();
-  const mensagem = String(body.mensagem ?? '').trim();
+  const nomeRaw = String(body.nome ?? '').trim();
+  const emailRaw = String(body.email ?? '').trim();
+  const telefoneRaw = String(body.telefone ?? '').trim();
+  const mensagemRaw = String(body.mensagem ?? '').trim();
+  const nome = nomeRaw.slice(0, MAX_NOME);
+  const email = emailRaw.slice(0, MAX_EMAIL);
+  const telefone = telefoneRaw.slice(0, MAX_TELEFONE);
+  const mensagem = mensagemRaw.slice(0, MAX_MENSAGEM);
   const consentimento = body.consentimento === true;
   const recaptchaToken = body.recaptchaToken as string | undefined;
   const honeypot = String(body.honeypot ?? '').trim();
@@ -58,6 +77,14 @@ export async function POST(req: Request) {
       { ok: false, erro: 'Preencha nome, e-mail e mensagem.' },
       { status: 400 },
     );
+  }
+  if (
+    nomeRaw.length > MAX_NOME ||
+    emailRaw.length > MAX_EMAIL ||
+    telefoneRaw.length > MAX_TELEFONE ||
+    mensagemRaw.length > MAX_MENSAGEM
+  ) {
+    return NextResponse.json({ ok: false, erro: 'Mensagem muito grande.' }, { status: 413 });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, erro: 'Informe um e-mail válido.' }, { status: 400 });

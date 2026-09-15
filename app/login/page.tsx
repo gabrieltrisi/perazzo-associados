@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { SESSION_COOKIE, DEMO_PASSWORD, getSession } from '@/lib/auth';
 
@@ -13,6 +13,8 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ redirect?: string; erro?: string }>;
 }) {
+  if (process.env.NODE_ENV === 'production') notFound();
+
   const sp = await searchParams;
   if (await getSession()) redirect('/portal');
 
