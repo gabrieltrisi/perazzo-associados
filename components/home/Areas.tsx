@@ -146,9 +146,9 @@ export default function Areas({ content }: Props) {
     else offset.current = i * w - c;
   };
 
-  // As setas do carrossel aparecem em dois lugares conforme a largura: no cabecalho
-  // da secao no desktop, e junto dos pontinhos no mobile. No mobile o cabecalho fica
-  // muito acima dos cards — quem rola ate o carrossel perde o controle de vista.
+  // As setas aparecem em dois lugares conforme a largura: no cabecalho da secao no
+  // desktop, e nas laterais do proprio carrossel no mobile (logo abaixo, dentro do
+  // viewport), onde ficam na altura do card em vez de soltas embaixo dos pontinhos.
   const setas = (classe: string) => (
     <div className={`items-center gap-3 ${classe}`}>
       <button
@@ -224,17 +224,32 @@ export default function Areas({ content }: Props) {
           {/* Fades das bordas */}
           <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[24px] sm:w-[90px]" style={{ background: 'linear-gradient(90deg,#0A1E40 0%,transparent 100%)' }} />
           <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[24px] sm:w-[90px]" style={{ background: 'linear-gradient(270deg,#071530 0%,transparent 100%)' }} />
+
+          {/* Setas laterais (mobile): na altura do card, nas bordas do carrossel. */}
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            aria-label="Área anterior"
+            className="absolute left-0 top-1/2 z-10 flex h-[42px] w-[42px] -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-navy-deep/80 text-gold backdrop-blur-sm transition hover:bg-gold/15 md:hidden"
+          >
+            <LuArrowLeft className="h-[18px] w-[18px]" />
+          </button>
+          <button
+            type="button"
+            onClick={() => step(1)}
+            aria-label="Próxima área"
+            className="absolute right-0 top-1/2 z-10 flex h-[42px] w-[42px] -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-navy-deep/80 text-gold backdrop-blur-sm transition hover:bg-gold/15 md:hidden"
+          >
+            <LuArrowRight className="h-[18px] w-[18px]" />
+          </button>
         </div>
 
         {/* Dots + nota */}
         <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            {setas('flex md:hidden')}
-            <div className="flex gap-2">
+          <div className="flex gap-2">
             {areas.map((_, i) => (
               <button key={i} type="button" ref={(el) => { dotRefs.current[i] = el; }} onClick={() => goTo(i)} aria-label={`Ir para a área ${i + 1}`} className="h-[6px] w-[6px] rounded-full transition-all duration-300" style={{ background: '#40537B' }} />
             ))}
-            </div>
           </div>
           <p className="max-w-[60ch] text-[12px] leading-[1.7] text-navy-light">Atuação em áreas complementares por meio de escritórios e profissionais associados, conforme a natureza de cada demanda.</p>
         </div>
