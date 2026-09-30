@@ -9,7 +9,6 @@ import GrainOverlay from '@/components/effects/GrainOverlay';
 import CookieConsent from '@/components/CookieConsent';
 import ScrollProgress from '@/components/effects/ScrollProgress';
 import BackToTop from '@/components/effects/BackToTop';
-import CustomCursor from '@/components/effects/CustomCursor';
 import LoadIntro from '@/components/effects/LoadIntro';
 import SoundToggle from '@/components/effects/SoundToggle';
 import MotionProvider from '@/components/effects/MotionProvider';
@@ -68,7 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <LoadIntro />
           <SmoothScroll />
           <ScrollProgress />
-          <CustomCursor />
           <Header />
         </HideOnAdmin>
         <main id="conteudo">

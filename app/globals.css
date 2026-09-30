@@ -79,38 +79,6 @@ html.lenis body {
   }
 }
 
-/* ---- Cursor personalizado ---- */
-html.has-custom-cursor,
-html.has-custom-cursor * {
-  cursor: none !important;
-}
-.cursor-dot,
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  border-radius: 9999px;
-  will-change: transform;
-}
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: #c7a96f;
-}
-.cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid #c7a96f;
-  transition: width 0.22s ease, height 0.22s ease, background 0.22s ease;
-}
-.cursor-ring.cursor-hover {
-  width: 54px;
-  height: 54px;
-  background: rgba(199, 169, 111, 0.12);
-}
-
 /* ---- Intro de carregamento (véu com monograma que sobe) ---- */
 .intro-overlay {
   position: fixed;
